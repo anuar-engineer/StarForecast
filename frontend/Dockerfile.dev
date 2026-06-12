@@ -1,0 +1,15 @@
+# syntax=docker/dockerfile:1
+# Imagen de desarrollo: ng serve con hot-reload. El código se monta como
+# volumen desde docker-compose.dev.yml, por eso solo instalamos dependencias.
+FROM node:24-alpine
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+EXPOSE 4200
+# --host 0.0.0.0 para exponer fuera del contenedor; --poll para que el
+# file-watching funcione con volúmenes montados desde Windows.
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0", "--poll", "1000"]

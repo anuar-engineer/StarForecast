@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4338ca"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="line" x1="120" y1="0" x2="1080" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="980" cy="120" r="220" fill="#ffffff" fill-opacity="0.08"/>
+  <circle cx="180" cy="560" r="180" fill="#ffffff" fill-opacity="0.06"/>
+
+  <!-- Logo mark -->
+  <g transform="translate(120,150)">
+    <rect width="72" height="72" rx="18" fill="#ffffff" fill-opacity="0.16"/>
+    <path d="M18 50 L34 34 L46 46 L60 28" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M54 24 H64 V34" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <text x="210" y="200" font-family="'Plus Jakarta Sans','Segoe UI',sans-serif" font-size="40" font-weight="700" fill="#ffffff">Star4cast</text>
+
+  <text x="120" y="340" font-family="'Plus Jakarta Sans','Segoe UI',sans-serif" font-size="78" font-weight="800" fill="#ffffff">Predice tu stock</text>
+  <text x="120" y="430" font-family="'Plus Jakarta Sans','Segoe UI',sans-serif" font-size="78" font-weight="800" fill="#ffffff">antes de quedarte sin él</text>
+
+  <text x="120" y="500" font-family="'Inter','Segoe UI',sans-serif" font-size="32" font-weight="500" fill="#e0e7ff">Forecasting de inventario basado en tus datos</text>
+
+  <!-- Decorative forecast line -->
+  <path d="M120 590 C 320 540, 480 560, 640 500 C 800 440, 920 470, 1080 400" stroke="url(#line)" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>

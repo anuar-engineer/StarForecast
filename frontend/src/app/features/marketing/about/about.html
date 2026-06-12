@@ -1,0 +1,87 @@
+<!-- Hero -->
+<section class="relative overflow-hidden border-b border-white/5">
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]"></div>
+    <div class="absolute -top-40 left-1/2 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-accent-500/10 blur-[110px]"></div>
+  </div>
+  <div class="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+    <span class="chip">Sobre nosotros</span>
+    <h1 class="text-hero mt-6 text-balance text-4xl font-bold tracking-tight sm:text-6xl">Predecir el stock no debería ser un lujo</h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-400">
+      Nacimos con una idea simple: que cualquier negocio pueda anticipar su inventario con la misma precisión
+      que las grandes cadenas, sin necesidad de montar un equipo de ciencia de datos.
+    </p>
+  </div>
+</section>
+
+<!-- Misión -->
+<section class="mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8">
+  <p class="eyebrow">// Misión</p>
+  <h2 class="text-hero mt-4 text-3xl font-bold tracking-tight sm:text-4xl">Nuestra misión</h2>
+  <p class="mt-6 text-lg leading-relaxed text-slate-300">
+    Las roturas de stock y el exceso de inventario son dos caras del mismo problema: decidir a ciegas.
+    Mientras las grandes empresas invierten millones en sistemas de previsión, la mayoría de negocios
+    sigue comprando por intuición y experiencia.
+  </p>
+  <p class="mt-5 text-lg leading-relaxed text-slate-300">
+    Star4cast pone esa capacidad al alcance de todos. Tomamos el histórico de inventario que tu negocio
+    ya genera y lo convertimos en predicciones claras: cuánto vas a vender, cuándo vas a quedarte sin
+    stock y qué deberías reponer. Sin hojas de cálculo interminables ni proyectos eternos.
+  </p>
+</section>
+
+<!-- Valores -->
+<section class="border-y border-white/5 bg-night-900/50 py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow">// Valores</p>
+      <h2 class="text-hero mt-4 text-balance text-3xl font-bold tracking-tight sm:text-4xl">Lo que nos mueve</h2>
+      <p class="mt-4 text-lg text-slate-400">Tres principios que guían cada decisión de producto.</p>
+    </div>
+    <div class="mt-14 grid gap-4 md:grid-cols-3">
+      @for (v of values; track v.title; let i = $index) {
+        <div [appReveal]="i * 80" class="card-dark group p-7 transition duration-300 hover:border-accent-400/30">
+          <div class="grid h-12 w-12 place-items-center rounded-xl border border-accent-400/20 bg-accent-400/10 text-accent-300 transition group-hover:bg-accent-400 group-hover:text-night-950">
+            @switch (v.icon) {
+              @case ('chart') {
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18M7 14l4-4 3 3 5-6" /></svg>
+              }
+              @case ('spark') {
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" /></svg>
+              }
+              @case ('heart') {
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.5c0 4.5-9 11.5-9 11.5S3 13 3 8.5A4.5 4.5 0 0112 6a4.5 4.5 0 019-.5z" /></svg>
+              }
+            }
+          </div>
+          <h3 class="mt-5 font-display text-lg font-bold text-white">{{ v.title }}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-400">{{ v.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Métricas -->
+<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+  <div class="grid gap-y-12 text-center sm:grid-cols-2 sm:divide-x sm:divide-white/5 lg:grid-cols-4">
+    @for (s of stats; track s.label) {
+      <div class="px-6">
+        <p class="font-display text-5xl font-bold tracking-tight text-white">{{ s.value }}</p>
+        <p class="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">{{ s.label }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="border-t border-white/5 bg-night-900/50 py-24">
+  <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+    <h2 class="text-hero text-balance text-3xl font-bold tracking-tight sm:text-4xl">¿Quieres formar parte?</h2>
+    <p class="mt-4 text-lg text-slate-400">Prueba Star4cast con tus datos o escríbenos: nos encanta hablar de inventario.</p>
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a routerLink="/contact" class="btn-primary w-full sm:w-auto">Empezar prueba</a>
+      <a routerLink="/contact" class="btn-ghost w-full sm:w-auto">Contactar</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,108 @@
+@if (post(); as p) {
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 font-mono text-xs text-slate-500" aria-label="Migas de pan">
+      <a routerLink="/" class="transition hover:text-accent-300">Inicio</a>
+      <span class="text-slate-700">/</span>
+      <a routerLink="/blog" class="transition hover:text-accent-300">Blog</a>
+    </nav>
+
+    <header class="mt-8">
+      <div class="flex flex-wrap items-center gap-3 text-sm">
+        <span class="rounded-full border border-accent-400/20 bg-accent-400/10 px-3 py-1 font-mono text-xs text-accent-300">{{ p.category }}</span>
+        <span class="font-mono text-xs text-slate-500">
+          <time [attr.datetime]="p.date">{{ p.date | date: 'longDate' }}</time> · {{ p.readingTime }} de lectura
+        </span>
+      </div>
+
+      <h1 class="text-hero mt-5 text-balance text-3xl font-bold tracking-tight sm:text-5xl">{{ p.title }}</h1>
+      <p class="mt-5 text-xl leading-relaxed text-slate-400">{{ p.excerpt }}</p>
+
+      <div class="mt-8 flex items-center gap-3 border-y border-white/5 py-4">
+        <div class="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-accent-400 to-cyan-400 text-sm font-semibold text-night-950">
+          {{ p.author.charAt(0) }}
+        </div>
+        <div>
+          <p class="text-sm font-semibold text-white">{{ p.author }}</p>
+          <p class="font-mono text-xs text-slate-500">{{ p.authorRole }}</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Cuerpo del artículo -->
+    <div class="prose-content mt-10">
+      @for (block of p.body; track $index) {
+        @switch (block.type) {
+          @case ('h2') {
+            <h2 class="mt-12 font-display text-2xl font-bold tracking-tight text-white">{{ block.text }}</h2>
+          }
+          @case ('p') {
+            <p class="mt-5 text-lg leading-relaxed text-slate-300">{{ block.text }}</p>
+          }
+          @case ('ul') {
+            <ul class="mt-5 space-y-3">
+              @for (item of block.items; track $index) {
+                <li class="flex items-start gap-3 text-lg leading-relaxed text-slate-300">
+                  <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400"></span>
+                  <span>{{ item }}</span>
+                </li>
+              }
+            </ul>
+          }
+          @case ('ol') {
+            <ol class="mt-5 space-y-3">
+              @for (item of block.items; track $index; let i = $index) {
+                <li class="flex items-start gap-3 text-lg leading-relaxed text-slate-300">
+                  <span class="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-accent-400/30 bg-accent-400/10 font-mono text-xs font-semibold text-accent-300">{{ i + 1 }}</span>
+                  <span>{{ item }}</span>
+                </li>
+              }
+            </ol>
+          }
+          @case ('quote') {
+            <blockquote class="mt-8 rounded-r-2xl border-l-2 border-accent-400 bg-accent-400/5 py-5 pl-6 pr-5 font-display text-lg font-medium italic text-slate-200">
+              {{ block.text }}
+            </blockquote>
+          }
+        }
+      }
+    </div>
+
+    <!-- Etiquetas -->
+    <div class="mt-12 flex flex-wrap gap-2">
+      @for (tag of p.tags; track tag) {
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-slate-400">#{{ tag }}</span>
+      }
+    </div>
+
+    <!-- CTA -->
+    <div class="relative mt-14 overflow-hidden rounded-2xl border border-white/10 bg-night-900 p-10 text-center">
+      <div class="pointer-events-none absolute -top-20 left-1/2 h-48 w-96 -translate-x-1/2 rounded-full bg-accent-500/15 blur-[80px]"></div>
+      <h2 class="text-hero relative font-display text-2xl font-bold">Pon estas ideas en práctica</h2>
+      <p class="relative mt-2 text-slate-400">Empieza a predecir tu stock con Star4cast.</p>
+      <a routerLink="/contact" class="btn-primary relative mt-7">Empezar prueba</a>
+    </div>
+
+    <!-- Relacionados -->
+    @if (related().length) {
+      <div class="mt-16">
+        <p class="eyebrow">// Sigue leyendo</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          @for (r of related(); track r.slug) {
+            <a [routerLink]="['/blog', r.slug]" class="card-dark group p-6 transition duration-300 hover:border-accent-400/30">
+              <span class="font-mono text-xs text-accent-300">{{ r.category }}</span>
+              <h3 class="mt-2 font-display font-bold text-white transition group-hover:text-accent-300">{{ r.title }}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-slate-400">{{ r.excerpt }}</p>
+            </a>
+          }
+        </div>
+      </div>
+    }
+  </article>
+} @else {
+  <div class="mx-auto max-w-2xl px-4 py-32 text-center">
+    <h1 class="text-hero text-3xl font-bold">Artículo no encontrado</h1>
+    <p class="mt-3 text-slate-400">El artículo que buscas no existe o ha sido movido.</p>
+    <a routerLink="/blog" class="btn-primary mt-8">Volver al blog</a>
+  </div>
+}

@@ -1,0 +1,108 @@
+<!-- Hero -->
+<section class="relative overflow-hidden border-b border-white/5">
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]"></div>
+    <div class="absolute -top-40 left-1/2 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-accent-500/10 blur-[110px]"></div>
+  </div>
+  <div class="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+    <span class="chip">Funcionalidades</span>
+    <h1 class="text-hero mt-6 text-balance text-4xl font-bold tracking-tight sm:text-6xl">La precisión que tu inventario necesita</h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-400">Todo lo que ofrece Star4cast para predecir, alertar y optimizar el stock de tu negocio.</p>
+  </div>
+</section>
+
+<!-- Bloques alternos -->
+<section class="mx-auto max-w-7xl space-y-28 px-4 py-28 sm:px-6 lg:px-8">
+  @for (b of blocks; track b.title; let i = $index) {
+    <div appReveal class="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div [class.lg:order-2]="i % 2 === 1">
+        <p class="eyebrow">// {{ b.eyebrow }}</p>
+        <h2 class="text-hero mt-4 text-balance text-3xl font-bold tracking-tight sm:text-4xl">{{ b.title }}</h2>
+        <p class="mt-5 text-lg leading-relaxed text-slate-400">{{ b.text }}</p>
+        <ul class="mt-7 space-y-3.5">
+          @for (p of b.points; track p) {
+            <li class="flex items-center gap-3 text-slate-300">
+              <span class="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-accent-400/30 bg-accent-400/10 text-accent-300">
+                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              {{ p }}
+            </li>
+          }
+        </ul>
+      </div>
+      <div [class.lg:order-1]="i % 2 === 1">
+        <div class="relative">
+          <div class="absolute -inset-4 -z-10 rounded-3xl bg-accent-500/5 blur-2xl"></div>
+          <div class="card-dark overflow-hidden">
+            <div class="flex items-center justify-between border-b border-white/5 px-5 py-3">
+              <div class="flex gap-1.5">
+                <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+                <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+              </div>
+              <p class="font-mono text-[11px] uppercase tracking-wider text-slate-600">{{ b.eyebrow }}</p>
+            </div>
+            <div class="p-6 sm:p-8">
+              @switch (i % 3) {
+                @case (0) {
+                  <!-- Visual: forecast con banda -->
+                  <svg viewBox="0 0 480 220" class="h-52 w-full" preserveAspectRatio="none" aria-hidden="true">
+                    <g stroke="rgba(148,163,184,0.08)" stroke-width="1">
+                      <line x1="0" y1="55" x2="480" y2="55" /><line x1="0" y1="110" x2="480" y2="110" /><line x1="0" y1="165" x2="480" y2="165" />
+                    </g>
+                    <line x1="240" y1="10" x2="240" y2="220" stroke="rgba(148,163,184,0.18)" stroke-width="1" />
+                    <path d="M240,100 C310,92 380,105 480,140 L480,205 C380,165 310,128 240,100 Z" fill="rgba(34,211,238,0.1)" />
+                    <path d="M0,160 C70,145 150,130 240,100" fill="none" stroke="#34d399" stroke-width="2.5" />
+                    <path d="M240,100 C310,108 380,130 480,170" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-dasharray="7 6" />
+                    <circle cx="240" cy="100" r="5" fill="#34d399" />
+                  </svg>
+                }
+                @case (1) {
+                  <!-- Visual: lista de alertas -->
+                  <div class="space-y-3">
+                    <div class="flex items-center justify-between rounded-xl border border-amber-400/15 bg-amber-400/5 px-4 py-3.5">
+                      <span class="font-mono text-xs text-amber-300">Refresco Cola 33cl</span>
+                      <span class="rounded-full bg-amber-400/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-amber-300">rotura · 12 días</span>
+                    </div>
+                    <div class="flex items-center justify-between rounded-xl border border-amber-400/15 bg-amber-400/5 px-4 py-3.5">
+                      <span class="font-mono text-xs text-amber-300">Pan de molde</span>
+                      <span class="rounded-full bg-amber-400/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-amber-300">rotura · 19 días</span>
+                    </div>
+                    <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3.5">
+                      <span class="font-mono text-xs text-slate-400">Harina 1kg</span>
+                      <span class="rounded-full bg-accent-400/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-300">saludable</span>
+                    </div>
+                    <div class="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3.5">
+                      <span class="font-mono text-xs text-slate-400">Aceite oliva 5L</span>
+                      <span class="rounded-full bg-accent-400/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-accent-300">saludable</span>
+                    </div>
+                  </div>
+                }
+                @case (2) {
+                  <!-- Visual: barras por categoría -->
+                  <div class="flex h-52 items-end gap-3">
+                    @for (h of [45, 70, 55, 85, 62, 92, 74]; track $index) {
+                      <div class="flex-1 rounded-t-md bg-gradient-to-t from-accent-500/30 to-cyan-400/60" [style.height.%]="h"></div>
+                    }
+                  </div>
+                  <div class="mt-3 flex justify-between font-mono text-[10px] uppercase tracking-wider text-slate-600">
+                    <span>Bebidas</span><span>Frescos</span><span>Secos</span><span>Hogar</span>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</section>
+
+<!-- CTA -->
+<section class="border-t border-white/5 bg-night-900/50 py-24">
+  <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+    <h2 class="text-hero text-balance text-3xl font-bold tracking-tight sm:text-4xl">Pruébalo con tus propios datos</h2>
+    <p class="mt-4 text-lg text-slate-400">Sube tu histórico y obtén tu primer forecast en minutos.</p>
+    <a routerLink="/contact" class="btn-primary mt-8">Empezar prueba</a>
+  </div>
+</section>

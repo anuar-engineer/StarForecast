@@ -1,0 +1,35 @@
+# Entorno de PRODUCCIÓN.
+# Frontend Angular servido por nginx. El backend Python se añadirá aquí
+# (descomenta el bloque cuando exista ./backend/Dockerfile).
+name: star4cast
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: star4cast-frontend:latest
+    container_name: star4cast-frontend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    networks:
+      - star4cast
+    # depends_on:
+    #   - backend
+
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   image: star4cast-backend:latest
+  #   container_name: star4cast-backend
+  #   restart: unless-stopped
+  #   expose:
+  #     - "8000"
+  #   networks:
+  #     - star4cast
+
+networks:
+  star4cast:
+    driver: bridge

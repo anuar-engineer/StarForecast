@@ -1,0 +1,32 @@
+# Dependencias
+node_modules/
+**/node_modules/
+
+# Builds del frontend
+frontend/dist/
+frontend/.angular/
+*.tsbuildinfo
+
+# Python (backend, próximamente)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Entornos y secretos
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE / SO
+.idea/
+.DS_Store
+Thumbs.db

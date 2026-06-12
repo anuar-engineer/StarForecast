@@ -1,0 +1,361 @@
+<!-- ===================== Hero ===================== -->
+<section class="relative overflow-hidden">
+  <!-- Fondo: rejilla técnica + resplandor + constelación -->
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"></div>
+    <div class="absolute -top-48 left-1/2 h-[34rem] w-[60rem] -translate-x-1/2 rounded-full bg-accent-500/15 blur-[120px]"></div>
+    <div class="absolute right-[8%] top-64 h-64 w-64 rounded-full bg-cyan-500/10 blur-[100px]"></div>
+    <!-- Constelación: el histórico dibujado en estrellas -->
+    <svg viewBox="0 0 1200 600" class="absolute inset-x-0 top-0 h-[34rem] w-full" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+      <g stroke="rgba(148,163,184,0.18)" stroke-width="1">
+        <path d="M120,420 L260,330 L410,360 L560,250" fill="none" />
+        <path d="M760,300 L900,210 L1050,260" fill="none" />
+      </g>
+      <g fill="#94a3b8">
+        <circle cx="120" cy="420" r="2" class="star-twinkle" />
+        <circle cx="260" cy="330" r="2.5" class="star-twinkle-slow" />
+        <circle cx="410" cy="360" r="2" />
+        <circle cx="560" cy="250" r="3" fill="#34d399" class="star-twinkle" />
+        <circle cx="760" cy="300" r="2" class="star-twinkle-slow" />
+        <circle cx="900" cy="210" r="2.5" class="star-twinkle" />
+        <circle cx="1050" cy="260" r="2" />
+        <circle cx="200" cy="160" r="1.5" class="star-twinkle-slow" />
+        <circle cx="480" cy="110" r="1.5" class="star-twinkle" />
+        <circle cx="680" cy="90" r="2" />
+        <circle cx="980" cy="120" r="1.5" class="star-twinkle-slow" />
+        <circle cx="1120" cy="380" r="1.5" class="star-twinkle" />
+      </g>
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 pb-24 pt-16 sm:px-6 sm:pt-24 lg:px-8">
+    <div appReveal class="mx-auto max-w-3xl text-center">
+      <span class="chip">
+        <span class="dot-live h-1.5 w-1.5 rounded-full bg-accent-400"></span>
+        Forecasting de stock basado en tus datos
+      </span>
+      <h1 class="text-hero mt-8 text-balance text-5xl font-bold tracking-tight sm:text-7xl">
+        Predice tu stock <span class="text-signal">antes</span> de quedarte sin él
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-slate-400">
+        Star4cast analiza el histórico de inventario de tu tienda o empresa y predice el stock futuro
+        de cada producto. Evita roturas, reduce el exceso y compra justo lo necesario.
+      </p>
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a routerLink="/contact" class="btn-primary w-full sm:w-auto">
+          Empezar prueba
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </a>
+        <a routerLink="/features" class="btn-ghost w-full sm:w-auto">Ver cómo funciona</a>
+      </div>
+      <p class="mt-5 font-mono text-xs uppercase tracking-[0.18em] text-slate-600">Prueba 14 días · Configúralo en minutos</p>
+    </div>
+
+    <!-- Mockup de producto -->
+    <div [appReveal]="120" class="relative mx-auto mt-20 max-w-5xl">
+      <div class="absolute -inset-x-8 -top-10 -z-10 h-48 rounded-full bg-accent-500/10 blur-3xl"></div>
+      <div class="overflow-hidden rounded-2xl border border-white/10 bg-night-900/90 shadow-2xl shadow-black/60 ring-1 ring-white/5 backdrop-blur">
+        <!-- Barra de ventana -->
+        <div class="flex items-center justify-between border-b border-white/5 px-5 py-3">
+          <div class="flex gap-1.5">
+            <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-white/10"></span>
+          </div>
+          <p class="font-mono text-xs text-slate-500">star4cast · panel de forecast</p>
+          <span class="hidden items-center gap-1.5 rounded-full bg-accent-500/10 px-2.5 py-1 font-mono text-[11px] text-accent-300 sm:inline-flex">
+            <span class="h-1 w-1 rounded-full bg-accent-400"></span> EN VIVO
+          </span>
+        </div>
+
+        <div class="p-5 sm:p-8">
+          <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Refresco Cola 33cl · próximos 30 días</p>
+              <p class="mt-1 font-display text-2xl font-bold text-white">Forecast de stock</p>
+            </div>
+            <span class="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3.5 py-1.5 font-mono text-xs text-amber-300">
+              <span class="h-1.5 w-1.5 rounded-full bg-amber-400"></span> Rotura prevista · 24 JUN
+            </span>
+          </div>
+
+          <!-- Gráfico -->
+          <svg viewBox="0 0 800 240" class="h-48 w-full sm:h-60" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hist-area" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#34d399" stop-opacity="0.22" />
+                <stop offset="100%" stop-color="#34d399" stop-opacity="0" />
+              </linearGradient>
+              <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.16" />
+                <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.03" />
+              </linearGradient>
+            </defs>
+            <g stroke="rgba(148,163,184,0.1)" stroke-width="1">
+              <line x1="0" y1="60" x2="800" y2="60" />
+              <line x1="0" y1="120" x2="800" y2="120" />
+              <line x1="0" y1="180" x2="800" y2="180" />
+            </g>
+            <!-- Punto de pedido -->
+            <line x1="0" y1="150" x2="800" y2="150" stroke="rgba(251,191,36,0.35)" stroke-width="1" stroke-dasharray="3 6" />
+            <!-- Marcador "hoy" -->
+            <line x1="400" y1="20" x2="400" y2="240" stroke="rgba(148,163,184,0.2)" stroke-width="1" />
+            <!-- Banda de confianza del forecast -->
+            <path d="M400,110 C520,100 640,120 800,160 L800,235 C640,185 520,145 400,110 Z" fill="url(#band)" />
+            <!-- Histórico -->
+            <path d="M0,170 C120,150 200,140 400,110 L400,240 L0,240 Z" fill="url(#hist-area)" />
+            <path d="M0,170 C120,150 200,140 400,110" fill="none" stroke="#34d399" stroke-width="2.5" class="chart-draw" />
+            <!-- Predicción -->
+            <path d="M400,110 C520,120 640,150 800,200" fill="none" stroke="#22d3ee" stroke-width="2.5" stroke-dasharray="7 6" />
+            <circle cx="400" cy="110" r="5" fill="#34d399" />
+            <circle cx="400" cy="110" r="10" fill="#34d399" fill-opacity="0.2" />
+          </svg>
+
+          <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-xs text-slate-500">
+            <span class="flex items-center gap-2"><span class="h-0.5 w-5 rounded bg-accent-400"></span> Histórico</span>
+            <span class="flex items-center gap-2"><span class="h-0.5 w-5 rounded border-t-2 border-dashed border-cyan-400"></span> Predicción</span>
+            <span class="flex items-center gap-2"><span class="h-2 w-5 rounded bg-cyan-400/20"></span> Banda de confianza</span>
+            <span class="flex items-center gap-2"><span class="h-0.5 w-5 rounded bg-amber-400/60"></span> Punto de pedido</span>
+          </div>
+
+          <!-- KPIs -->
+          <div class="mt-6 grid grid-cols-3 gap-3">
+            <div class="rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3">
+              <p class="font-mono text-[11px] uppercase tracking-wider text-slate-500">Stock actual</p>
+              <p class="mt-1 font-display text-lg font-bold text-white sm:text-xl">1.240 <span class="text-xs font-normal text-slate-500">uds</span></p>
+            </div>
+            <div class="rounded-xl border border-amber-400/15 bg-amber-400/5 px-4 py-3">
+              <p class="font-mono text-[11px] uppercase tracking-wider text-amber-300/70">Rotura estimada</p>
+              <p class="mt-1 font-display text-lg font-bold text-amber-300 sm:text-xl">24 jun</p>
+            </div>
+            <div class="rounded-xl border border-accent-400/15 bg-accent-400/5 px-4 py-3">
+              <p class="font-mono text-[11px] uppercase tracking-wider text-accent-300/70">Pedido sugerido</p>
+              <p class="mt-1 font-display text-lg font-bold text-accent-300 sm:text-xl">850 <span class="text-xs font-normal text-accent-300/50">uds</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Sectores ===================== -->
+<section class="border-y border-white/5 bg-night-900/50">
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 font-mono text-xs uppercase tracking-[0.22em] text-slate-600">
+      <span class="text-slate-500">Diseñado para</span>
+      <span>Retail</span>
+      <span class="text-accent-500/60">✦</span>
+      <span>Distribución</span>
+      <span class="text-accent-500/60">✦</span>
+      <span>E-commerce</span>
+      <span class="text-accent-500/60">✦</span>
+      <span>Alimentación</span>
+      <span class="text-accent-500/60">✦</span>
+      <span>Almacenes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Funcionalidades (bento) ===================== -->
+<section class="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+  <div appReveal class="mx-auto max-w-2xl text-center">
+    <p class="eyebrow">// Funcionalidades</p>
+    <h2 class="text-hero mt-4 text-balance text-3xl font-bold tracking-tight sm:text-5xl">Todo lo que necesitas para no quedarte sin stock</h2>
+    <p class="mt-5 text-lg text-slate-400">Desde la predicción hasta la alerta de reposición, en una sola plataforma.</p>
+  </div>
+
+  <div class="mt-16 grid gap-4 lg:grid-cols-3">
+    <!-- Forecast automático (destacada) -->
+    <div appReveal class="card-dark group relative overflow-hidden p-7 transition duration-300 hover:border-accent-400/30 lg:col-span-2">
+      <div class="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-accent-500/10 blur-3xl transition group-hover:bg-accent-500/20"></div>
+      <p class="eyebrow text-[11px]">01 / Predicción</p>
+      <h3 class="mt-3 font-display text-xl font-bold text-white">Forecast automático</h3>
+      <p class="mt-2 max-w-md text-sm leading-relaxed text-slate-400">
+        Modelos de series temporales que aprenden de tu histórico y predicen el stock de cada producto día a día.
+      </p>
+      <svg viewBox="0 0 600 120" class="mt-6 h-24 w-full" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,90 C80,80 140,60 220,65 C300,70 340,30 420,38 C500,46 540,20 600,15 L600,120 L0,120 Z" fill="rgba(52,211,153,0.08)" />
+        <path d="M0,90 C80,80 140,60 220,65 C300,70 340,30 420,38 C500,46 540,20 600,15" fill="none" stroke="#34d399" stroke-width="2" />
+        <circle cx="420" cy="38" r="3.5" fill="#34d399" />
+      </svg>
+    </div>
+
+    <!-- Alertas de rotura -->
+    <div [appReveal]="80" class="card-dark group relative overflow-hidden p-7 transition duration-300 hover:border-amber-400/30">
+      <p class="eyebrow text-[11px] text-amber-300">02 / Alertas</p>
+      <h3 class="mt-3 font-display text-xl font-bold text-white">Alertas de rotura</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-400">
+        Te avisamos antes de quedarte sin existencias, con la fecha estimada de agotamiento y el punto de pedido.
+      </p>
+      <div class="mt-6 space-y-2">
+        <div class="flex items-center gap-2.5 rounded-lg border border-amber-400/15 bg-amber-400/5 px-3 py-2 font-mono text-[11px] text-amber-300">
+          <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-400"></span> Refresco Cola 33cl · rotura en 12 días
+        </div>
+        <div class="flex items-center gap-2.5 rounded-lg border border-white/5 bg-white/[0.03] px-3 py-2 font-mono text-[11px] text-slate-500">
+          <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-slate-600"></span> Harina 1kg · stock saludable
+        </div>
+        <div class="flex items-center gap-2.5 rounded-lg border border-white/5 bg-white/[0.03] px-3 py-2 font-mono text-[11px] text-slate-500">
+          <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-slate-600"></span> Aceite 5L · stock saludable
+        </div>
+      </div>
+    </div>
+
+    <!-- Bandas de confianza -->
+    <div [appReveal]="120" class="card-dark group p-7 transition duration-300 hover:border-cyan-400/30">
+      <p class="eyebrow text-[11px] text-cyan-300">03 / Precisión</p>
+      <h3 class="mt-3 font-display text-xl font-bold text-white">Bandas de confianza</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-400">
+        Cada predicción incluye su margen de incertidumbre para que decidas con todos los datos sobre la mesa.
+      </p>
+      <svg viewBox="0 0 300 90" class="mt-6 h-20 w-full" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,45 C80,38 160,30 300,18 L300,62 C160,58 80,54 0,45 Z" fill="rgba(34,211,238,0.12)" />
+        <path d="M0,45 C80,46 160,44 300,40" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="6 5" />
+      </svg>
+    </div>
+
+    <!-- Optimiza el inventario -->
+    <div [appReveal]="160" class="card-dark group p-7 transition duration-300 hover:border-accent-400/30">
+      <p class="eyebrow text-[11px]">04 / Capital</p>
+      <h3 class="mt-3 font-display text-xl font-bold text-white">Optimiza el inventario</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-400">
+        Reduce el exceso de stock inmovilizado y libera capital sin arriesgar roturas de servicio.
+      </p>
+      <div class="mt-6 space-y-2.5 font-mono text-[11px]">
+        <div>
+          <div class="flex justify-between text-slate-500"><span>Stock inmovilizado</span><span class="text-accent-300">−21%</span></div>
+          <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/5"><span class="block h-full w-[58%] rounded-full bg-gradient-to-r from-accent-500 to-cyan-400"></span></div>
+        </div>
+        <div>
+          <div class="flex justify-between text-slate-500"><span>Roturas de stock</span><span class="text-accent-300">−32%</span></div>
+          <div class="mt-1.5 h-1.5 overflow-hidden rounded-full bg-white/5"><span class="block h-full w-[42%] rounded-full bg-gradient-to-r from-accent-500 to-cyan-400"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Importa tu histórico -->
+    <div [appReveal]="200" class="card-dark group p-7 transition duration-300 hover:border-accent-400/30">
+      <p class="eyebrow text-[11px]">05 / Datos</p>
+      <h3 class="mt-3 font-display text-xl font-bold text-white">Importa tu histórico</h3>
+      <p class="mt-2 text-sm leading-relaxed text-slate-400">
+        Sube un CSV o conéctate a tu sistema de inventario y empieza a predecir en minutos.
+      </p>
+      <div class="mt-6 rounded-lg border border-white/5 bg-night-950/80 p-3.5 font-mono text-[11px] leading-relaxed">
+        <p class="text-slate-600">$ star4cast import inventario.csv</p>
+        <p class="text-slate-500">→ 4.218 registros · 312 productos</p>
+        <p class="text-accent-300">✓ forecast listo en 38s</p>
+      </div>
+    </div>
+
+    <!-- Multi-tienda (ancha) -->
+    <div [appReveal]="240" class="card-dark group relative overflow-hidden p-7 transition duration-300 hover:border-accent-400/30 lg:col-span-3">
+      <div class="grid items-center gap-8 lg:grid-cols-2">
+        <div>
+          <p class="eyebrow text-[11px]">06 / Escala</p>
+          <h3 class="mt-3 font-display text-xl font-bold text-white">Multi-tienda</h3>
+          <p class="mt-2 max-w-md text-sm leading-relaxed text-slate-400">
+            Gestiona varias tiendas o almacenes desde un único panel, con métricas agregadas y por ubicación.
+          </p>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="rounded-xl border border-white/5 bg-white/[0.03] p-4">
+            <p class="font-mono text-[11px] text-slate-500">Tienda Centro</p>
+            <p class="mt-1 font-display text-lg font-bold text-white">98<span class="text-xs text-slate-500">%</span></p>
+            <p class="font-mono text-[10px] text-accent-300">disponibilidad</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.03] p-4">
+            <p class="font-mono text-[11px] text-slate-500">Almacén Norte</p>
+            <p class="mt-1 font-display text-lg font-bold text-white">96<span class="text-xs text-slate-500">%</span></p>
+            <p class="font-mono text-[10px] text-accent-300">disponibilidad</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.03] p-4">
+            <p class="font-mono text-[11px] text-slate-500">Online</p>
+            <p class="mt-1 font-display text-lg font-bold text-white">99<span class="text-xs text-slate-500">%</span></p>
+            <p class="font-mono text-[10px] text-accent-300">disponibilidad</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Cómo funciona ===================== -->
+<section class="border-y border-white/5 bg-night-900/50 py-28">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div appReveal class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow">// Cómo funciona</p>
+      <h2 class="text-hero mt-4 text-balance text-3xl font-bold tracking-tight sm:text-5xl">Empieza a predecir en 3 pasos</h2>
+      <p class="mt-5 text-lg text-slate-400">Sin proyectos eternos ni consultoras. Tú subes los datos, nosotros los modelos.</p>
+    </div>
+    <div class="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
+      <!-- Línea conectora -->
+      <div aria-hidden="true" class="absolute left-0 right-0 top-6 hidden h-px bg-gradient-to-r from-transparent via-accent-400/30 to-transparent md:block"></div>
+      @for (s of steps; track s.n; let i = $index) {
+        <div [appReveal]="i * 90" class="relative">
+          <span class="relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-accent-400/30 bg-night-900 font-mono text-sm font-medium text-accent-300 shadow-[0_0_24px_-8px_rgba(52,211,153,0.5)]">{{ s.n }}</span>
+          <h3 class="mt-5 font-display text-xl font-bold text-white">{{ s.title }}</h3>
+          <p class="mt-2 leading-relaxed text-slate-400">{{ s.text }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- ===================== Métricas ===================== -->
+<section class="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+  <div appReveal class="grid gap-y-12 text-center sm:grid-cols-2 sm:divide-x sm:divide-white/5 lg:grid-cols-4">
+    @for (s of stats; track s.label) {
+      <div class="px-6">
+        <p class="font-display text-5xl font-bold tracking-tight text-white">{{ s.value }}</p>
+        <p class="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-slate-500">{{ s.label }}</p>
+      </div>
+    }
+  </div>
+</section>
+
+<!-- ===================== Testimonio ===================== -->
+<section class="border-y border-white/5 bg-night-900/50 py-28">
+  <div appReveal class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+    <svg class="mx-auto h-10 w-10 text-accent-400/40" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4c0 3-2 5-5 5v-2c1.7 0 3-1.3 3-3H7V7zm8 0h4v4c0 3-2 5-5 5v-2c1.7 0 3-1.3 3-3h-2V7z" /></svg>
+    <blockquote class="mt-8 text-balance font-display text-2xl font-medium leading-relaxed text-slate-200 sm:text-3xl">
+      «Desde que usamos Star4cast hemos reducido las roturas de stock a la mitad y dejamos de
+      sobre-pedir. El equipo de compras por fin trabaja con datos, no con intuición.»
+    </blockquote>
+    <div class="mt-10 flex items-center justify-center gap-3">
+      <div class="grid h-11 w-11 place-items-center rounded-full bg-gradient-to-br from-accent-400 to-cyan-400 font-semibold text-night-950">LM</div>
+      <div class="text-left">
+        <p class="font-semibold text-white">Laura Méndez</p>
+        <p class="font-mono text-xs text-slate-500">Directora de Operaciones · Mercanta</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA final ===================== -->
+<section class="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+  <div appReveal class="relative overflow-hidden rounded-3xl border border-white/10 bg-night-900 px-8 py-20 text-center">
+    <div class="pointer-events-none absolute inset-0">
+      <div class="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_60%_70%_at_50%_30%,black,transparent)]"></div>
+      <div class="absolute -top-32 left-1/2 h-72 w-[40rem] -translate-x-1/2 rounded-full bg-accent-500/15 blur-[100px]"></div>
+      <svg viewBox="0 0 800 300" class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#94a3b8">
+          <circle cx="120" cy="80" r="1.5" class="star-twinkle" />
+          <circle cx="300" cy="50" r="2" class="star-twinkle-slow" />
+          <circle cx="540" cy="70" r="1.5" class="star-twinkle" />
+          <circle cx="690" cy="110" r="2" class="star-twinkle-slow" />
+          <circle cx="200" cy="220" r="1.5" class="star-twinkle-slow" />
+          <circle cx="620" cy="240" r="1.5" class="star-twinkle" />
+        </g>
+      </svg>
+    </div>
+    <div class="relative">
+      <p class="eyebrow">// Empieza hoy</p>
+      <h2 class="text-hero mt-4 text-balance text-3xl font-bold tracking-tight sm:text-5xl">¿Listo para anticiparte a tu inventario?</h2>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-slate-400">Empieza tu prueba de 14 días y obtén tu primer forecast hoy mismo.</p>
+      <a routerLink="/contact" class="btn-primary mt-9">
+        Empezar prueba
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" /></svg>
+      </a>
+    </div>
+  </div>
+</section>

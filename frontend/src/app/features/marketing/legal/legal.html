@@ -1,0 +1,29 @@
+@if (content(); as c) {
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <nav class="flex items-center gap-2 font-mono text-xs text-slate-500" aria-label="Migas de pan">
+      <a routerLink="/" class="transition hover:text-accent-300">Inicio</a>
+      <span class="text-slate-700">/</span>
+      <span class="text-slate-300">{{ c.title }}</span>
+    </nav>
+
+    <h1 class="text-hero mt-8 text-4xl font-bold tracking-tight">{{ c.title }}</h1>
+    <p class="mt-4 font-mono text-xs uppercase tracking-[0.14em] text-slate-500">Última actualización: {{ c.updated | date: 'longDate' }}</p>
+    <p class="mt-7 text-lg leading-relaxed text-slate-300">{{ c.intro }}</p>
+
+    <div class="mt-12 space-y-10">
+      @for (section of c.sections; track section.heading) {
+        <section>
+          <h2 class="font-display text-xl font-bold text-white">{{ section.heading }}</h2>
+          @for (p of section.paragraphs; track $index) {
+            <p class="mt-3 leading-relaxed text-slate-400">{{ p }}</p>
+          }
+        </section>
+      }
+    </div>
+
+    <p class="mt-14 border-t border-white/5 pt-8 text-sm text-slate-500">
+      ¿Tienes dudas sobre este documento?
+      <a routerLink="/contact" class="font-semibold text-accent-300 transition hover:text-accent-200">Contáctanos</a>.
+    </p>
+  </article>
+}

@@ -1,0 +1,150 @@
+/* Estilos globales de Star4cast.
+   El sitio público se construye con Tailwind (ver `tailwind.css`); aquí solo
+   viven la base mínima y las animaciones que Tailwind no cubre. */
+
+html {
+  height: 100%;
+}
+
+body {
+  /* Tema oscuro "observatorio": noche azul profundo. */
+  color-scheme: dark;
+  margin: 0;
+  min-height: 100%;
+  background-color: #05080f;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgba(52, 211, 153, 0.3);
+  color: #ffffff;
+}
+
+/* Scrollbar discreto acorde al tema. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1b2742 transparent;
+}
+
+/* ===================== Animaciones (sutiles) ===================== */
+
+/* Aparición al hacer scroll (directiva appReveal). La clase .reveal-init solo
+   la añade el navegador, así el contenido prerenderizado queda siempre visible. */
+.reveal-init {
+  opacity: 0;
+  transform: translateY(22px);
+  will-change: opacity, transform;
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+/* Entrada de cada página al navegar (View Transitions API). */
+@keyframes s4c-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes s4c-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 120ms ease both s4c-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) both s4c-fade-in;
+}
+
+/* Estrellas de la constelación: parpadeo lento y desincronizado. */
+@keyframes s4c-twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.star-twinkle {
+  animation: s4c-twinkle 4s ease-in-out infinite;
+}
+
+.star-twinkle-slow {
+  animation: s4c-twinkle 6.5s ease-in-out 1.2s infinite;
+}
+
+/* La línea de forecast del héroe se dibuja sola al cargar. */
+@keyframes s4c-draw {
+  from {
+    stroke-dashoffset: 1200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.chart-draw {
+  stroke-dasharray: 1200;
+  animation: s4c-draw 2.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+/* Punto de estado "en vivo" (latido). */
+@keyframes s4c-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+  }
+}
+
+.dot-live {
+  animation: s4c-pulse 2.4s ease-out infinite;
+}
+
+/* Micro-interacción: los enlaces/botones con transición se "hunden" al pulsar. */
+a[class*='rounded-full'],
+button[class*='rounded-full'] {
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+a[class*='rounded-full']:active,
+button[class*='rounded-full']:active {
+  transform: scale(0.97);
+}
+
+/* Respeta la preferencia de reducir movimiento del sistema. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init {
+    opacity: 1;
+    transform: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

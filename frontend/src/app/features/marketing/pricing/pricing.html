@@ -1,0 +1,81 @@
+<!-- Hero -->
+<section class="relative overflow-hidden border-b border-white/5">
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_70%_80%_at_50%_0%,black,transparent)]"></div>
+    <div class="absolute -top-40 left-1/2 h-80 w-[44rem] -translate-x-1/2 rounded-full bg-accent-500/10 blur-[110px]"></div>
+  </div>
+  <div class="mx-auto max-w-4xl px-4 py-24 text-center sm:px-6 lg:px-8">
+    <span class="chip">Precios</span>
+    <h1 class="text-hero mt-6 text-balance text-4xl font-bold tracking-tight sm:text-6xl">Un plan para cada etapa</h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-400">Prueba Star4cast 14 días y escala cuando lo necesites. Sin permanencia, sin sorpresas.</p>
+  </div>
+</section>
+
+<!-- Planes -->
+<section class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+  <div class="grid gap-6 lg:grid-cols-3">
+    @for (plan of plans; track plan.name; let i = $index) {
+      <div
+        [appReveal]="i * 90"
+        class="relative flex flex-col rounded-3xl border p-8 transition duration-300 hover:-translate-y-1"
+        [class]="plan.highlighted
+          ? 'border-accent-400/40 bg-gradient-to-b from-accent-400/[0.07] to-night-900 shadow-[0_0_60px_-20px_rgba(52,211,153,0.4)]'
+          : 'border-white/10 bg-white/[0.03] hover:border-white/20'"
+      >
+        @if (plan.highlighted) {
+          <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent-400 px-4 py-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-night-950">Más popular</span>
+        }
+        <h3 class="font-mono text-sm uppercase tracking-[0.18em]" [class]="plan.highlighted ? 'text-accent-300' : 'text-slate-400'">{{ plan.name }}</h3>
+        <div class="mt-5 flex items-baseline gap-1.5">
+          <span class="font-display text-5xl font-bold tracking-tight text-white">{{ plan.price }}</span>
+          <span class="font-mono text-sm text-slate-500">{{ plan.period }}</span>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-slate-400">{{ plan.description }}</p>
+
+        <div class="my-6 h-px bg-gradient-to-r from-white/10 to-transparent"></div>
+
+        <ul class="space-y-3.5">
+          @for (f of plan.features; track f) {
+            <li class="flex items-start gap-3 text-sm text-slate-300">
+              <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border border-accent-400/30 bg-accent-400/10 text-accent-300">
+                <svg class="h-3 w-3" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              </span>
+              {{ f }}
+            </li>
+          }
+        </ul>
+
+        <a
+          routerLink="/contact"
+          class="mt-8 rounded-full px-6 py-3 text-center text-sm font-semibold transition"
+          [class]="plan.highlighted
+            ? 'bg-accent-400 text-night-950 shadow-[0_0_24px_-6px_rgba(52,211,153,0.6)] hover:bg-accent-300'
+            : 'border border-white/15 bg-white/5 text-slate-200 hover:border-white/30 hover:bg-white/10'"
+        >{{ plan.cta }}</a>
+      </div>
+    }
+  </div>
+
+  <p class="mt-10 text-center font-mono text-xs uppercase tracking-[0.18em] text-slate-600">
+    Todos los planes incluyen 14 días de prueba · Sin permanencia · Cancela cuando quieras
+  </p>
+</section>
+
+<!-- FAQ -->
+<section class="border-t border-white/5 bg-night-900/50 py-24">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <p class="eyebrow text-center">// FAQ</p>
+    <h2 class="text-hero mt-4 text-center text-balance text-3xl font-bold tracking-tight sm:text-4xl">Preguntas frecuentes</h2>
+    <div class="mt-12 space-y-3">
+      @for (faq of faqs; track faq.q) {
+        <details class="group rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition open:border-accent-400/20 open:bg-white/[0.05]">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-medium text-slate-200">
+            {{ faq.q }}
+            <svg class="h-5 w-5 shrink-0 text-slate-500 transition group-open:rotate-180 group-open:text-accent-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </summary>
+          <p class="mt-4 leading-relaxed text-slate-400">{{ faq.a }}</p>
+        </details>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+# Entorno de DESARROLLO con hot-reload.
+# El frontend corre `ng serve` y recarga al editar (código montado por volumen).
+# Mientras no exista el backend, el front usa datos mock (useMockData=true).
+name: star4cast-dev
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: star4cast-frontend-dev
+    ports:
+      - "4200:4200"
+    volumes:
+      # Código fuente montado para hot-reload...
+      - ./frontend:/app
+      # ...pero conservando node_modules de la imagen (no lo pisa el host).
+      - /app/node_modules
+    environment:
+      # Destino del proxy /api del dev-server (ver frontend/proxy.conf.js).
+      - BACKEND_URL=http://backend:8000
+    networks:
+      - star4cast
+
+  # backend:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile.dev
+  #   container_name: star4cast-backend-dev
+  #   volumes:
+  #     - ./backend:/app
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - star4cast
+
+networks:
+  star4cast:
+    driver: bridge
