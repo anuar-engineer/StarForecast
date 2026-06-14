@@ -176,8 +176,8 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     tags: ['Stock de seguridad', 'Nivel de servicio', 'Inventario'],
     date: '2026-05-20',
     readingTime: '7 min',
-    author: 'Laura Méndez',
-    authorRole: 'Directora de Operaciones',
+    author: 'Equipo Star4cast',
+    authorRole: 'Producto y datos',
     body: [
       {
         type: 'p',
@@ -238,8 +238,8 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     tags: ['Punto de pedido', 'Estacionalidad', 'Reposición'],
     date: '2026-05-12',
     readingTime: '5 min',
-    author: 'Laura Méndez',
-    authorRole: 'Directora de Operaciones',
+    author: 'Equipo Star4cast',
+    authorRole: 'Producto y datos',
     body: [
       {
         type: 'p',

@@ -1,8 +1,31 @@
 import { Routes } from '@angular/router';
 
 import { PublicLayout } from './layout/public-layout/public-layout';
+import { authGuard, guestGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
+  // -------- Acceso / app interna (autenticada) --------
+  {
+    path: 'login',
+    title: 'Acceder · Star4cast',
+    canActivate: [guestGuard],
+    loadComponent: () => import('./features/app/login/login').then((m) => m.Login),
+  },
+  {
+    path: 'app',
+    canActivate: [authGuard],
+    loadComponent: () => import('./layout/app-layout/app-layout').then((m) => m.AppLayout),
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      {
+        path: 'dashboard',
+        title: 'Dashboard · Star4cast',
+        loadComponent: () =>
+          import('./features/app/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+    ],
+  },
+
   // -------- Sitio público (marketing) --------
   {
     path: '',

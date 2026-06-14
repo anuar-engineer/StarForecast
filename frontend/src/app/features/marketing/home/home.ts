@@ -29,7 +29,7 @@ export class Home {
         '@type': 'Organization',
         name: SITE_NAME,
         url: SITE_URL,
-        logo: `${SITE_URL}/og-image.svg`,
+        logo: `${SITE_URL}/og-image.png`,
         description:
           'Plataforma de predicción de stock que estima el inventario futuro a partir del histórico de cada producto.',
       },

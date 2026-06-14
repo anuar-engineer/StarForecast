@@ -25,6 +25,10 @@
 
         <div class="hidden items-center gap-3 md:flex">
           <a
+            routerLink="/login"
+            class="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 transition hover:text-white"
+          >Acceder</a>
+          <a
             routerLink="/contact"
             class="rounded-full bg-accent-400 px-4 py-2 text-sm font-semibold text-night-950 shadow-[0_0_18px_-4px_rgba(52,211,153,0.6)] transition hover:bg-accent-300"
           >Empezar prueba</a>
@@ -58,7 +62,8 @@
                 class="rounded-lg px-3 py-2 text-base font-medium text-slate-300 transition hover:bg-white/5 hover:text-white"
               >{{ link.label }}</a>
             }
-            <a routerLink="/contact" (click)="closeMobile()" class="mt-2 rounded-full bg-accent-400 px-4 py-2.5 text-center text-sm font-semibold text-night-950">Empezar prueba</a>
+            <a routerLink="/login" (click)="closeMobile()" class="mt-2 rounded-lg px-3 py-2 text-base font-medium text-slate-300 transition hover:bg-white/5 hover:text-white">Acceder</a>
+            <a routerLink="/contact" (click)="closeMobile()" class="rounded-full bg-accent-400 px-4 py-2.5 text-center text-sm font-semibold text-night-950">Empezar prueba</a>
           </div>
         </div>
       }

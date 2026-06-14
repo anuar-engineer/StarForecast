@@ -1,0 +1,68 @@
+@let g = geom();
+
+<div class="w-full">
+  @if (g.hasData) {
+    <svg
+      [attr.viewBox]="'0 0 ' + w + ' ' + h"
+      preserveAspectRatio="none"
+      class="h-56 w-full"
+      role="img"
+      aria-label="Evolución y predicción del stock agregado"
+    >
+      <defs>
+        <linearGradient id="s4c-area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#34d399" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#34d399" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+
+      <!-- Relleno bajo la curva -->
+      <path [attr.d]="g.area" fill="url(#s4c-area)" />
+
+      <!-- Línea "hoy" que separa histórico de predicción -->
+      <line
+        [attr.x1]="g.todayX"
+        [attr.x2]="g.todayX"
+        y1="0"
+        [attr.y2]="h"
+        stroke="rgba(148,163,184,0.35)"
+        stroke-width="1"
+        stroke-dasharray="4 4"
+      />
+
+      <!-- Tramo histórico (sólido) -->
+      <path
+        [attr.d]="g.history"
+        fill="none"
+        stroke="#34d399"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+      />
+
+      <!-- Tramo de predicción (punteado) -->
+      <path
+        [attr.d]="g.forecast"
+        fill="none"
+        stroke="#22d3ee"
+        stroke-width="2.5"
+        stroke-dasharray="2 5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        vector-effect="non-scaling-stroke"
+      />
+    </svg>
+
+    <div class="mt-3 flex items-center gap-5 font-mono text-xs text-slate-400">
+      <span class="inline-flex items-center gap-2">
+        <span class="h-0.5 w-5 rounded bg-accent-400"></span> Histórico
+      </span>
+      <span class="inline-flex items-center gap-2">
+        <span class="h-0.5 w-5 rounded bg-cyan-400"></span> Predicción
+      </span>
+    </div>
+  } @else {
+    <p class="py-12 text-center text-sm text-slate-500">Sin datos suficientes para el gráfico.</p>
+  }
+</div>

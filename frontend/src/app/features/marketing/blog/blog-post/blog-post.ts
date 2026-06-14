@@ -63,7 +63,7 @@ export class BlogPost {
           publisher: {
             '@type': 'Organization',
             name: SITE_NAME,
-            logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-image.svg` },
+            logo: { '@type': 'ImageObject', url: `${SITE_URL}/og-image.png` },
           },
           mainEntityOfPage: { '@type': 'WebPage', '@id': SITE_URL + path },
           keywords: p.keywords,

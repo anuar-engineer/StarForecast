@@ -1,0 +1,142 @@
+<!-- Cabecera -->
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="eyebrow">Panel</p>
+    <h1 class="mt-1 text-2xl font-semibold text-white sm:text-3xl">
+      Hola{{ firstName() ? ', ' + firstName() : '' }} 👋
+    </h1>
+    <p class="mt-1 text-sm text-slate-400">Estado del inventario y previsión de stock.</p>
+  </div>
+  <button type="button" (click)="load()" class="btn-ghost !px-5 !py-2.5 !text-sm">
+    Actualizar
+  </button>
+</div>
+
+@if (loading()) {
+  <div class="mt-10 flex items-center justify-center py-20 text-slate-400">
+    <span class="dot-live mr-3 h-2.5 w-2.5 rounded-full bg-accent-400"></span>
+    Cargando datos…
+  </div>
+} @else if (error()) {
+  <div class="card-dark mt-10 p-8 text-center">
+    <p class="text-slate-300">No se pudo cargar el panel.</p>
+    <p class="mt-1 text-sm text-slate-500">Comprueba que la API esté disponible e inténtalo de nuevo.</p>
+    <button type="button" (click)="load()" class="btn-primary mt-5 !px-6 !py-2.5 !text-sm">Reintentar</button>
+  </div>
+} @else if (summary(); as s) {
+  <!-- KPIs -->
+  <section class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="card-dark p-5">
+      <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Productos</p>
+      <p class="mt-2 font-display text-3xl font-semibold text-white">{{ num(s.kpi.total_products) }}</p>
+      <p class="mt-1 text-xs text-slate-500">en catálogo</p>
+    </div>
+    <div class="card-dark p-5">
+      <p class="font-mono text-xs uppercase tracking-wider text-slate-400">En riesgo</p>
+      <p class="mt-2 font-display text-3xl font-semibold" [class.text-rose-400]="s.kpi.at_risk > 0" [class.text-white]="s.kpi.at_risk === 0">
+        {{ num(s.kpi.at_risk) }}
+      </p>
+      <p class="mt-1 text-xs text-slate-500">rotura próxima</p>
+    </div>
+    <div class="card-dark p-5">
+      <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Valor inventario</p>
+      <p class="mt-2 font-display text-3xl font-semibold text-white">{{ eur(s.kpi.inventory_value) }}</p>
+      <p class="mt-1 text-xs text-slate-500">coste de stock</p>
+    </div>
+    <div class="card-dark p-5">
+      <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Cobertura media</p>
+      <p class="mt-2 font-display text-3xl font-semibold text-accent-300">{{ s.kpi.avg_days_of_cover }} d</p>
+      <p class="mt-1 text-xs text-slate-500">días de stock</p>
+    </div>
+  </section>
+
+  <div class="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
+    <!-- Gráfico -->
+    <section class="card-dark p-6 xl:col-span-2">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-white">Stock agregado</h2>
+          <p class="text-sm text-slate-400">Histórico de 30 días y predicción a 30 días.</p>
+        </div>
+        <span class="chip">Forecast</span>
+      </div>
+      <div class="mt-6">
+        <app-forecast-chart [data]="s.stock_series" />
+      </div>
+    </section>
+
+    <!-- Categorías -->
+    <section class="card-dark p-6">
+      <h2 class="text-lg font-semibold text-white">Por categoría</h2>
+      <p class="text-sm text-slate-400">Valor de inventario.</p>
+      <ul class="mt-5 space-y-4">
+        @for (cat of s.categories; track cat.category) {
+          <li>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-slate-200">{{ cat.category }}</span>
+              <span class="font-mono text-slate-400">{{ eur(cat.inventory_value) }}</span>
+            </div>
+            <div class="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-white/5">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-accent-500 to-cyan-400"
+                [style.width.%]="(cat.inventory_value / maxCategoryValue()) * 100"
+              ></div>
+            </div>
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+
+  <!-- Alertas de rotura -->
+  <section class="card-dark mt-6 overflow-hidden">
+    <div class="flex items-center justify-between border-b border-white/10 p-6">
+      <div>
+        <h2 class="text-lg font-semibold text-white">Alertas de rotura</h2>
+        <p class="text-sm text-slate-400">Productos con menos de 14 días de cobertura.</p>
+      </div>
+      <span class="rounded-full bg-rose-500/10 px-3 py-1 font-mono text-xs text-rose-300">
+        {{ s.alerts.length }}
+      </span>
+    </div>
+
+    @if (s.alerts.length === 0) {
+      <p class="p-8 text-center text-sm text-slate-400">Sin alertas: todo el stock está sano. 🎉</p>
+    } @else {
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="text-xs uppercase tracking-wider text-slate-500">
+            <tr class="border-b border-white/5">
+              <th class="px-6 py-3 font-medium">Producto</th>
+              <th class="px-6 py-3 font-medium">Categoría</th>
+              <th class="px-6 py-3 text-right font-medium">Stock</th>
+              <th class="px-6 py-3 text-right font-medium">Cobertura</th>
+              <th class="px-6 py-3 text-right font-medium">Rotura en</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (a of s.alerts; track a.sku) {
+              <tr class="border-b border-white/5 last:border-0 transition hover:bg-white/[0.02]">
+                <td class="px-6 py-4">
+                  <div class="font-medium text-slate-100">{{ a.name }}</div>
+                  <div class="font-mono text-xs text-slate-500">{{ a.sku }}</div>
+                </td>
+                <td class="px-6 py-4 text-slate-400">{{ a.category }}</td>
+                <td class="px-6 py-4 text-right font-mono text-slate-200">{{ num(a.current_stock) }}</td>
+                <td class="px-6 py-4 text-right font-mono text-slate-300">{{ a.days_of_cover }} d</td>
+                <td class="px-6 py-4 text-right">
+                  <span
+                    class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-mono text-xs"
+                    [class]="a.severity === 'critical' ? 'bg-rose-500/10 text-rose-300' : 'bg-amber-500/10 text-amber-300'"
+                  >
+                    {{ a.projected_stockout_days }} d
+                  </span>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+}

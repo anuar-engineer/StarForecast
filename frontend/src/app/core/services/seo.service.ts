@@ -6,7 +6,7 @@ import { NavigationStart, Router } from '@angular/router';
 /** Dominio canónico del sitio. Ajusta aquí si cambia el dominio de producción. */
 export const SITE_URL = 'https://star4cast.app';
 export const SITE_NAME = 'Star4cast';
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.svg`;
+const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 const DEFAULT_DESCRIPTION =
   'Star4cast predice el stock futuro de cada producto a partir de tu histórico de inventario. Evita roturas, reduce el exceso y compra justo lo necesario.';
 

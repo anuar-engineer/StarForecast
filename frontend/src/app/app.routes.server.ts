@@ -7,6 +7,11 @@ import { BLOG_POSTS } from './features/marketing/blog/blog-data';
  * y estático; los artículos del blog generan una página por slug.
  */
 export const serverRoutes: ServerRoute[] = [
+  // La zona autenticada depende de la sesión del navegador: no se prerenderiza,
+  // se sirve como shell de cliente (CSR) y se hidrata con los datos del usuario.
+  { path: 'login', renderMode: RenderMode.Client },
+  { path: 'app', renderMode: RenderMode.Client },
+  { path: 'app/**', renderMode: RenderMode.Client },
   {
     path: 'blog/:slug',
     renderMode: RenderMode.Prerender,

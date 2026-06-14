@@ -6,7 +6,7 @@
 .DESCRIPTION
     Usa docker-compose.dev.yml. El frontend Angular corre con `ng serve` y se
     recarga en caliente gracias al volumen montado. Disponible en
-    http://localhost:4200.
+    http://localhost:4300.
 
 .PARAMETER Build
     Reconstruye las imágenes antes de levantar (tras cambiar dependencias).
@@ -58,7 +58,7 @@ try {
     }
     if ($Detached) { $arguments += '-d' }
 
-    Write-Host 'Levantando entorno de desarrollo en http://localhost:4200 ...' -ForegroundColor Green
+    Write-Host 'Levantando entorno de desarrollo en http://localhost:4300 ...' -ForegroundColor Green
     docker compose @arguments
 }
 finally {

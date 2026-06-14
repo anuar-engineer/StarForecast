@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /app
+Disallow: /login
 
 Sitemap: https://star4cast.app/sitemap.xml

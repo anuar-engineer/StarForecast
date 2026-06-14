@@ -6,14 +6,17 @@ riesgos de rotura y ayuda a planificar la reposición.
 
 - **Sitio público (marketing):** Angular 21 (standalone, signals, zoneless) +
   Tailwind CSS, prerenderizado de forma estática (SSG) para SEO.
-- **Backend:** API Python de modelos de forecast — _pendiente_ (ver `backend/`).
-- **App interna (panel del cliente):** _pendiente_, se construirá sobre el mismo
-  frontend cuando exista el backend.
+- **Backend:** API Python (FastAPI + SQLAlchemy async + PostgreSQL) con auth JWT
+  y un resumen de dashboard sobre datos reales (ver `backend/`).
+- **App interna (panel del cliente):** zona autenticada en `/app` (login + shell
+  con sidebar/topbar + dashboard), construida sobre el mismo frontend.
 - **Orquestación:** Docker + Docker Compose, con scripts PowerShell para dev y prod.
 
 > Estado actual: el **sitio público** está montado y funcional (home,
 > funcionalidades, precios, blog, sobre nosotros, contacto y páginas legales).
-> El backend y la app interna autenticada aún no existen.
+> Además existe ya el **backend** (auth JWT + dashboard) y la **app interna**
+> con login y dashboard. Credenciales demo sembradas:
+> `demo@star4cast.com` / `demo1234`.
 
 ## Estructura
 
@@ -46,7 +49,7 @@ star4cast/
 
 ## Arranque rápido
 
-### Desarrollo (hot-reload) — http://localhost:4200
+### Desarrollo (hot-reload) — http://localhost:4300
 
 ```powershell
 ./scripts/dev.ps1 -Build      # primera vez o tras cambiar dependencias
@@ -89,7 +92,8 @@ npm start                     # http://localhost:4200
 ## Roadmap
 
 - [x] Sitio público (home, funcionalidades, precios, blog, contacto, legales) con SEO/SSG
-- [ ] Backend Python: ingesta de histórico y API de forecast
-- [ ] App interna autenticada (panel del cliente) sobre el backend real
-- [ ] Carga de históricos (CSV / integración con el sistema de inventario)
+- [x] Backend Python (FastAPI + SQLAlchemy + PostgreSQL): auth JWT y resumen de dashboard
+- [x] App interna autenticada: login + shell (sidebar/topbar) + dashboard
+- [ ] Productos: listado + ficha con forecast por producto
+- [ ] Backend de forecast real (series temporales) e ingesta de histórico (CSV)
 - [ ] Multi-tenant (varias tiendas/empresas)

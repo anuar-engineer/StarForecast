@@ -1,6 +1,7 @@
 # Entorno de DESARROLLO con hot-reload.
-# El frontend corre `ng serve` y recarga al editar (código montado por volumen).
-# Mientras no exista el backend, el front usa datos mock (useMockData=true).
+# - frontend: `ng serve` con recarga (código montado por volumen).
+# - backend: FastAPI con `uvicorn --reload` (código montado por volumen).
+# - db: PostgreSQL con datos persistidos en un volumen.
 name: star4cast-dev
 
 services:
@@ -10,7 +11,8 @@ services:
       dockerfile: Dockerfile.dev
     container_name: star4cast-frontend-dev
     ports:
-      - "4200:4200"
+      # host:contenedor — ng serve sigue en 4200 dentro del contenedor.
+      - "4300:4200"
     volumes:
       # Código fuente montado para hot-reload...
       - ./frontend:/app
@@ -19,20 +21,53 @@ services:
     environment:
       # Destino del proxy /api del dev-server (ver frontend/proxy.conf.js).
       - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
     networks:
       - star4cast
 
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile.dev
-  #   container_name: star4cast-backend-dev
-  #   volumes:
-  #     - ./backend:/app
-  #   ports:
-  #     - "8000:8000"
-  #   networks:
-  #     - star4cast
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: star4cast-backend-dev
+    volumes:
+      - ./backend:/app
+    ports:
+      # host:contenedor — el contenedor sigue en 8000 (proxy/nginx usan backend:8000).
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://star4cast:star4cast@db:5432/star4cast
+      - JWT_SECRET=dev-insecure-change-me
+      - DEBUG=true
+      - CORS_ORIGINS=http://localhost:4300,http://localhost:8080
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - star4cast
+
+  db:
+    image: postgres:16-alpine
+    container_name: star4cast-db-dev
+    environment:
+      - POSTGRES_USER=star4cast
+      - POSTGRES_PASSWORD=star4cast
+      - POSTGRES_DB=star4cast
+    ports:
+      - "5433:5432"
+    volumes:
+      - star4cast-db-dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U star4cast -d star4cast"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - star4cast
+
+volumes:
+  star4cast-db-dev:
 
 networks:
   star4cast:

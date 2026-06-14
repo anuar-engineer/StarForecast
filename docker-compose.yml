@@ -1,6 +1,8 @@
 # Entorno de PRODUCCIÓN.
-# Frontend Angular servido por nginx. El backend Python se añadirá aquí
-# (descomenta el bloque cuando exista ./backend/Dockerfile).
+# - frontend: Angular (build estático) servido por nginx, expone el 8080.
+#   nginx hace de proxy de /api hacia el servicio `backend`.
+# - backend: API FastAPI (no expuesta al host, solo en la red interna).
+# - db: PostgreSQL con datos persistidos.
 name: star4cast
 
 services:
@@ -13,22 +15,51 @@ services:
     ports:
       - "8080:80"
     restart: unless-stopped
+    depends_on:
+      - backend
     networks:
       - star4cast
-    # depends_on:
-    #   - backend
 
-  # backend:
-  #   build:
-  #     context: ./backend
-  #     dockerfile: Dockerfile
-  #   image: star4cast-backend:latest
-  #   container_name: star4cast-backend
-  #   restart: unless-stopped
-  #   expose:
-  #     - "8000"
-  #   networks:
-  #     - star4cast
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: star4cast-backend:latest
+    container_name: star4cast-backend
+    restart: unless-stopped
+    expose:
+      - "8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://star4cast:${POSTGRES_PASSWORD:-star4cast}@db:5432/star4cast
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - DEBUG=false
+      - CORS_ORIGINS=http://localhost:8080
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - star4cast
+
+  db:
+    image: postgres:16-alpine
+    container_name: star4cast-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=star4cast
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-star4cast}
+      - POSTGRES_DB=star4cast
+    volumes:
+      - star4cast-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U star4cast -d star4cast"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - star4cast
+
+volumes:
+  star4cast-db:
 
 networks:
   star4cast:
