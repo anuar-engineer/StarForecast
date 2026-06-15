@@ -15,8 +15,8 @@ riesgos de rotura y ayuda a planificar la reposición.
 > Estado actual: el **sitio público** está montado y funcional (home,
 > funcionalidades, precios, blog, sobre nosotros, contacto y páginas legales).
 > Además existe ya el **backend** (auth JWT + dashboard) y la **app interna**
-> con login y dashboard. Credenciales demo sembradas:
-> `demo@star4cast.com` / `demo1234`.
+> con login y dashboard. Las credenciales demo se definen en el `.env`
+> (`DEMO_EMAIL`/`DEMO_PASSWORD`); no hay valores por defecto en el código.
 
 ## Estructura
 

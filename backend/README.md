@@ -44,9 +44,12 @@ Autenticación: `Authorization: Bearer <access_token>`.
 
 ## Datos sembrados (demo)
 
-Al arrancar con la base vacía se crea:
+Al arrancar con la base vacía (y con `SEED_DEMO_DATA=true`) se crea:
 
-- Usuario demo: **`demo@star4cast.com`** / **`demo1234`**
+- Usuario demo y administrador, con las credenciales definidas en el `.env`
+  (`DEMO_EMAIL` / `DEMO_PASSWORD` y `ADMIN_EMAIL` / `ADMIN_PASSWORD`).
+  No hay credenciales por defecto en el código: son obligatorias si el
+  sembrado está activo.
 - 12 productos de ejemplo con stock, venta media diaria y coste, que alimentan
   los KPIs, las alertas de rotura (cobertura < 14 días) y la serie del gráfico.
 

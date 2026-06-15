@@ -41,11 +41,6 @@ export class Login {
     name.updateValueAndValidity();
   }
 
-  protected useDemo(): void {
-    this.mode.set('login');
-    this.form.patchValue({ email: 'demo@star4cast.com', password: 'demo1234' });
-  }
-
   protected submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
