@@ -1,78 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://star4cast.app/</loc>
+    <loc>https://star4cast.es/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/features</loc>
+    <loc>https://star4cast.es/features</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/pricing</loc>
+    <loc>https://star4cast.es/pricing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/about</loc>
+    <loc>https://star4cast.es/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/contact</loc>
+    <loc>https://star4cast.es/contact</loc>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog</loc>
+    <loc>https://star4cast.es/blog</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog/forecasting-de-demanda-guia</loc>
+    <loc>https://star4cast.es/blog/rotura-de-stock-que-es-y-como-evitarla</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/prevision-de-demanda-en-excel-limites</loc>
+    <lastmod>2026-06-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/analisis-abc-de-inventario</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/forecasting-de-demanda-guia</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog/predecir-stock-sin-ser-data-scientist</loc>
+    <loc>https://star4cast.es/blog/predecir-stock-sin-ser-data-scientist</loc>
     <lastmod>2026-05-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog/calcular-stock-de-seguridad</loc>
+    <loc>https://star4cast.es/blog/mape-mae-rmse-precision-del-forecast</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/calcular-stock-de-seguridad</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog/estacionalidad-y-punto-de-pedido</loc>
+    <loc>https://star4cast.es/blog/lead-time-plazo-de-entrega-y-stock</loc>
+    <lastmod>2026-05-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/estacionalidad-y-punto-de-pedido</loc>
     <lastmod>2026-05-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog/kpis-de-inventario-imprescindibles</loc>
+    <loc>https://star4cast.es/blog/planificar-demanda-black-friday-campanas</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/kpis-de-inventario-imprescindibles</loc>
     <lastmod>2026-05-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/blog/reducir-inventario-inmovilizado</loc>
+    <loc>https://star4cast.es/blog/como-elegir-software-de-prevision-de-demanda</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/reducir-inventario-inmovilizado</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/privacy</loc>
+    <loc>https://star4cast.es/blog/gestion-de-inventario-para-ecommerce</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/blog/demanda-intermitente-metodo-croston</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/privacy</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://star4cast.app/terms</loc>
+    <loc>https://star4cast.es/terms</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

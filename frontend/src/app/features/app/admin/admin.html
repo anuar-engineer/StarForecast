@@ -1,0 +1,148 @@
+<!-- Cabecera -->
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="eyebrow">Plataforma</p>
+    <h1 class="mt-1 text-2xl font-semibold text-white sm:text-3xl">Administración</h1>
+    <p class="mt-1 text-sm text-slate-400">Vista global de organizaciones, usuarios y uso de la plataforma.</p>
+  </div>
+  <button type="button" (click)="load()" class="btn-ghost !px-5 !py-2.5 !text-sm">Actualizar</button>
+</div>
+
+@if (loading()) {
+  <div class="mt-10 flex items-center justify-center py-20 text-slate-400">
+    <span class="dot-live mr-3 h-2.5 w-2.5 rounded-full bg-accent-400"></span>
+    Cargando…
+  </div>
+} @else if (error()) {
+  <div class="card-dark mt-10 p-8 text-center">
+    <p class="text-slate-300">No se pudo cargar el panel de administración.</p>
+    <button type="button" (click)="load()" class="btn-primary mt-5 !px-6 !py-2.5 !text-sm">Reintentar</button>
+  </div>
+} @else {
+  <!-- Métricas globales -->
+  @if (overview(); as o) {
+    <section class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-6">
+      <div class="card-dark p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Organizaciones</p>
+        <p class="mt-2 font-display text-3xl font-semibold text-white">{{ o.organizations }}</p>
+      </div>
+      <div class="card-dark p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Usuarios</p>
+        <p class="mt-2 font-display text-3xl font-semibold text-white">{{ o.users }}</p>
+        <p class="mt-1 text-xs text-slate-500">{{ o.active_users }} activos</p>
+      </div>
+      <div class="card-dark p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Productos</p>
+        <p class="mt-2 font-display text-3xl font-semibold text-white">{{ o.products }}</p>
+      </div>
+      <div class="card-dark p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Ventas</p>
+        <p class="mt-2 font-display text-3xl font-semibold text-white">{{ o.sales_records }}</p>
+      </div>
+      <div class="card-dark p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Forecasts</p>
+        <p class="mt-2 font-display text-3xl font-semibold text-accent-300">{{ o.forecasts }}</p>
+      </div>
+      <div class="card-dark p-5">
+        <p class="font-mono text-xs uppercase tracking-wider text-slate-400">Importaciones</p>
+        <p class="mt-2 font-display text-3xl font-semibold text-white">{{ o.imports }}</p>
+      </div>
+    </section>
+  }
+
+  <!-- Organizaciones -->
+  <section class="card-dark mt-6 overflow-hidden">
+    <div class="border-b border-white/10 p-6">
+      <h2 class="text-lg font-semibold text-white">Organizaciones</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="text-xs uppercase tracking-wider text-slate-500">
+          <tr class="border-b border-white/5">
+            <th class="px-6 py-3 font-medium">Organización</th>
+            <th class="px-6 py-3 text-right font-medium">Usuarios</th>
+            <th class="px-6 py-3 text-right font-medium">Productos</th>
+            <th class="px-6 py-3 text-right font-medium">Valor inventario</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (org of organizations(); track org.id) {
+            <tr class="border-b border-white/5 last:border-0">
+              <td class="px-6 py-4">
+                <div class="font-medium text-slate-100">{{ org.name }}</div>
+                <div class="font-mono text-xs text-slate-500">#{{ org.id }}</div>
+              </td>
+              <td class="px-6 py-4 text-right font-mono text-slate-300">{{ org.users }}</td>
+              <td class="px-6 py-4 text-right font-mono text-slate-300">{{ org.products }}</td>
+              <td class="px-6 py-4 text-right font-mono text-slate-200">{{ eur(org.inventory_value) }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Usuarios -->
+  <section class="card-dark mt-6 overflow-hidden">
+    <div class="border-b border-white/10 p-6">
+      <h2 class="text-lg font-semibold text-white">Usuarios</h2>
+      <p class="text-sm text-slate-400">Cambia el rol o activa/desactiva cuentas.</p>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="text-xs uppercase tracking-wider text-slate-500">
+          <tr class="border-b border-white/5">
+            <th class="px-6 py-3 font-medium">Usuario</th>
+            <th class="px-6 py-3 font-medium">Organización</th>
+            <th class="px-6 py-3 font-medium">Rol</th>
+            <th class="px-6 py-3 font-medium">Estado</th>
+            <th class="px-6 py-3 text-right font-medium">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (u of users(); track u.id) {
+            <tr class="border-b border-white/5 last:border-0" [class.opacity-50]="!u.is_active">
+              <td class="px-6 py-4">
+                <div class="font-medium text-slate-100">{{ u.name }}</div>
+                <div class="font-mono text-xs text-slate-500">{{ u.email }}</div>
+              </td>
+              <td class="px-6 py-4 text-slate-400">{{ u.organization_name }}</td>
+              <td class="px-6 py-4">
+                <select
+                  [value]="u.role"
+                  (change)="onRoleChange(u, $event)"
+                  [disabled]="updatingId() === u.id || u.id === currentUserId()"
+                  class="rounded-lg border border-white/10 bg-night-900 px-2.5 py-1.5 text-xs text-slate-200 focus:border-accent-400/40 focus:outline-none disabled:opacity-60"
+                >
+                  <option value="owner">owner</option>
+                  <option value="member">member</option>
+                  <option value="admin">admin</option>
+                </select>
+              </td>
+              <td class="px-6 py-4">
+                <span class="rounded-full px-2.5 py-0.5 font-mono text-[11px]"
+                  [class]="u.is_active ? 'bg-accent-400/10 text-accent-300' : 'bg-rose-500/10 text-rose-300'">
+                  {{ u.is_active ? 'activo' : 'inactivo' }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-right">
+                @if (u.id === currentUserId()) {
+                  <span class="font-mono text-xs text-slate-600">tú</span>
+                } @else {
+                  <button
+                    type="button"
+                    (click)="toggleActive(u)"
+                    [disabled]="updatingId() === u.id"
+                    class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-300 transition hover:border-accent-400/30 hover:text-accent-300 disabled:opacity-50"
+                  >
+                    {{ u.is_active ? 'Desactivar' : 'Activar' }}
+                  </button>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

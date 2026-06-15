@@ -30,10 +30,16 @@ services:
     expose:
       - "8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://star4cast:${POSTGRES_PASSWORD:-star4cast}@db:5432/star4cast
-      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - DATABASE_URL=postgresql+asyncpg://star4cast:${POSTGRES_PASSWORD:?define POSTGRES_PASSWORD}@db:5432/star4cast
+      - JWT_SECRET=${JWT_SECRET:?define JWT_SECRET (secreto largo y aleatorio)}
       - DEBUG=false
       - CORS_ORIGINS=http://localhost:8080
+      # Sembrado: si SEED_DEMO_DATA=true, las credenciales son obligatorias.
+      - SEED_DEMO_DATA=${SEED_DEMO_DATA:-true}
+      - DEMO_EMAIL=${DEMO_EMAIL:?define DEMO_EMAIL}
+      - DEMO_PASSWORD=${DEMO_PASSWORD:?define DEMO_PASSWORD}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:?define ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?define ADMIN_PASSWORD}
     depends_on:
       db:
         condition: service_healthy

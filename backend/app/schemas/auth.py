@@ -22,9 +22,19 @@ class UserRead(BaseModel):
     email: EmailStr
     name: str
     company: str | None = None
+    role: str = "owner"
 
 
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserRead
+
+
+class ProfileUpdate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+
+
+class PasswordChange(BaseModel):
+    current_password: str
+    new_password: str = Field(min_length=8, max_length=128)

@@ -75,4 +75,41 @@
       <p class="col-span-full py-12 text-center text-slate-500">No hay artículos en esta categoría todavía.</p>
     }
   </div>
+
+  <!-- Paginación -->
+  @if (totalPages() > 1) {
+    <nav class="mt-14 flex items-center justify-center gap-2" aria-label="Paginación del blog">
+      <button
+        type="button"
+        (click)="goToPage(page() - 1)"
+        [disabled]="page() === 1"
+        class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition hover:border-accent-400/30 hover:text-accent-300 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-white/10 disabled:hover:text-slate-400"
+        aria-label="Página anterior"
+      >
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+
+      @for (p of pages(); track p) {
+        <button
+          type="button"
+          (click)="goToPage(p)"
+          [attr.aria-current]="page() === p ? 'page' : null"
+          class="grid h-9 w-9 place-items-center rounded-full font-mono text-xs transition"
+          [class]="page() === p
+            ? 'bg-accent-400 text-night-950 shadow-[0_0_18px_-4px_rgba(52,211,153,0.5)]'
+            : 'border border-white/10 bg-white/5 text-slate-400 hover:border-accent-400/30 hover:text-accent-300'"
+        >{{ p }}</button>
+      }
+
+      <button
+        type="button"
+        (click)="goToPage(page() + 1)"
+        [disabled]="page() === totalPages()"
+        class="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-slate-400 transition hover:border-accent-400/30 hover:text-accent-300 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-white/10 disabled:hover:text-slate-400"
+        aria-label="Página siguiente"
+      >
+        <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
+    </nav>
+  }
 </div>

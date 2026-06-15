@@ -3,4 +3,4 @@ Allow: /
 Disallow: /app
 Disallow: /login
 
-Sitemap: https://star4cast.app/sitemap.xml
+Sitemap: https://star4cast.es/sitemap.xml

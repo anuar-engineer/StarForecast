@@ -36,3 +36,37 @@ async def get_current_user(
 
 
 CurrentUser = Annotated[User, Depends(get_current_user)]
+
+
+async def get_current_org_id(current_user: CurrentUser) -> int:
+    """Id de la organización del usuario autenticado (aísla todos los datos)."""
+    return current_user.organization_id
+
+
+CurrentOrgId = Annotated[int, Depends(get_current_org_id)]
+
+
+async def get_current_admin(current_user: CurrentUser) -> User:
+    """Exige rol de administrador de plataforma (acceso cross-organización)."""
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Se requieren permisos de administrador.",
+        )
+    return current_user
+
+
+AdminUser = Annotated[User, Depends(get_current_admin)]
+
+
+async def get_current_manager(current_user: CurrentUser) -> User:
+    """Exige gestionar el equipo: gestor de la organización (owner) o admin."""
+    if current_user.role not in ("owner", "admin"):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Solo el gestor de la organización puede gestionar el equipo.",
+        )
+    return current_user
+
+
+ManagerUser = Annotated[User, Depends(get_current_manager)]

@@ -1,0 +1,135 @@
+<!-- Cabecera -->
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="eyebrow">Catálogo</p>
+    <h1 class="mt-1 text-2xl font-semibold text-white sm:text-3xl">Productos</h1>
+    <p class="mt-1 text-sm text-slate-400">Stock, cobertura y previsión por referencia.</p>
+  </div>
+  @if (isOwner()) {
+    <div class="flex gap-2">
+      <a routerLink="/app/import" class="btn-ghost !px-5 !py-2.5 !text-sm">Importar datos</a>
+      <button type="button" (click)="reforecast()" [disabled]="reforecasting()" class="btn-primary !px-5 !py-2.5 !text-sm disabled:opacity-50">
+        {{ reforecasting() ? 'Recalculando…' : 'Recalcular forecast' }}
+      </button>
+    </div>
+  }
+</div>
+
+@if (loading()) {
+  <div class="mt-10 flex items-center justify-center py-20 text-slate-400">
+    <span class="dot-live mr-3 h-2.5 w-2.5 rounded-full bg-accent-400"></span>
+    Cargando productos…
+  </div>
+} @else if (error()) {
+  <div class="card-dark mt-10 p-8 text-center">
+    <p class="text-slate-300">No se pudieron cargar los productos.</p>
+    <button type="button" (click)="load()" class="btn-primary mt-5 !px-6 !py-2.5 !text-sm">Reintentar</button>
+  </div>
+} @else if (products().length === 0) {
+  <div class="card-dark mt-10 p-10 text-center">
+    <h2 class="text-lg font-semibold text-white">Aún no hay productos</h2>
+    @if (isOwner()) {
+      <p class="mx-auto mt-2 max-w-md text-sm text-slate-400">Importa un fichero CSV o Excel con tu histórico de ventas o tu inventario para empezar a predecir.</p>
+      <a routerLink="/app/import" class="btn-primary mt-6 !px-6 !py-2.5 !text-sm">Importar datos</a>
+    } @else {
+      <p class="mx-auto mt-2 max-w-md text-sm text-slate-400">Tu organización aún no tiene productos. Pide al gestor de tu equipo que importe los datos de inventario.</p>
+    }
+  </div>
+} @else {
+  <section class="card-dark mt-8 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="text-xs uppercase tracking-wider text-slate-500">
+          <tr class="border-b border-white/5">
+            <th class="px-6 py-3 font-medium">Producto</th>
+            <th class="px-6 py-3 font-medium">Categoría</th>
+            <th class="px-6 py-3 text-right font-medium">Stock</th>
+            <th class="px-6 py-3 text-right font-medium">Cobertura</th>
+            <th class="px-6 py-3 text-right font-medium">Demanda/día</th>
+            <th class="px-6 py-3 font-medium">Modelo</th>
+            <th class="px-6 py-3 text-right font-medium">Error</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of products(); track p.id) {
+            <tr (click)="openDetail(p)" class="cursor-pointer border-b border-white/5 last:border-0 transition hover:bg-white/[0.03]">
+              <td class="px-6 py-4">
+                <div class="font-medium text-slate-100">{{ p.name }}</div>
+                <div class="font-mono text-xs text-slate-500">{{ p.sku }}</div>
+              </td>
+              <td class="px-6 py-4 text-slate-400">{{ p.category }}</td>
+              <td class="px-6 py-4 text-right font-mono text-slate-200">{{ num(p.current_stock) }}</td>
+              <td class="px-6 py-4 text-right font-mono"
+                  [class.text-rose-300]="p.days_of_cover !== null && p.days_of_cover <= 14"
+                  [class.text-slate-300]="p.days_of_cover === null || p.days_of_cover > 14">
+                {{ cover(p) }}
+              </td>
+              <td class="px-6 py-4 text-right font-mono text-slate-300">{{ p.forecast_daily_demand ?? '—' }}</td>
+              <td class="px-6 py-4">
+                @if (p.forecast_model) {
+                  <span class="rounded-full border border-accent-400/20 bg-accent-400/10 px-2.5 py-0.5 font-mono text-[11px] text-accent-300">{{ p.forecast_model }}</span>
+                } @else { <span class="text-slate-600">—</span> }
+              </td>
+              <td class="px-6 py-4 text-right font-mono text-slate-400">{{ p.forecast_mape !== null ? p.forecast_mape + '%' : '—' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}
+
+<!-- Detalle de producto (modal) -->
+@if (selected(); as d) {
+  <div class="fixed inset-0 z-40 flex items-end justify-center bg-black/60 p-0 backdrop-blur-sm sm:items-center sm:p-6" (click)="closeDetail()">
+    <div class="card-dark w-full max-w-3xl overflow-hidden sm:rounded-2xl" (click)="$event.stopPropagation()">
+      <div class="flex items-start justify-between border-b border-white/10 p-6">
+        <div>
+          <h2 class="text-lg font-semibold text-white">{{ d.name }}</h2>
+          <p class="font-mono text-xs text-slate-500">{{ d.sku }} · {{ d.category }}</p>
+        </div>
+        <button type="button" (click)="closeDetail()" class="rounded-lg p-1.5 text-slate-400 hover:bg-white/5 hover:text-white" aria-label="Cerrar">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+
+      <div class="max-h-[70vh] overflow-y-auto p-6">
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Stock</p>
+            <p class="mt-1 font-display text-xl font-semibold text-white">{{ num(d.current_stock) }}</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Punto de pedido</p>
+            <p class="mt-1 font-display text-xl font-semibold text-white">{{ num(d.reorder_point) }}</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Stock seguridad</p>
+            <p class="mt-1 font-display text-xl font-semibold text-white">{{ num(d.safety_stock) }}</p>
+          </div>
+          <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+            <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Rotura en</p>
+            <p class="mt-1 font-display text-xl font-semibold" [class.text-rose-300]="d.projected_stockout_day !== null" [class.text-accent-300]="d.projected_stockout_day === null">
+              {{ d.projected_stockout_day !== null ? d.projected_stockout_day + ' d' : 'OK' }}
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-white">Demanda: histórico y predicción</h3>
+          <div class="flex items-center gap-3 font-mono text-[11px] text-slate-500">
+            <span>Modelo: <span class="text-accent-300">{{ d.forecast_model ?? '—' }}</span></span>
+            <span>Error: {{ d.forecast_mape !== null ? d.forecast_mape + '%' : '—' }}</span>
+          </div>
+        </div>
+        <div class="mt-3">
+          @if (d.series.length > 1) {
+            <app-forecast-chart [data]="d.series" />
+          } @else {
+            <p class="py-10 text-center text-sm text-slate-500">Sin serie de previsión todavía.</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

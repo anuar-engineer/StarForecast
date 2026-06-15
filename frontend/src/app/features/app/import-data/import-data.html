@@ -1,0 +1,138 @@
+<!-- Cabecera -->
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div>
+    <p class="eyebrow">Datos</p>
+    <h1 class="mt-1 text-2xl font-semibold text-white sm:text-3xl">Importar datos</h1>
+    <p class="mt-1 text-sm text-slate-400">Sube tu histórico de ventas o tu inventario en CSV o Excel.</p>
+  </div>
+  <button type="button" (click)="downloadTemplate()" class="btn-ghost !px-5 !py-2.5 !text-sm">Descargar plantilla CSV</button>
+</div>
+
+<!-- Zona de subida -->
+<section class="mt-8">
+  <label
+    (drop)="onDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave()"
+    class="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-14 text-center transition"
+    [class]="dragOver()
+      ? 'border-accent-400/60 bg-accent-400/5'
+      : 'border-white/10 bg-white/[0.02] hover:border-accent-400/30'"
+  >
+    <input type="file" class="hidden" accept=".csv,.tsv,.txt,.xlsx,.xls" (change)="onFileSelected($event)" [disabled]="uploading()" />
+    @if (uploading()) {
+      <span class="dot-live h-3 w-3 rounded-full bg-accent-400"></span>
+      <p class="mt-4 text-sm text-slate-300">Procesando y calculando el forecast…</p>
+    } @else {
+      <svg class="h-10 w-10 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0L8 8m4-4 4 4M4 20h16" />
+      </svg>
+      <p class="mt-4 text-sm font-medium text-slate-200">Arrastra un fichero aquí o haz clic para seleccionarlo</p>
+      <p class="mt-1 text-xs text-slate-500">CSV, TSV o Excel (.xlsx) · máx. 25 MB</p>
+    }
+  </label>
+
+  <p class="mt-3 text-xs text-slate-500">
+    Detectamos automáticamente las columnas (fecha, SKU, unidades, stock, precio…). Acepta histórico de ventas, snapshots de stock o un export de tu ERP.
+  </p>
+</section>
+
+@if (errorMsg()) {
+  <div class="mt-6 rounded-xl border border-rose-500/20 bg-rose-500/10 p-4 text-sm text-rose-200">{{ errorMsg() }}</div>
+}
+
+<!-- Resultado de la última importación -->
+@if (result(); as r) {
+  @if (r.status === 'completed') {
+    <section class="card-dark mt-6 p-6">
+      <div class="flex items-center gap-2">
+        <span class="grid h-6 w-6 place-items-center rounded-full bg-accent-400/15 text-accent-300">✓</span>
+        <h2 class="text-lg font-semibold text-white">Importación completada</h2>
+      </div>
+      <p class="mt-1 text-sm text-slate-400">{{ r.filename }} · {{ kindLabel(r.kind) }}</p>
+
+      <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Filas OK</p>
+          <p class="mt-1 font-display text-xl font-semibold text-accent-300">{{ r.rows_ok }}</p>
+        </div>
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Con error</p>
+          <p class="mt-1 font-display text-xl font-semibold" [class.text-rose-300]="r.rows_error > 0" [class.text-white]="r.rows_error === 0">{{ r.rows_error }}</p>
+        </div>
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Productos</p>
+          <p class="mt-1 font-display text-xl font-semibold text-white">{{ r.products_affected }}</p>
+        </div>
+        <div class="rounded-xl border border-white/5 bg-white/[0.02] p-3">
+          <p class="font-mono text-[10px] uppercase tracking-wider text-slate-500">Total filas</p>
+          <p class="mt-1 font-display text-xl font-semibold text-white">{{ r.rows_total }}</p>
+        </div>
+      </div>
+
+      @if (detectedEntries(r.detected_columns).length) {
+        <div class="mt-5">
+          <p class="font-mono text-xs uppercase tracking-wider text-slate-500">Columnas detectadas</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            @for (e of detectedEntries(r.detected_columns); track e.role) {
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-xs text-slate-300">
+                {{ e.role }} → <span class="text-accent-300">{{ e.col }}</span>
+              </span>
+            }
+          </div>
+        </div>
+      }
+
+      @if (r.errors?.length) {
+        <details class="mt-5">
+          <summary class="cursor-pointer text-sm text-slate-400 hover:text-slate-200">Ver {{ r.errors!.length }} filas con error</summary>
+          <ul class="mt-3 space-y-1 font-mono text-xs text-slate-500">
+            @for (err of r.errors!; track err.row) {
+              <li>Fila {{ err.row }}: {{ err.reason }}</li>
+            }
+          </ul>
+        </details>
+      }
+
+      <a routerLink="/app/products" class="btn-primary mt-6 inline-flex !px-6 !py-2.5 !text-sm">Ver productos y forecast</a>
+    </section>
+  }
+}
+
+<!-- Historial -->
+@if (history().length) {
+  <section class="card-dark mt-6 overflow-hidden">
+    <div class="border-b border-white/10 p-6">
+      <h2 class="text-lg font-semibold text-white">Importaciones recientes</h2>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-sm">
+        <thead class="text-xs uppercase tracking-wider text-slate-500">
+          <tr class="border-b border-white/5">
+            <th class="px-6 py-3 font-medium">Fichero</th>
+            <th class="px-6 py-3 font-medium">Tipo</th>
+            <th class="px-6 py-3 text-right font-medium">OK / Error</th>
+            <th class="px-6 py-3 text-right font-medium">Productos</th>
+            <th class="px-6 py-3 font-medium">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (job of history(); track job.id) {
+            <tr class="border-b border-white/5 last:border-0">
+              <td class="px-6 py-4 text-slate-200">{{ job.filename }}</td>
+              <td class="px-6 py-4 text-slate-400">{{ kindLabel(job.kind) }}</td>
+              <td class="px-6 py-4 text-right font-mono text-slate-300">{{ job.rows_ok }} / {{ job.rows_error }}</td>
+              <td class="px-6 py-4 text-right font-mono text-slate-300">{{ job.products_affected }}</td>
+              <td class="px-6 py-4">
+                <span class="rounded-full px-2.5 py-0.5 font-mono text-[11px]"
+                  [class]="job.status === 'completed' ? 'bg-accent-400/10 text-accent-300' : job.status === 'error' ? 'bg-rose-500/10 text-rose-300' : 'bg-white/5 text-slate-400'">
+                  {{ job.status }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+}

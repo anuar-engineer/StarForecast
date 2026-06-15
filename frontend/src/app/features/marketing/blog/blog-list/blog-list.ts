@@ -15,15 +15,35 @@ import { BLOG_POSTS, blogCategories } from '../blog-data';
 export class BlogList {
   private readonly seo = inject(SeoService);
 
+  /** Artículos por página en el grid (sin contar el destacado). */
+  private readonly pageSize = 6;
+
   protected readonly featured = BLOG_POSTS[0];
   protected readonly categories = ['Todos', ...blogCategories()];
   protected readonly activeCategory = signal('Todos');
+  protected readonly page = signal(1);
 
   /** Artículos (sin el destacado) filtrados por la categoría activa. */
-  protected readonly rest = computed(() => {
+  protected readonly filtered = computed(() => {
     const cat = this.activeCategory();
     return BLOG_POSTS.slice(1).filter((p) => cat === 'Todos' || p.category === cat);
   });
+
+  /** Número total de páginas para los artículos filtrados. */
+  protected readonly totalPages = computed(() =>
+    Math.max(1, Math.ceil(this.filtered().length / this.pageSize)),
+  );
+
+  /** Artículos de la página activa. */
+  protected readonly rest = computed(() => {
+    const start = (this.page() - 1) * this.pageSize;
+    return this.filtered().slice(start, start + this.pageSize);
+  });
+
+  /** Lista de números de página para la navegación (1…totalPages). */
+  protected readonly pages = computed(() =>
+    Array.from({ length: this.totalPages() }, (_, i) => i + 1),
+  );
 
   constructor() {
     this.seo.update({
@@ -52,5 +72,14 @@ export class BlogList {
 
   protected setCategory(cat: string): void {
     this.activeCategory.set(cat);
+    this.page.set(1);
+  }
+
+  protected goToPage(p: number): void {
+    if (p < 1 || p > this.totalPages()) return;
+    this.page.set(p);
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 }

@@ -3,6 +3,7 @@ export interface AuthUser {
   readonly email: string;
   readonly name: string;
   readonly company: string | null;
+  readonly role: string;
 }
 
 export interface AuthResponse {

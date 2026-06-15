@@ -41,6 +41,12 @@ services:
       - JWT_SECRET=dev-insecure-change-me
       - DEBUG=true
       - CORS_ORIGINS=http://localhost:4300,http://localhost:8080
+      # Credenciales de sembrado (solo desarrollo).
+      - SEED_DEMO_DATA=true
+      - DEMO_EMAIL=demo@star4cast.com
+      - DEMO_PASSWORD=demo1234
+      - ADMIN_EMAIL=admin@star4cast.com
+      - ADMIN_PASSWORD=admin1234
     depends_on:
       db:
         condition: service_healthy

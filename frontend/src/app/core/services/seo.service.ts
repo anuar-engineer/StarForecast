@@ -4,7 +4,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { NavigationStart, Router } from '@angular/router';
 
 /** Dominio canónico del sitio. Ajusta aquí si cambia el dominio de producción. */
-export const SITE_URL = 'https://star4cast.app';
+export const SITE_URL = 'https://star4cast.es';
 export const SITE_NAME = 'Star4cast';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
 const DEFAULT_DESCRIPTION =

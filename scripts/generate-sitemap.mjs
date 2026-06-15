@@ -13,7 +13,7 @@ const ROOT = resolve(__dirname, '..');
 const BLOG_DATA = resolve(ROOT, 'frontend/src/app/features/marketing/blog/blog-data.ts');
 const OUTPUT = resolve(ROOT, 'frontend/public/sitemap.xml');
 
-const SITE_URL = 'https://star4cast.app';
+const SITE_URL = 'https://star4cast.es';
 
 /** Rutas estáticas con su prioridad/frecuencia de cambio. */
 const STATIC_ROUTES = [

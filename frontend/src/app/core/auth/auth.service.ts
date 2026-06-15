@@ -27,6 +27,9 @@ export class AuthService {
     const token = this._token();
     return token !== null && !this.isExpired(token);
   });
+  readonly isAdmin = computed(() => this._user()?.role === 'admin');
+  /** Gestor del equipo de su organización (responsable de la empresa). */
+  readonly isOwner = computed(() => this._user()?.role === 'owner');
 
   token(): string | null {
     return this._token();
@@ -42,6 +45,14 @@ export class AuthService {
     return this.http
       .post<AuthResponse>(`${this.base}/register`, payload)
       .pipe(tap((res) => this.persist(res)));
+  }
+
+  /** Actualiza el usuario en sesión (p. ej. tras editar el perfil). */
+  updateStoredUser(user: AuthUser): void {
+    this._user.set(user);
+    if (this.isBrowser) {
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
+    }
   }
 
   logout(): void {

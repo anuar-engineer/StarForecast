@@ -1,18 +1,23 @@
-"""Resumen del dashboard: KPIs, alertas de rotura y serie de stock agregada.
+"""Resumen del dashboard por organización, sobre los forecasts reales.
 
-El cálculo es deliberadamente sencillo (proyección lineal por días de cobertura)
-hasta que exista el modelo de series temporales del backend de forecast. Sirve
-para alimentar la portada del panel con datos reales de la base de datos.
+Mantiene el mismo contrato de respuesta (DashboardSummary) que la versión
+inicial, pero ahora los datos salen del histórico importado y de la previsión
+persistida por producto: la serie de stock agregada se reconstruye sumando la
+proyección real de cada referencia, y las alertas usan la fecha de rotura
+estimada por el modelo.
 """
 
+from collections import defaultdict
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.api.deps import CurrentUser
+from app.api.deps import CurrentOrgId
+from app.core.config import settings
 from app.db.session import get_db
+from app.models.forecast import Forecast
 from app.models.product import Product
 from app.schemas.dashboard import (
     CategoryBreakdown,
@@ -24,34 +29,35 @@ from app.schemas.dashboard import (
 
 router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 
-# Umbral de días de cobertura para considerar un producto en riesgo de rotura.
 _RISK_DAYS = 14
 _CRITICAL_DAYS = 5
-_HISTORY_DAYS = 30
-_FORECAST_DAYS = 30
 
 
 @router.get("/summary", response_model=DashboardSummary)
-async def summary(
-    current_user: CurrentUser,
-    db: Annotated[AsyncSession, Depends(get_db)],
-) -> DashboardSummary:
-    products = list((await db.execute(select(Product))).scalars().all())
+async def summary(org_id: CurrentOrgId, db: Annotated[AsyncSession, Depends(get_db)]) -> DashboardSummary:
+    products = list(
+        (await db.execute(select(Product).where(Product.organization_id == org_id))).scalars()
+    )
+    forecasts = {
+        f.product_id: f
+        for f in (
+            await db.execute(select(Forecast).where(Forecast.organization_id == org_id))
+        ).scalars()
+    }
 
     total = len(products)
     inventory_value = sum(p.inventory_value for p in products)
-    total_daily_sales = sum(p.avg_daily_sales for p in products)
-    total_stock = sum(p.current_stock for p in products)
-
     covers = [p.days_of_cover for p in products if p.days_of_cover is not None]
     avg_cover = sum(covers) / len(covers) if covers else 0.0
 
-    # --- Alertas: productos con poca cobertura, los más urgentes primero. ---
+    # --- Alertas: rotura estimada por el forecast o poca cobertura. ---
     alerts: list[StockAlert] = []
     at_risk = 0
     for p in products:
+        stockout = p.projected_stockout_day
         cover = p.days_of_cover
-        if cover is None or cover > _RISK_DAYS:
+        risk_metric = stockout if stockout is not None else (int(cover) if cover is not None else None)
+        if risk_metric is None or risk_metric > _RISK_DAYS:
             continue
         at_risk += 1
         alerts.append(
@@ -60,12 +66,12 @@ async def summary(
                 name=p.name,
                 category=p.category,
                 current_stock=p.current_stock,
-                days_of_cover=round(cover, 1),
-                projected_stockout_days=int(cover),
-                severity="critical" if cover <= _CRITICAL_DAYS else "warning",
+                days_of_cover=round(cover, 1) if cover is not None else None,
+                projected_stockout_days=risk_metric,
+                severity="critical" if risk_metric <= _CRITICAL_DAYS else "warning",
             )
         )
-    alerts.sort(key=lambda a: a.days_of_cover if a.days_of_cover is not None else 1e9)
+    alerts.sort(key=lambda a: a.projected_stockout_days if a.projected_stockout_days is not None else 1e9)
 
     kpi = Kpi(
         total_products=total,
@@ -75,13 +81,7 @@ async def summary(
         avg_days_of_cover=round(avg_cover, 1),
     )
 
-    # --- Serie de stock agregada: histórico sintético + forecast lineal. ---
-    # Histórico: se reconstruye hacia atrás sumando ventas (stock pasado mayor).
-    # Forecast: el stock total baja al ritmo de venta agregado.
-    stock_series: list[SeriesPoint] = []
-    for day in range(-_HISTORY_DAYS, _FORECAST_DAYS + 1):
-        value = max(total_stock - total_daily_sales * day, 0.0)
-        stock_series.append(SeriesPoint(day=day, value=round(value, 1), forecast=day > 0))
+    stock_series = _aggregate_stock_series(products, forecasts)
 
     # --- Desglose por categoría. ---
     by_category: dict[str, CategoryBreakdown] = {}
@@ -96,6 +96,37 @@ async def summary(
             entry.inventory_value = round(entry.inventory_value + p.inventory_value, 2)
     categories = sorted(by_category.values(), key=lambda c: c.inventory_value, reverse=True)
 
-    return DashboardSummary(
-        kpi=kpi, alerts=alerts, stock_series=stock_series, categories=categories
-    )
+    return DashboardSummary(kpi=kpi, alerts=alerts, stock_series=stock_series, categories=categories)
+
+
+def _aggregate_stock_series(
+    products: list[Product], forecasts: dict[int, Forecast]
+) -> list[SeriesPoint]:
+    """Suma la proyección de stock de cada producto (histórico real + forecast)."""
+    history = settings.forecast_history_days
+    horizon = settings.forecast_horizon_days
+    agg: dict[int, float] = defaultdict(float)
+
+    for p in products:
+        cur = float(p.current_stock)
+        fc = forecasts.get(p.id)
+        demand = {pt["day"]: float(pt["value"]) for pt in fc.series} if fc and fc.series else {}
+
+        if demand:
+            agg[0] += max(cur, 0.0)
+            run = cur
+            for d in sorted(x for x in demand if x > 0):
+                run -= demand[d]
+                agg[d] += max(run, 0.0)
+            cum = 0.0
+            for d in sorted((x for x in demand if x < 0), reverse=True):
+                cum += demand.get(d + 1, 0.0)
+                agg[d] += max(cur + cum, 0.0)
+        else:
+            # Sin forecast: proyección lineal con la demanda media.
+            rate = p.daily_demand
+            for d in range(-history, horizon + 1):
+                agg[d] += max(cur - rate * d, 0.0)
+
+    days = sorted(agg) or [0]
+    return [SeriesPoint(day=d, value=round(agg[d], 1), forecast=d > 0) for d in days]

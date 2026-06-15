@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { PublicLayout } from './layout/public-layout/public-layout';
-import { authGuard, guestGuard } from './core/auth/auth.guard';
+import { adminGuard, authGuard, customerGuard, guestGuard, ownerGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   // -------- Acceso / app interna (autenticada) --------
@@ -20,8 +20,43 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         title: 'Dashboard · Star4cast',
+        canActivate: [customerGuard],
         loadComponent: () =>
           import('./features/app/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+      {
+        path: 'products',
+        title: 'Productos · Star4cast',
+        canActivate: [customerGuard],
+        loadComponent: () =>
+          import('./features/app/products/products').then((m) => m.Products),
+      },
+      {
+        path: 'import',
+        title: 'Importar datos · Star4cast',
+        canActivate: [ownerGuard],
+        loadComponent: () =>
+          import('./features/app/import-data/import-data').then((m) => m.ImportData),
+      },
+      {
+        path: 'team',
+        title: 'Equipo · Star4cast',
+        canActivate: [ownerGuard],
+        loadComponent: () =>
+          import('./features/app/team/team').then((m) => m.Team),
+      },
+      {
+        path: 'admin',
+        title: 'Administración · Star4cast',
+        canActivate: [adminGuard],
+        loadComponent: () =>
+          import('./features/app/admin/admin').then((m) => m.Admin),
+      },
+      {
+        path: 'settings',
+        title: 'Ajustes · Star4cast',
+        loadComponent: () =>
+          import('./features/app/settings/settings').then((m) => m.Settings),
       },
     ],
   },

@@ -19,7 +19,7 @@ export interface LegalDoc {
 const COMPANY = '[Razón social]';
 const NIF = '[NIF/CIF]';
 const ADDRESS = '[Dirección completa], Madrid, España';
-const EMAIL = 'hola@star4cast.app';
+const EMAIL = 'hola@star4cast.es';
 
 export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
   privacy: {
