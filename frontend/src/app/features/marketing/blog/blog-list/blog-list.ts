@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 
 import { SeoService, SITE_URL } from '../../../../core/services/seo.service';
 import { Reveal } from '../../../../shared/directives/reveal';
-import { BLOG_POSTS, blogCategories } from '../blog-data';
+import { publishedPosts, blogCategories } from '../blog-data';
 
 @Component({
   selector: 'app-blog-list',
@@ -18,7 +18,10 @@ export class BlogList {
   /** Artículos por página en el grid (sin contar el destacado). */
   private readonly pageSize = 6;
 
-  protected readonly featured = BLOG_POSTS[0];
+  /** Artículos ya publicados (fecha <= hoy), del más reciente al más antiguo. */
+  private readonly posts = publishedPosts();
+
+  protected readonly featured = this.posts[0];
   protected readonly categories = ['Todos', ...blogCategories()];
   protected readonly activeCategory = signal('Todos');
   protected readonly page = signal(1);
@@ -26,7 +29,7 @@ export class BlogList {
   /** Artículos (sin el destacado) filtrados por la categoría activa. */
   protected readonly filtered = computed(() => {
     const cat = this.activeCategory();
-    return BLOG_POSTS.slice(1).filter((p) => cat === 'Todos' || p.category === cat);
+    return this.posts.slice(1).filter((p) => cat === 'Todos' || p.category === cat);
   });
 
   /** Número total de páginas para los artículos filtrados. */
@@ -59,7 +62,7 @@ export class BlogList {
       '@type': 'Blog',
       name: 'Blog de Star4cast',
       url: `${SITE_URL}/blog`,
-      blogPost: BLOG_POSTS.map((p) => ({
+      blogPost: this.posts.map((p) => ({
         '@type': 'BlogPosting',
         headline: p.title,
         description: p.description,

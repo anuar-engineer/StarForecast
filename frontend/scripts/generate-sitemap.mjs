@@ -2,6 +2,14 @@
 // y de los artículos definidos en blog-data.ts (única fuente de verdad para los
 // posts). Se ejecuta automáticamente antes de cada build (`prebuild`).
 //
+// Vive dentro de frontend/ a propósito: así forma parte del contexto de build de
+// Docker (context: ./frontend) y el sitemap se regenera también en producción,
+// no solo en local.
+//
+// Solo se incluyen los posts ya publicados (date <= hoy). Los de fecha futura
+// quedan fuera del sitemap hasta que les toca; el rebuild semanal de la VPS los
+// va incorporando uno a uno, en paralelo a su prerender.
+//
 // Uso manual: `npm run sitemap` desde frontend/.
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -9,11 +17,14 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const ROOT = resolve(__dirname, '..');
-const BLOG_DATA = resolve(ROOT, 'frontend/src/app/features/marketing/blog/blog-data.ts');
-const OUTPUT = resolve(ROOT, 'frontend/public/sitemap.xml');
+const FRONTEND = resolve(__dirname, '..');
+const BLOG_DATA = resolve(FRONTEND, 'src/app/features/marketing/blog/blog-data.ts');
+const OUTPUT = resolve(FRONTEND, 'public/sitemap.xml');
 
 const SITE_URL = 'https://star4cast.es';
+
+/** Fecha de hoy en formato YYYY-MM-DD para comparar con la fecha de cada post. */
+const TODAY = new Date().toISOString().slice(0, 10);
 
 /** Rutas estáticas con su prioridad/frecuencia de cambio. */
 const STATIC_ROUTES = [
@@ -53,6 +64,7 @@ function readBlogPosts() {
     const updated = block.match(/\bupdated:\s*'([^']+)'/);
     posts.push({
       slug: slugs[i].slug,
+      date: date?.[1],
       lastmod: (updated?.[1] ?? date?.[1]) || undefined,
     });
   }
@@ -67,7 +79,9 @@ function urlNode({ path, changefreq, priority, lastmod }) {
   return `  <url>\n${lines.join('\n')}\n  </url>`;
 }
 
-const posts = readBlogPosts();
+// Solo posts ya publicados (fecha <= hoy): los futuros aún no deben indexarse.
+const allPosts = readBlogPosts();
+const posts = allPosts.filter((p) => p.date && p.date <= TODAY);
 const blogRoutes = posts.map((p) => ({
   path: `/blog/${p.slug}`,
   changefreq: 'yearly',
@@ -84,4 +98,8 @@ ${all.map(urlNode).join('\n')}
 `;
 
 writeFileSync(OUTPUT, xml, 'utf8');
-console.info(`[sitemap] ${all.length} URLs escritas en ${OUTPUT}`);
+const hidden = allPosts.length - posts.length;
+console.info(
+  `[sitemap] ${all.length} URLs escritas en ${OUTPUT}` +
+    (hidden > 0 ? ` (${hidden} posts futuros aún ocultos)` : ''),
+);

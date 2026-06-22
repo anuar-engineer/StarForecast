@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { SeoService, SITE_NAME, SITE_URL } from '../../../../core/services/seo.service';
-import { BLOG_POSTS, findPost } from '../blog-data';
+import { findPost, publishedPosts } from '../blog-data';
 
 @Component({
   selector: 'app-blog-post',
@@ -19,12 +19,14 @@ export class BlogPost {
 
   protected readonly post = computed(() => findPost(this.slug()));
 
-  protected readonly related = computed(() =>
-    BLOG_POSTS.filter((p) => p.slug !== this.slug() && p.category === this.post()?.category)
-      .concat(BLOG_POSTS.filter((p) => p.slug !== this.slug()))
+  protected readonly related = computed(() => {
+    const posts = publishedPosts();
+    return posts
+      .filter((p) => p.slug !== this.slug() && p.category === this.post()?.category)
+      .concat(posts.filter((p) => p.slug !== this.slug()))
       .filter((p, i, arr) => arr.findIndex((x) => x.slug === p.slug) === i)
-      .slice(0, 2),
-  );
+      .slice(0, 2);
+  });
 
   constructor() {
     effect(() => {
