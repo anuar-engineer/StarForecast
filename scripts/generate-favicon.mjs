@@ -3,7 +3,8 @@
 // night-950). Reproduce el mark del navbar/footer sin dependencias externas:
 // rasteriza con supersampling y codifica PNG con el zlib nativo de Node.
 //
-// Salidas: frontend/public/favicon.ico (16+32) y apple-touch-icon.png (180).
+// Salidas: frontend/public/favicon.ico (16+32+48), apple-touch-icon.png (180),
+// icon-192.png, icon-512.png y icon-maskable-512.png (manifest de Android/PWA).
 // Uso: `node scripts/generate-favicon.mjs` desde la raíz del repo.
 
 import { deflateSync } from 'node:zlib';
@@ -32,8 +33,8 @@ function lerp(a, b, t) {
 }
 
 /** Punto dentro del cuadrado redondeado de lado `n` (radio proporcional al de 32). */
-function insideRoundedRect(x, y, n) {
-  const r = (7 / 32) * n;
+function insideRoundedRect(x, y, n, rounded = true) {
+  const r = rounded ? (7 / 32) * n : 0;
   if (x < 0 || y < 0 || x > n || y > n) return false;
   const cx = Math.min(Math.max(x, r), n - r);
   const cy = Math.min(Math.max(y, r), n - r);
@@ -55,8 +56,11 @@ function insidePolygon(x, y, pts, n) {
   return inside;
 }
 
-/** Devuelve un buffer RGBA (n*n*4) con el icono renderizado y antialiased. */
-function renderRGBA(n) {
+/**
+ * Devuelve un buffer RGBA (n*n*4) con el icono renderizado y antialiased.
+ * `rounded: false` rellena todo el lienzo (iconos maskable: el SO aplica su máscara).
+ */
+function renderRGBA(n, { rounded = true } = {}) {
   const out = Buffer.alloc(n * n * 4);
   for (let py = 0; py < n; py++) {
     for (let px = 0; px < n; px++) {
@@ -67,7 +71,7 @@ function renderRGBA(n) {
         for (let sx = 0; sx < SS; sx++) {
           const x = px + (sx + 0.5) / SS;
           const y = py + (sy + 0.5) / SS;
-          if (!insideRoundedRect(x, y, n)) continue;
+          if (!insideRoundedRect(x, y, n, rounded)) continue;
           aSum++;
           if (insidePolygon(x, y, STAR_PTS, n)) {
             sSum++;
@@ -184,3 +188,14 @@ console.info(`[favicon] favicon.ico generado (${icoSizes.join(', ')} px)`);
 const apple = 180;
 writeFileSync(resolve(PUBLIC, 'apple-touch-icon.png'), encodePNG(renderRGBA(apple), apple));
 console.info(`[favicon] apple-touch-icon.png generado (${apple} px)`);
+
+// La estrella ocupa el 56% central, dentro de la zona segura (80%) de los maskable.
+for (const size of [192, 512]) {
+  writeFileSync(resolve(PUBLIC, `icon-${size}.png`), encodePNG(renderRGBA(size), size));
+  console.info(`[favicon] icon-${size}.png generado`);
+}
+writeFileSync(
+  resolve(PUBLIC, 'icon-maskable-512.png'),
+  encodePNG(renderRGBA(512, { rounded: false }), 512),
+);
+console.info('[favicon] icon-maskable-512.png generado');
