@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import admin, auth, dashboard, imports, organization, products, team
+from app.api.routes import admin, auth, dashboard, imports, leads, organization, products, team
 from app.core.config import settings
 from app.db.base import Base
 from app.db.session import SessionLocal, engine
@@ -44,6 +44,7 @@ app.include_router(products.router, prefix=settings.api_prefix)
 app.include_router(team.router, prefix=settings.api_prefix)
 app.include_router(organization.router, prefix=settings.api_prefix)
 app.include_router(admin.router, prefix=settings.api_prefix)
+app.include_router(leads.router, prefix=settings.api_prefix)
 
 
 @app.get(f"{settings.api_prefix}/health", tags=["health"])

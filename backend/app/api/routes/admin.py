@@ -14,6 +14,7 @@ from app.api.deps import AdminUser
 from app.db.session import get_db
 from app.models.forecast import Forecast
 from app.models.import_job import ImportJob
+from app.models.lead import Lead
 from app.models.organization import Organization
 from app.models.product import Product
 from app.models.sales import SalesRecord
@@ -24,6 +25,7 @@ from app.schemas.admin import (
     AdminUserRow,
     AdminUserUpdate,
 )
+from app.schemas.lead import LeadRead
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -147,3 +149,10 @@ async def update_user(
         organization_name=org_name or "—",
         created_at=user.created_at,
     )
+
+
+@router.get("/leads", response_model=list[LeadRead])
+async def list_leads(admin: AdminUser, db: DbSession) -> list[LeadRead]:
+    """Mensajes del formulario de contacto, los más recientes primero."""
+    result = await db.execute(select(Lead).order_by(Lead.created_at.desc()))
+    return [LeadRead.model_validate(lead) for lead in result.scalars()]

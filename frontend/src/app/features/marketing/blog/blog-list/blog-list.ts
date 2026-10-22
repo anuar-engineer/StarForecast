@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { SeoService, SITE_URL } from '../../../../core/services/seo.service';
+import { SeoService, SITE_NAME, SITE_URL } from '../../../../core/services/seo.service';
 import { Reveal } from '../../../../shared/directives/reveal';
 import { publishedPosts, blogCategories } from '../blog-data';
 
@@ -50,11 +50,11 @@ export class BlogList {
 
   constructor() {
     this.seo.update({
-      title: 'Blog · Star4cast',
+      title: 'Blog sobre inventario y previsión de demanda',
       description:
-        'Guías prácticas sobre predicción de stock, forecasting de demanda y gestión de inventario para tomar mejores decisiones de compra.',
+        'Guías prácticas sobre previsión de demanda, stock de seguridad, punto de pedido y gestión de inventario para comprar mejor y evitar roturas de stock.',
       path: '/blog',
-      keywords: 'blog inventario, forecasting, predicción de stock, gestión de inventario',
+      keywords: 'gestión de inventario, previsión de demanda, stock de seguridad, punto de pedido, rotura de stock',
     });
 
     this.seo.setJsonLd('blog-schema', {
@@ -62,12 +62,14 @@ export class BlogList {
       '@type': 'Blog',
       name: 'Blog de Star4cast',
       url: `${SITE_URL}/blog`,
+      inLanguage: 'es',
+      publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
       blogPost: this.posts.map((p) => ({
         '@type': 'BlogPosting',
         headline: p.title,
         description: p.description,
         datePublished: p.date,
-        author: { '@type': 'Person', name: p.author },
+        author: { '@type': 'Organization', name: p.author, url: SITE_URL },
         url: `${SITE_URL}/blog/${p.slug}`,
       })),
     });

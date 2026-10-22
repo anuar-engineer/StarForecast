@@ -17,29 +17,13 @@ export class Login {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
-  protected readonly mode = signal<'login' | 'register'>('login');
   protected readonly loading = signal(false);
   protected readonly errorMsg = signal<string | null>(null);
 
   protected readonly form = this.fb.nonNullable.group({
-    name: [''],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
-    company: [''],
   });
-
-  protected toggleMode(): void {
-    const next = this.mode() === 'login' ? 'register' : 'login';
-    this.mode.set(next);
-    this.errorMsg.set(null);
-    const name = this.form.controls.name;
-    if (next === 'register') {
-      name.setValidators([Validators.required, Validators.minLength(2)]);
-    } else {
-      name.clearValidators();
-    }
-    name.updateValueAndValidity();
-  }
 
   protected submit(): void {
     if (this.form.invalid) {
@@ -49,13 +33,7 @@ export class Login {
     this.loading.set(true);
     this.errorMsg.set(null);
 
-    const { email, password, name, company } = this.form.getRawValue();
-    const request$ =
-      this.mode() === 'register'
-        ? this.auth.register({ email, password, name, company: company || null })
-        : this.auth.login({ email, password });
-
-    request$.subscribe({
+    this.auth.login(this.form.getRawValue()).subscribe({
       next: () => {
         const redirect = this.route.snapshot.queryParamMap.get('redirect') ?? '/app';
         this.router.navigateByUrl(redirect);

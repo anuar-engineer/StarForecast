@@ -21,7 +21,6 @@ export class PublicLayout {
     { label: 'Funcionalidades', path: '/features' },
     { label: 'Precios', path: '/pricing' },
     { label: 'Blog', path: '/blog' },
-    { label: 'Sobre nosotros', path: '/about' },
     { label: 'Contacto', path: '/contact' },
   ];
 
@@ -31,7 +30,6 @@ export class PublicLayout {
       links: [
         { label: 'Funcionalidades', path: '/features' },
         { label: 'Precios', path: '/pricing' },
-        { label: 'Solicitar acceso', path: '/contact' },
       ],
     },
     {

@@ -1,4 +1,4 @@
-"""Rutas de autenticación: registro, login y usuario actual."""
+"""Rutas de autenticación: login y usuario actual (el registro público está cerrado)."""
 
 from typing import Annotated
 
@@ -9,13 +9,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import CurrentUser
 from app.core.security import create_access_token, hash_password, verify_password
 from app.db.session import get_db
-from app.models.organization import Organization
+# from app.models.organization import Organization  # usado por el registro (cerrado)
 from app.models.user import User
 from app.schemas.auth import (
     PasswordChange,
     ProfileUpdate,
     Token,
-    UserCreate,
     UserLogin,
     UserRead,
 )
@@ -30,29 +29,30 @@ async def _get_by_email(db: AsyncSession, email: str) -> User | None:
     return result.scalar_one_or_none()
 
 
-@router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
-async def register(payload: UserCreate, db: DbSession) -> Token:
-    if await _get_by_email(db, payload.email):
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="Ya existe una cuenta con ese correo",
-        )
-    # Cada cuenta nueva estrena su propia organización (es su "owner").
-    org = Organization(name=payload.company or f"{payload.name} (organización)")
-    db.add(org)
-    await db.flush()
-    user = User(
-        email=payload.email.lower(),
-        name=payload.name,
-        company=payload.company,
-        password_hash=hash_password(payload.password),
-        organization_id=org.id,
-        role="owner",
-    )
-    db.add(user)
-    await db.commit()
-    await db.refresh(user)
-    return Token(access_token=create_access_token(str(user.id)), user=UserRead.model_validate(user))
+# Registro público cerrado: las cuentas se crean a mano (admin/gestor).
+# @router.post("/register", response_model=Token, status_code=status.HTTP_201_CREATED)
+# async def register(payload: UserCreate, db: DbSession) -> Token:
+#     if await _get_by_email(db, payload.email):
+#         raise HTTPException(
+#             status_code=status.HTTP_409_CONFLICT,
+#             detail="Ya existe una cuenta con ese correo",
+#         )
+#     # Cada cuenta nueva estrena su propia organización (es su "owner").
+#     org = Organization(name=payload.company or f"{payload.name} (organización)")
+#     db.add(org)
+#     await db.flush()
+#     user = User(
+#         email=payload.email.lower(),
+#         name=payload.name,
+#         company=payload.company,
+#         password_hash=hash_password(payload.password),
+#         organization_id=org.id,
+#         role="owner",
+#     )
+#     db.add(user)
+#     await db.commit()
+#     await db.refresh(user)
+#     return Token(access_token=create_access_token(str(user.id)), user=UserRead.model_validate(user))
 
 
 @router.post("/login", response_model=Token)

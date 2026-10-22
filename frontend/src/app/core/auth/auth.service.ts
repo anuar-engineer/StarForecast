@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Observable, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { AuthResponse, AuthUser, LoginCredentials, RegisterPayload } from './auth.models';
+import { AuthResponse, AuthUser, LoginCredentials } from './auth.models';
 
 const TOKEN_KEY = 's4c.token';
 const USER_KEY = 's4c.user';
@@ -41,11 +41,12 @@ export class AuthService {
       .pipe(tap((res) => this.persist(res)));
   }
 
-  register(payload: RegisterPayload): Observable<AuthResponse> {
-    return this.http
-      .post<AuthResponse>(`${this.base}/register`, payload)
-      .pipe(tap((res) => this.persist(res)));
-  }
+  // Registro público cerrado: las cuentas se crean a mano (admin/gestor).
+  // register(payload: RegisterPayload): Observable<AuthResponse> {
+  //   return this.http
+  //     .post<AuthResponse>(`${this.base}/register`, payload)
+  //     .pipe(tap((res) => this.persist(res)));
+  // }
 
   /** Actualiza el usuario en sesión (p. ej. tras editar el perfil). */
   updateStoredUser(user: AuthUser): void {

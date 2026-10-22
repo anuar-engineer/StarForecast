@@ -33,9 +33,9 @@ export class About {
 
   protected readonly stats = [
     { value: '2026', label: 'año de fundación' },
-    { value: '+1.2M', label: 'predicciones generadas' },
-    { value: '−32%', label: 'roturas de media' },
-    { value: '< 5 min', label: 'al primer forecast' },
+    { value: '100%', label: 'en español' },
+    { value: '0', label: 'meses de permanencia' },
+    { value: 'Minutos', label: 'hasta tu primera previsión' },
   ];
 
   constructor() {

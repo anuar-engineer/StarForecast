@@ -32,6 +32,19 @@ describe('SeoService', () => {
     expect(TestBed.inject(Title).getTitle()).toBe(`${SITE_NAME} · Inicio`);
   });
 
+  it('omite el sufijo de marca si el título resultante supera 60 caracteres', () => {
+    const long = 'Rotura de stock: qué es, cuánto te cuesta y cómo evitarla';
+    seo.update({ title: long });
+    expect(TestBed.inject(Title).getTitle()).toBe(long);
+  });
+
+  it('marca la página como noindex solo cuando se pide', () => {
+    seo.update({ title: 'No encontrado', noindex: true });
+    expect(doc.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex, follow');
+    seo.update({ title: 'Precios' });
+    expect(doc.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('index, follow');
+  });
+
   it('construye la URL canónica a partir del path', () => {
     seo.update({ title: 'Precios', path: '/pricing' });
     const link = doc.head.querySelector('link[rel="canonical"]');

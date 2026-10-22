@@ -1,3 +1,7 @@
+@let field = 'mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder-slate-600 outline-none transition focus:border-accent-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-accent-400/20';
+@let select = 'mt-2 w-full rounded-xl border border-white/10 bg-night-900 px-4 py-2.5 text-white outline-none transition focus:border-accent-400/60 focus:ring-2 focus:ring-accent-400/20';
+@let label = 'block font-mono text-xs uppercase tracking-[0.14em] text-slate-400';
+
 <section class="relative overflow-hidden">
   <div class="pointer-events-none absolute inset-0 -z-10">
     <div class="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)]"></div>
@@ -52,37 +56,89 @@
             <button type="button" (click)="submitted.set(false)" class="mt-6 text-sm font-semibold text-accent-300 transition hover:text-accent-200">Enviar otro mensaje</button>
           </div>
         } @else {
-          <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
+          <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5" novalidate>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="name" [class]="label">Nombre</label>
+                <input id="name" type="text" formControlName="name" autocomplete="name" [class]="field" placeholder="Tu nombre" />
+                @if (form.controls.name.touched && form.controls.name.invalid) {
+                  <p class="mt-1.5 text-sm text-rose-400">Introduce tu nombre.</p>
+                }
+              </div>
+              <div>
+                <label for="email" [class]="label">Email</label>
+                <input id="email" type="email" formControlName="email" autocomplete="email" [class]="field" placeholder="tu@empresa.com" />
+                @if (form.controls.email.touched && form.controls.email.invalid) {
+                  <p class="mt-1.5 text-sm text-rose-400">Introduce un email válido.</p>
+                }
+              </div>
+            </div>
+
             <div>
-              <label for="name" class="block font-mono text-xs uppercase tracking-[0.14em] text-slate-400">Nombre</label>
-              <input id="name" type="text" formControlName="name" class="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder-slate-600 outline-none transition focus:border-accent-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-accent-400/20" placeholder="Tu nombre" />
-              @if (form.controls.name.touched && form.controls.name.invalid) {
-                <p class="mt-1.5 text-sm text-rose-400">Introduce tu nombre.</p>
+              <label for="company" [class]="label">Empresa <span class="normal-case tracking-normal text-slate-600">(opcional)</span></label>
+              <input id="company" type="text" formControlName="company" autocomplete="organization" [class]="field" placeholder="Nombre de tu empresa o tienda" />
+            </div>
+
+            <div class="grid gap-5 sm:grid-cols-2">
+              <div>
+                <label for="platform" [class]="label">¿Dónde está tu stock hoy?</label>
+                <select id="platform" formControlName="platform" [class]="select">
+                  @for (o of platforms; track o.value) {
+                    <option [value]="o.value">{{ o.label }}</option>
+                  }
+                </select>
+              </div>
+              <div>
+                <label for="catalog_size" [class]="label">Nº de referencias</label>
+                <select id="catalog_size" formControlName="catalog_size" [class]="select">
+                  @for (o of catalogSizes; track o.value) {
+                    <option [value]="o.value">{{ o.label }}</option>
+                  }
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="plan" [class]="label">Plan que te interesa</label>
+              <select id="plan" formControlName="plan" [class]="select">
+                @for (o of plans; track o.value) {
+                  <option [value]="o.value">{{ o.label }}</option>
+                }
+              </select>
+            </div>
+
+            <div>
+              <label for="message" [class]="label">Mensaje <span class="normal-case tracking-normal text-slate-600">(opcional)</span></label>
+              <textarea id="message" rows="3" formControlName="message" [class]="field + ' resize-none'" placeholder="Cuéntanos en qué podemos ayudarte"></textarea>
+            </div>
+
+            <!-- Honeypot: campo trampa para bots, invisible para personas -->
+            <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+              <label for="website">No rellenes este campo</label>
+              <input id="website" type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div>
+              <label class="flex items-start gap-3 text-sm text-slate-400">
+                <input type="checkbox" formControlName="privacy" class="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 accent-emerald-400" />
+                <span>
+                  He leído y acepto la
+                  <a routerLink="/privacy" target="_blank" class="text-accent-300 underline-offset-2 hover:underline">política de privacidad</a>.
+                  Usaremos tus datos solo para responderte.
+                </span>
+              </label>
+              @if (form.controls.privacy.touched && form.controls.privacy.invalid) {
+                <p class="mt-1.5 text-sm text-rose-400">Necesitamos tu consentimiento para poder responderte.</p>
               }
             </div>
 
-            <div>
-              <label for="email" class="block font-mono text-xs uppercase tracking-[0.14em] text-slate-400">Email</label>
-              <input id="email" type="email" formControlName="email" class="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder-slate-600 outline-none transition focus:border-accent-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-accent-400/20" placeholder="tu@empresa.com" />
-              @if (form.controls.email.touched && form.controls.email.invalid) {
-                <p class="mt-1.5 text-sm text-rose-400">Introduce un email válido.</p>
-              }
-            </div>
+            @if (errorMsg(); as msg) {
+              <p class="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-2.5 text-sm text-rose-300">{{ msg }}</p>
+            }
 
-            <div>
-              <label for="company" class="block font-mono text-xs uppercase tracking-[0.14em] text-slate-400">Empresa <span class="normal-case tracking-normal text-slate-600">(opcional)</span></label>
-              <input id="company" type="text" formControlName="company" class="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder-slate-600 outline-none transition focus:border-accent-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-accent-400/20" placeholder="Nombre de tu empresa" />
-            </div>
-
-            <div>
-              <label for="message" class="block font-mono text-xs uppercase tracking-[0.14em] text-slate-400">Mensaje</label>
-              <textarea id="message" rows="4" formControlName="message" class="mt-2 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-white placeholder-slate-600 outline-none transition focus:border-accent-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-accent-400/20" placeholder="Cuéntanos en qué podemos ayudarte"></textarea>
-              @if (form.controls.message.touched && form.controls.message.invalid) {
-                <p class="mt-1.5 text-sm text-rose-400">Escribe un mensaje de al menos 10 caracteres.</p>
-              }
-            </div>
-
-            <button type="submit" class="btn-primary w-full">Enviar mensaje</button>
+            <button type="submit" [disabled]="sending()" class="btn-primary w-full disabled:opacity-60">
+              {{ sending() ? 'Enviando…' : 'Enviar mensaje' }}
+            </button>
           </form>
         }
       </div>

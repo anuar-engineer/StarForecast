@@ -98,6 +98,26 @@
         </div>
       </div>
     }
+
+    <!-- Anterior / siguiente -->
+    @if (adjacent(); as adj) {
+      <nav aria-label="Más artículos" class="mt-10 grid gap-4 border-t border-white/5 pt-8 sm:grid-cols-2">
+        @if (adj.older; as o) {
+          <a [routerLink]="['/blog', o.slug]" rel="prev" class="group">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">← Anterior</span>
+            <span class="mt-1 block font-display font-bold text-white transition group-hover:text-accent-300">{{ o.title }}</span>
+          </a>
+        } @else {
+          <span></span>
+        }
+        @if (adj.newer; as n) {
+          <a [routerLink]="['/blog', n.slug]" rel="next" class="group sm:text-right">
+            <span class="font-mono text-xs uppercase tracking-[0.18em] text-slate-500">Siguiente →</span>
+            <span class="mt-1 block font-display font-bold text-white transition group-hover:text-accent-300">{{ n.title }}</span>
+          </a>
+        }
+      </nav>
+    }
   </article>
 } @else {
   <div class="mx-auto max-w-2xl px-4 py-32 text-center">

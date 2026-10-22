@@ -7,6 +7,10 @@ import { NavigationStart, Router } from '@angular/router';
 export const SITE_URL = 'https://star4cast.es';
 export const SITE_NAME = 'Star4cast';
 const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+/** Logo cuadrado para los datos estructurados (Google pide >= 112x112). */
+export const SITE_LOGO = `${SITE_URL}/icon-512.png`;
+/** Longitud a partir de la cual Google trunca el título en los resultados. */
+const MAX_TITLE_LENGTH = 60;
 const DEFAULT_DESCRIPTION =
   'Star4cast predice el stock futuro de cada producto a partir de tu histórico de inventario. Evita roturas, reduce el exceso y compra justo lo necesario.';
 
@@ -22,6 +26,8 @@ export interface SeoData {
   readonly publishedTime?: string;
   readonly modifiedTime?: string;
   readonly author?: string;
+  /** Excluye la página del índice (p. ej. un artículo inexistente). */
+  readonly noindex?: boolean;
 }
 
 /**
@@ -52,13 +58,16 @@ export class SeoService {
     const url = SITE_URL + (data.path ?? '');
     const image = data.image ?? DEFAULT_IMAGE;
     const type = data.type ?? 'website';
-    const fullTitle = data.title.includes(SITE_NAME)
-      ? data.title
-      : `${data.title} · ${SITE_NAME}`;
+    // El sufijo de marca solo se añade si cabe: en títulos largos (artículos del
+    // blog) restaría espacio a las palabras clave en el resultado de búsqueda.
+    const branded = `${data.title} · ${SITE_NAME}`;
+    const fullTitle =
+      data.title.includes(SITE_NAME) || branded.length > MAX_TITLE_LENGTH ? data.title : branded;
 
     this.title.setTitle(fullTitle);
     this.name('description', description);
     this.name('keywords', data.keywords);
+    this.name('robots', data.noindex ? 'noindex, follow' : 'index, follow');
 
     // Open Graph
     this.prop('og:title', fullTitle);
@@ -66,6 +75,7 @@ export class SeoService {
     this.prop('og:type', type);
     this.prop('og:url', url);
     this.prop('og:image', image);
+    this.prop('og:image:alt', fullTitle);
     this.prop('og:site_name', SITE_NAME);
     this.prop('og:locale', 'es_ES');
 
@@ -74,6 +84,7 @@ export class SeoService {
     this.name('twitter:title', fullTitle);
     this.name('twitter:description', description);
     this.name('twitter:image', image);
+    this.name('twitter:image:alt', fullTitle);
 
     // Metadatos específicos de artículo
     if (type === 'article') {
