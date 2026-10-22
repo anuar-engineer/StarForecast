@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { SeoService } from '../../../core/services/seo.service';
+import { ogImage, SeoService } from '../../../core/services/seo.service';
 import { Reveal } from '../../../shared/directives/reveal';
 
 type Billing = 'monthly' | 'yearly';
@@ -134,8 +134,7 @@ export class Pricing {
       description:
         'Planes de Star4cast desde 29 €/mes: previsión de stock, pedidos sugeridos y multialmacén. Sin permanencia, sin coste de alta y con 14 días de prueba.',
       path: '/pricing',
-      keywords:
-        'precio software previsión de stock, precio forecasting inventario, software de reposición precio, planes Star4cast',
+      image: ogImage('pricing'),
     });
 
     this.seo.setJsonLd('faq-schema', {

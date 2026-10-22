@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 
-import { SeoService } from '../../../core/services/seo.service';
+import { ogImage, SeoService } from '../../../core/services/seo.service';
 import { environment } from '../../../../environments/environment';
 
 interface Option {
@@ -71,7 +71,7 @@ export class Contact {
       description:
         '¿Quieres probar Star4cast con tus propios datos o tienes dudas sobre la previsión de stock? Escríbenos y te respondemos en menos de 24 horas.',
       path: '/contact',
-      keywords: 'contacto Star4cast, prueba, soporte, previsión de stock',
+      image: ogImage('contact'),
     });
 
     // En el prerender no hay query params; en el navegador preselecciona el

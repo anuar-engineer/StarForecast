@@ -19,8 +19,6 @@ export class Home {
       description:
         'Predice la demanda de cada producto, evita roturas de stock y recibe pedidos de compra sugeridos por proveedor. Sin permanencia, desde 29 €/mes.',
       path: '/',
-      keywords:
-        'software de previsión de stock, previsión de demanda, predicción de stock, software de reposición, evitar roturas de stock, pedidos de compra sugeridos, forecasting de inventario pymes',
     });
 
     this.seo.setJsonLd('home-schema', [

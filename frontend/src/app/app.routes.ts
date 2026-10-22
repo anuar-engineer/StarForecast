@@ -3,6 +3,18 @@ import { Routes } from '@angular/router';
 import { PublicLayout } from './layout/public-layout/public-layout';
 import { adminGuard, authGuard, customerGuard, guestGuard, ownerGuard } from './core/auth/auth.guard';
 
+/**
+ * Landings comerciales (contenido en `landing-data.ts`). Se listan aquí y no se
+ * derivan de los datos para no meter todo su texto en el bundle inicial; un
+ * test comprueba que ambas listas coinciden.
+ */
+export const LANDING_SLUGS = [
+  'software-de-prevision-de-demanda',
+  'software-de-reposicion-de-stock',
+  'alternativa-a-excel-para-prevision-de-demanda',
+  'prevision-de-stock-para-ecommerce',
+] as const;
+
 export const routes: Routes = [
   // -------- Acceso / app interna (autenticada) --------
   {
@@ -97,6 +109,11 @@ export const routes: Routes = [
         path: 'contact',
         loadComponent: () => import('./features/marketing/contact/contact').then((m) => m.Contact),
       },
+      ...LANDING_SLUGS.map((slug) => ({
+        path: slug,
+        data: { slug },
+        loadComponent: () => import('./features/marketing/landing/landing').then((m) => m.Landing),
+      })),
       {
         path: 'privacy',
         data: { doc: 'privacy' },

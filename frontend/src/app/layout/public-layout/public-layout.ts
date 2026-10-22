@@ -33,6 +33,15 @@ export class PublicLayout {
       ],
     },
     {
+      title: 'Soluciones',
+      links: [
+        { label: 'Previsión de demanda', path: '/software-de-prevision-de-demanda' },
+        { label: 'Reposición de stock', path: '/software-de-reposicion-de-stock' },
+        { label: 'Alternativa a Excel', path: '/alternativa-a-excel-para-prevision-de-demanda' },
+        { label: 'Ecommerce', path: '/prevision-de-stock-para-ecommerce' },
+      ],
+    },
+    {
       title: 'Recursos',
       links: [
         { label: 'Blog', path: '/blog' },

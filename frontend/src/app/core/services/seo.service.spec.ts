@@ -42,7 +42,7 @@ describe('SeoService', () => {
     seo.update({ title: 'No encontrado', noindex: true });
     expect(doc.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex, follow');
     seo.update({ title: 'Precios' });
-    expect(doc.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('index, follow');
+    expect(doc.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('index, follow, max-image-preview:large');
   });
 
   it('construye la URL canónica a partir del path', () => {

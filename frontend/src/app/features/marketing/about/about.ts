@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { SeoService } from '../../../core/services/seo.service';
+import { ogImage, SeoService } from '../../../core/services/seo.service';
 import { Reveal } from '../../../shared/directives/reveal';
 
 @Component({
@@ -44,7 +44,7 @@ export class About {
       description:
         'Star4cast nace para que cualquier negocio pueda predecir su stock con la misma precisión que las grandes cadenas. Conoce nuestra misión y valores.',
       path: '/about',
-      keywords: 'sobre Star4cast, quiénes somos, misión, predicción de inventario',
+      image: ogImage('about'),
     });
   }
 }

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { SeoService, SITE_NAME, SITE_URL } from '../../../../core/services/seo.service';
+import { ogImage, SeoService, SITE_NAME, SITE_URL } from '../../../../core/services/seo.service';
 import { Reveal } from '../../../../shared/directives/reveal';
 import { publishedPosts, blogCategories } from '../blog-data';
 
@@ -54,7 +54,7 @@ export class BlogList {
       description:
         'Guías prácticas sobre previsión de demanda, stock de seguridad, punto de pedido y gestión de inventario para comprar mejor y evitar roturas de stock.',
       path: '/blog',
-      keywords: 'gestión de inventario, previsión de demanda, stock de seguridad, punto de pedido, rotura de stock',
+      image: ogImage('blog'),
     });
 
     this.seo.setJsonLd('blog-schema', {
@@ -71,6 +71,7 @@ export class BlogList {
         datePublished: p.date,
         author: { '@type': 'Organization', name: p.author, url: SITE_URL },
         url: `${SITE_URL}/blog/${p.slug}`,
+        image: ogImage(`blog/${p.slug}`),
       })),
     });
   }

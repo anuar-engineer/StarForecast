@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { SeoService } from '../../../core/services/seo.service';
+import { ogImage, SeoService } from '../../../core/services/seo.service';
 import { Reveal } from '../../../shared/directives/reveal';
 
 type Visual = 'forecast' | 'orders' | 'explain' | 'alerts' | 'warehouses' | 'integrations';
@@ -30,8 +30,7 @@ export class FeaturesPage {
       description:
         'Previsión por producto, alertas de rotura, pedidos de compra según el plazo de cada proveedor, multialmacén e importación de tu inventario desde CSV o Excel.',
       path: '/features',
-      keywords:
-        'previsión de stock, pedidos de compra sugeridos, plazo de entrega proveedor, multialmacén, importar inventario csv, previsión de demanda shopify, previsión de demanda prestashop',
+      image: ogImage('features'),
     });
   }
 

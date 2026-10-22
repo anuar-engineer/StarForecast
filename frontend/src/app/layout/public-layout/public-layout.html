@@ -78,7 +78,7 @@
   <!-- ===================== Footer ===================== -->
   <footer class="relative overflow-hidden border-t border-white/5 bg-night-900">
     <div class="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 gap-10 md:grid-cols-6">
+      <div class="grid grid-cols-2 gap-10 md:grid-cols-4 lg:grid-cols-7">
         <div class="col-span-2">
           <a routerLink="/" class="flex items-center gap-2.5">
             <span class="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-accent-400 to-cyan-400 text-night-950">
@@ -90,10 +90,6 @@
           </a>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-500">
             Predicción de stock basada en tu histórico de inventario para que nunca te quedes sin producto ni sobre-acumules existencias.
-          </p>
-          <p class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 font-mono text-xs text-slate-400">
-            <span class="dot-live h-1.5 w-1.5 rounded-full bg-accent-400"></span>
-            Todos los sistemas operativos
           </p>
         </div>
 
@@ -112,7 +108,10 @@
       </div>
 
       <div class="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 sm:flex-row">
-        <p class="text-sm text-slate-600">© {{ year }} Star4cast. Todos los derechos reservados.</p>
+        <p class="text-sm text-slate-600">
+          © {{ year }} Star4cast · Un producto de
+          <a href="https://zaraltech.com" target="_blank" rel="noopener" class="text-slate-400 transition hover:text-accent-300">ZaralTech</a>
+        </p>
         <div class="flex gap-5 text-sm text-slate-600">
           <a routerLink="/privacy" class="transition hover:text-slate-300">Privacidad</a>
           <a routerLink="/terms" class="transition hover:text-slate-300">Términos</a>

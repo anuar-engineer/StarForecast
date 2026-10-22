@@ -27,9 +27,9 @@ star4cast/
 │   │   ├── core/services/    # SeoService (meta, Open Graph, JSON-LD)
 │   │   ├── shared/directives/# Reveal (animación on-scroll, progressive enhancement)
 │   │   ├── layout/           # PublicLayout: navbar + footer
-│   │   └── features/marketing/  # home, features, pricing, about, blog, contact, legal
-│   ├── public/               # favicon, og-image, robots.txt, sitemap.xml (generado)
-│   ├── scripts/              # generate-sitemap.mjs (prebuild: sitemap desde BLOG_POSTS)
+│   │   └── features/marketing/  # home, features, pricing, about, blog, landing, contact, legal
+│   ├── public/               # favicon, robots.txt, clave IndexNow; sitemap.xml y og/ (generados)
+│   ├── scripts/              # prebuild: generate-sitemap.mjs y generate-og-images.mjs
 │   ├── Dockerfile            # Build de producción (multi-stage -> nginx)
 │   ├── Dockerfile.dev        # Imagen de desarrollo (ng serve)
 │   ├── nginx.conf            # SPA fallback + proxy /api -> backend
@@ -79,14 +79,51 @@ npm start                     # http://localhost:4200
   (`outputMode: static`), con una página por artículo de blog. `SeoService`
   centraliza título, meta description, canónica, Open Graph, Twitter Cards y
   datos estructurados JSON-LD.
-- **Estilos:** Tailwind CSS v4 (`src/tailwind.css`), con paleta de marca
-  índigo → esmeralda. `src/styles.scss` solo aporta las animaciones sutiles
+- **Estilos:** Tailwind CSS v4 (`src/tailwind.css`), con fondo noche y acento
+  esmeralda. `src/styles.scss` solo aporta las animaciones sutiles
   (reveal on-scroll y View Transitions), respetando `prefers-reduced-motion`.
 - **Estado:** signals + `computed`; componentes `OnPush` y standalone.
 - **Sitemap:** `public/sitemap.xml` se genera automáticamente antes de cada
   build (`prebuild`, `frontend/scripts/generate-sitemap.mjs`) a partir de los
-  artículos en `frontend/src/app/features/marketing/blog/blog-data.ts`. Solo
-  incluye los posts ya publicados (ver más abajo).
+  artículos (`blog-data.ts`) y las landings (`landing-data.ts`). Solo incluye
+  los posts ya publicados (ver más abajo) y declara la portada de cada uno.
+- **Imágenes:** `frontend/scripts/generate-og-images.mjs` (satori + resvg +
+  sharp) genera en `public/og/` la imagen para compartir (`.jpg`, con título) y
+  la portada (`-cover.webp` / `-thumb.webp`) de cada artículo, landing y página
+  principal, con el diseño del sitio. Corre en `prebuild` y `prestart`, cachea
+  por contenido y no se versiona (`.gitignore`).
+
+## SEO
+
+- **Landings comerciales:** una página por búsqueda con intención de compra
+  (`/software-de-prevision-de-demanda`, `/software-de-reposicion-de-stock`,
+  `/alternativa-a-excel-para-prevision-de-demanda`,
+  `/prevision-de-stock-para-ecommerce`). El contenido vive en
+  `features/marketing/landing/landing-data.ts`; para añadir una, añade el objeto
+  y su slug a `LANDING_SLUGS` en `app.routes.ts` (un test comprueba que
+  coinciden) y, si procede, al footer.
+- **Títulos:** ≤ 60 caracteres; `SeoService` solo añade "· Star4cast" si cabe.
+  Las rutas públicas no llevan `title` en el router: lo fija cada página.
+- **Descriptions:** ≤ 160 caracteres (lo comprueba `marketing-links.spec.ts`).
+- **Enlazado interno:** cada artículo enlaza a una página de producto y a otros
+  artículos, y todos se encadenan con anterior/siguiente (la paginación de
+  `/blog` es solo de cliente). Los tests fallan si un enlace apunta a una ruta,
+  artículo o ancla que no existe.
+- **404 reales:** nginx responde 404 a cualquier URL sin HTML prerenderizado.
+
+### Puesta en marcha en buscadores (una vez, al publicar el dominio)
+
+1. **Google Search Console** → Añadir propiedad → *Dominio* `star4cast.es` →
+   crear el registro TXT que indica en el DNS del dominio y verificar.
+2. Search Console → *Sitemaps* → enviar `https://star4cast.es/sitemap.xml`.
+3. *Inspección de URLs* → solicitar indexación de `/`, `/features`, `/pricing`
+   y las 4 landings (el resto lo descubre por el sitemap y los enlaces).
+4. **Bing Webmaster Tools** → *Importar desde Google Search Console* (un clic).
+   Bing ya recibe los artículos nuevos por IndexNow desde `publish-weekly.sh`.
+5. Comprobar en el [Rich Results Test](https://search.google.com/test/rich-results)
+   una landing (FAQ) y un artículo (Article + Breadcrumb).
+6. Revisar a las 2-4 semanas: *Páginas* (indexadas vs. excluidas) y
+   *Rendimiento* (consultas por las que ya aparece cada landing).
 - **Comunicación con la API (futura):** el front llamará a rutas relativas
   `/api/*`. En desarrollo las redirige el proxy del dev-server; en producción,
   nginx. Así la misma build sirve para cualquier entorno.
@@ -122,9 +159,16 @@ reconstruir el frontend: el `date` de cada post hace de interruptor.
 ### Añadir un post nuevo
 
 1. Añade un objeto a `BLOG_POSTS` en `blog-data.ts` (copia uno existente como
-   plantilla). Campos clave: `slug` (único, va en la URL), `title`, `excerpt`,
-   `description` (meta SEO, ~150-160 caracteres), `keywords`, `category`, `tags`,
-   `date` y `body` (bloques `p`, `h2`, `ul`, `ol`, `quote`).
+   plantilla). Campos clave: `slug` (único, va en la URL), `title`, `seoTitle`
+   (solo si `title` pasa de 60 caracteres), `excerpt`, `description` (meta SEO,
+   ≤ 160 caracteres), `keywords`, `category`, `tags`, `date` y `body` (bloques
+   `p`, `h2`, `ul`, `ol`, `quote`).
+   - Enlaces internos en el texto: `[texto](/ruta#ancla)`. Un enlace a un
+     artículo aún no publicado se muestra como texto hasta su fecha.
+   - Incluye al menos un enlace a producto (landing o `/features#…`) y uno o
+     dos a artículos relacionados. Antes de escribir sobre un tema, comprueba
+     que no hay ya un artículo que apunte a la misma palabra clave.
+   - La portada y la imagen para compartir se generan solas en el build.
 2. Pon la `date` en el futuro para programarlo, o en hoy/pasado para publicarlo ya.
 3. El orden dentro del array es indiferente: se ordena por fecha automáticamente.
 
@@ -150,11 +194,13 @@ Qué hace el script por dentro:
 
 1. *(Opcional)* `git pull --ff-only` para traer cambios del repo. Está
    **comentado** por defecto; descoméntalo si despliegas vía `git pull`.
-2. `docker compose build frontend` → ejecuta `prebuild` (sitemap) + `ng build`
-   (prerender) con la fecha de hoy.
+2. `docker compose build frontend` → ejecuta `prebuild` (sitemap e imágenes) +
+   `ng build` (prerender) con la fecha de hoy.
 3. `docker compose up -d frontend` → recrea el contenedor del frontend sin tocar
    `backend` ni `db`.
 4. `docker image prune -f` → limpia imágenes huérfanas para no acumular capas.
+5. Avisa por IndexNow (Bing, Yandex…) de los artículos publicados en los
+   últimos 7 días. Si falla, no interrumpe el despliegue.
 
 > Nota: el contexto de build de Docker del frontend es `./frontend`, por eso el
 > generador de sitemap vive en `frontend/scripts/` (y no en `scripts/`): así

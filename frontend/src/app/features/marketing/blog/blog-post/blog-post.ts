@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, effect, inject, input } f
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
-import { SeoService, SITE_LOGO, SITE_NAME, SITE_URL } from '../../../../core/services/seo.service';
+import { ogImage, SeoService, SITE_LOGO, SITE_NAME, SITE_URL } from '../../../../core/services/seo.service';
 import { findPost, publishedPosts } from '../blog-data';
+import { RichText } from '../rich-text';
 
 @Component({
   selector: 'app-blog-post',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, RichText],
   templateUrl: './blog-post.html',
 })
 export class BlogPost {
@@ -55,11 +56,11 @@ export class BlogPost {
 
       const path = `/blog/${p.slug}`;
       this.seo.update({
-        title: p.title,
+        title: p.seoTitle ?? p.title,
         description: p.description,
         path,
         type: 'article',
-        keywords: p.keywords,
+        image: ogImage(`blog/${p.slug}`),
         publishedTime: p.date,
         modifiedTime: p.updated ?? p.date,
         author: p.author,
@@ -81,7 +82,7 @@ export class BlogPost {
             url: SITE_URL,
             logo: { '@type': 'ImageObject', url: SITE_LOGO },
           },
-          image: `${SITE_URL}/og-image.png`,
+          image: [ogImage(`blog/${p.slug}`), `${SITE_URL}/og/blog/${p.slug}-cover.webp`],
           inLanguage: 'es',
           articleSection: p.category,
           url: SITE_URL + path,

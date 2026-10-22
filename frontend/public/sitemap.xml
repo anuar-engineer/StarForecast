@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://star4cast.es/</loc>
     <changefreq>weekly</changefreq>
@@ -31,196 +31,344 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://star4cast.es/software-de-prevision-de-demanda</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/software-de-reposicion-de-stock</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/alternativa-a-excel-para-prevision-de-demanda</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/prevision-de-stock-para-ecommerce</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://star4cast.es/blog/plan-de-aprovisionamiento-y-compras</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/plan-de-aprovisionamiento-y-compras-cover.webp</image:loc>
+      <image:title>Plan de aprovisionamiento: comprar con cabeza y no a golpe de urgencia</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/promociones-y-descuentos-en-la-prevision-de-demanda</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/promociones-y-descuentos-en-la-prevision-de-demanda-cover.webp</image:loc>
+      <image:title>Promociones y descuentos: el reto que rompe cualquier previsión</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/como-mejorar-la-precision-del-forecast</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/como-mejorar-la-precision-del-forecast-cover.webp</image:loc>
+      <image:title>Cómo mejorar la precisión de tu previsión, paso a paso</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/demanda-vs-ventas-no-son-lo-mismo</loc>
     <lastmod>2026-09-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/demanda-vs-ventas-no-son-lo-mismo-cover.webp</image:loc>
+      <image:title>Demanda y ventas no son lo mismo (y confundirlas te cuesta dinero)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/limpiar-datos-de-ventas-para-el-forecasting</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/limpiar-datos-de-ventas-para-el-forecasting-cover.webp</image:loc>
+      <image:title>Cómo limpiar tus datos de ventas antes de prever (y por qué importa tanto)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/modelos-arima-y-sarima-explicados</loc>
     <lastmod>2026-09-11</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/modelos-arima-y-sarima-explicados-cover.webp</image:loc>
+      <image:title>ARIMA y SARIMA explicados sin matemáticas (casi)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/suavizado-exponencial-y-holt-winters</loc>
     <lastmod>2026-09-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/suavizado-exponencial-y-holt-winters-cover.webp</image:loc>
+      <image:title>Suavizado exponencial y Holt-Winters: los clásicos que siguen ganando</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/inventario-muerto-y-obsolescencia</loc>
     <lastmod>2026-08-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/inventario-muerto-y-obsolescencia-cover.webp</image:loc>
+      <image:title>Inventario muerto: cómo detectar y liquidar el stock que no se mueve</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/sobrestock-exceso-de-inventario-causas-y-soluciones</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/sobrestock-exceso-de-inventario-causas-y-soluciones-cover.webp</image:loc>
+      <image:title>Sobrestock: por qué acumulas de más y cómo dejar de hacerlo</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/coste-de-almacenamiento-de-inventario</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/coste-de-almacenamiento-de-inventario-cover.webp</image:loc>
+      <image:title>El coste real de almacenar inventario (es más de lo que crees)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/dias-de-inventario-dio</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/dias-de-inventario-dio-cover.webp</image:loc>
+      <image:title>Días de inventario (DIO): cuánto tiempo tienes el dinero en el almacén</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/stock-minimo-y-stock-maximo</loc>
     <lastmod>2026-07-31</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/stock-minimo-y-stock-maximo-cover.webp</image:loc>
+      <image:title>Stock mínimo y stock máximo: las dos rayas que ordenan tu almacén</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/nivel-de-servicio-como-fijarlo</loc>
     <lastmod>2026-07-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/nivel-de-servicio-como-fijarlo-cover.webp</image:loc>
+      <image:title>Nivel de servicio: cuánta disponibilidad necesitas de verdad</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/cantidad-economica-de-pedido-eoq</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/cantidad-economica-de-pedido-eoq-cover.webp</image:loc>
+      <image:title>Cantidad económica de pedido (EOQ): cuánto comprar en cada pedido</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/rotacion-de-inventario-como-mejorarla</loc>
     <lastmod>2026-07-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/rotacion-de-inventario-como-mejorarla-cover.webp</image:loc>
+      <image:title>Rotación de inventario: qué es, cómo se calcula y cómo mejorarla</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/como-calcular-el-punto-de-pedido</loc>
     <lastmod>2026-07-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/como-calcular-el-punto-de-pedido-cover.webp</image:loc>
+      <image:title>Cómo calcular el punto de pedido (y por qué no debería ser fijo)</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/series-temporales-explicado-para-no-tecnicos</loc>
     <lastmod>2026-06-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/series-temporales-explicado-para-no-tecnicos-cover.webp</image:loc>
+      <image:title>Series temporales explicadas para quien no es técnico</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/rotura-de-stock-que-es-y-como-evitarla</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/rotura-de-stock-que-es-y-como-evitarla-cover.webp</image:loc>
+      <image:title>Rotura de stock: qué es, cuánto te cuesta y cómo evitarla</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/prevision-de-demanda-en-excel-limites</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/prevision-de-demanda-en-excel-limites-cover.webp</image:loc>
+      <image:title>Previsión de demanda en Excel: hasta dónde llega y cuándo se queda corta</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/analisis-abc-de-inventario</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/analisis-abc-de-inventario-cover.webp</image:loc>
+      <image:title>Análisis ABC de inventario: prioriza lo que de verdad importa</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/forecasting-de-demanda-guia</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/forecasting-de-demanda-guia-cover.webp</image:loc>
+      <image:title>Forecasting de demanda: guía práctica para empezar</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/predecir-stock-sin-ser-data-scientist</loc>
     <lastmod>2026-05-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/predecir-stock-sin-ser-data-scientist-cover.webp</image:loc>
+      <image:title>Cómo predecir tu stock sin ser data scientist</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/mape-mae-rmse-precision-del-forecast</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/mape-mae-rmse-precision-del-forecast-cover.webp</image:loc>
+      <image:title>MAPE, MAE y RMSE: cómo medir la precisión de tu previsión</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/calcular-stock-de-seguridad</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/calcular-stock-de-seguridad-cover.webp</image:loc>
+      <image:title>Stock de seguridad: cómo calcularlo sin pasarte ni quedarte corto</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/lead-time-plazo-de-entrega-y-stock</loc>
     <lastmod>2026-05-16</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/lead-time-plazo-de-entrega-y-stock-cover.webp</image:loc>
+      <image:title>Lead time: por qué el plazo de entrega manda en tu inventario</image:title>
+    </image:image>
   </url>
   <url>
-    <loc>https://star4cast.es/blog/estacionalidad-y-punto-de-pedido</loc>
-    <lastmod>2026-05-12</lastmod>
+    <loc>https://star4cast.es/blog/estacionalidad-de-la-demanda</loc>
+    <lastmod>2026-10-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/estacionalidad-de-la-demanda-cover.webp</image:loc>
+      <image:title>Estacionalidad de la demanda: cómo detectarla y anticiparte</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/planificar-demanda-black-friday-campanas</loc>
     <lastmod>2026-05-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/planificar-demanda-black-friday-campanas-cover.webp</image:loc>
+      <image:title>Cómo planificar la demanda para Black Friday y campañas de temporada</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/kpis-de-inventario-imprescindibles</loc>
     <lastmod>2026-05-05</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/kpis-de-inventario-imprescindibles-cover.webp</image:loc>
+      <image:title>6 KPIs de inventario que deberías estar midiendo</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/como-elegir-software-de-prevision-de-demanda</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/como-elegir-software-de-prevision-de-demanda-cover.webp</image:loc>
+      <image:title>Cómo elegir un software de previsión de demanda</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/reducir-inventario-inmovilizado</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/reducir-inventario-inmovilizado-cover.webp</image:loc>
+      <image:title>3 formas de reducir el inventario inmovilizado sin arriesgar el servicio</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/gestion-de-inventario-para-ecommerce</loc>
     <lastmod>2026-04-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/gestion-de-inventario-para-ecommerce-cover.webp</image:loc>
+      <image:title>Gestión de inventario para ecommerce: cómo no quedarte sin stock</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/blog/demanda-intermitente-metodo-croston</loc>
     <lastmod>2026-04-18</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/demanda-intermitente-metodo-croston-cover.webp</image:loc>
+      <image:title>Demanda intermitente: cómo prever productos de venta esporádica</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://star4cast.es/privacy</loc>

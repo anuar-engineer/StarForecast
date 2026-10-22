@@ -6,7 +6,9 @@ import { NavigationStart, Router } from '@angular/router';
 /** Dominio canónico del sitio. Ajusta aquí si cambia el dominio de producción. */
 export const SITE_URL = 'https://star4cast.es';
 export const SITE_NAME = 'Star4cast';
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.png`;
+/** Imágenes generadas por scripts/generate-og-images.mjs (1200x630). */
+export const ogImage = (name: string): string => `${SITE_URL}/og/${name}.jpg`;
+const DEFAULT_IMAGE = ogImage('home');
 /** Logo cuadrado para los datos estructurados (Google pide >= 112x112). */
 export const SITE_LOGO = `${SITE_URL}/icon-512.png`;
 /** Longitud a partir de la cual Google trunca el título en los resultados. */
@@ -22,7 +24,6 @@ export interface SeoData {
   readonly path?: string;
   readonly image?: string;
   readonly type?: 'website' | 'article';
-  readonly keywords?: string;
   readonly publishedTime?: string;
   readonly modifiedTime?: string;
   readonly author?: string;
@@ -66,8 +67,8 @@ export class SeoService {
 
     this.title.setTitle(fullTitle);
     this.name('description', description);
-    this.name('keywords', data.keywords);
-    this.name('robots', data.noindex ? 'noindex, follow' : 'index, follow');
+    // max-image-preview:large permite imágenes grandes en Discover y en los resultados.
+    this.name('robots', data.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large');
 
     // Open Graph
     this.prop('og:title', fullTitle);

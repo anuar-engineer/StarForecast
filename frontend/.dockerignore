@@ -9,3 +9,4 @@ Dockerfile*
 npm-debug.log*
 *.md
 .editorconfig
+public/og

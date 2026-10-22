@@ -9,6 +9,11 @@ export type ContentBlock =
 export interface BlogPostMeta {
   readonly slug: string;
   readonly title: string;
+  /**
+   * Título para buscadores (<title>), solo si `title` pasa de 60 caracteres:
+   * Google corta los títulos largos. El titular del artículo sigue siendo `title`.
+   */
+  readonly seoTitle?: string;
   /** Resumen para la tarjeta del listado. */
   readonly excerpt: string;
   /** Meta description optimizada para SEO (≈150-160 caracteres). */
@@ -28,6 +33,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
   {
     slug: 'integrar-erp-o-tpv-con-prevision-de-demanda',
     title: 'Cómo integrar tu ERP o TPV con un sistema de previsión de demanda',
+    seoTitle: 'Cómo integrar tu ERP o TPV con la previsión de demanda',
     excerpt:
       'Una buena previsión empieza por buenos datos. Te explicamos cómo conectar tu ERP o TPV con una herramienta de forecasting sin un proyecto interminable.',
     description:
@@ -43,7 +49,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Cualquier previsión de demanda es tan buena como los datos que la alimentan. Por eso, antes de elegir modelos o métricas, conviene resolver una pregunta más básica: cómo llevar el histórico de ventas que ya vive en tu ERP, tu TPV o tu plataforma de ecommerce hasta la herramienta que va a predecir.',
+        text: 'Cualquier [previsión de demanda](/blog/forecasting-de-demanda-guia) es tan buena como los datos que la alimentan. Por eso, antes de elegir modelos o métricas, conviene resolver una pregunta más básica: cómo llevar el histórico de ventas que ya vive en tu ERP, tu TPV o tu plataforma de [ecommerce](/blog/gestion-de-inventario-para-ecommerce) hasta la herramienta que va a predecir.',
       },
       {
         type: 'h2',
@@ -92,13 +98,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast está pensado para arrancar con lo que ya tienes: empieza importando un CSV de tu histórico para validar los resultados con tus propios datos y, cuando el flujo te convenza, automatiza la sincronización. Así la integración crece al ritmo de tu confianza, no al revés.',
+        text: 'Star4cast está pensado para arrancar con lo que ya tienes: empieza [importando un CSV de tu histórico](/features#integraciones) para validar los resultados con tus propios datos y, cuando el flujo te convenza, automatiza la sincronización. Así la integración crece al ritmo de tu confianza, no al revés.',
       },
     ],
   },
   {
     slug: 'prevision-colaborativa-cpfr',
     title: 'Previsión colaborativa (CPFR): planificar la demanda con tus proveedores',
+    seoTitle: 'Previsión colaborativa (CPFR): qué es y cómo empezar',
     excerpt:
       'Cuando proveedor y distribuidor comparten previsiones, las roturas y los excesos bajan a la vez. Te explicamos qué es el CPFR y cómo empezar.',
     description:
@@ -114,7 +121,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Cada eslabón de una cadena de suministro suele prever por su cuenta: el fabricante estima sus ventas, el distribuidor las suyas y el minorista las del punto de venta. El resultado son tres previsiones distintas para el mismo producto y, con ellas, decisiones que se contradicen. La previsión colaborativa, conocida como CPFR, nace para alinear esas miradas.',
+        text: 'Cada eslabón de una [cadena de suministro](/blog/efecto-latigo-bullwhip-en-la-cadena-de-suministro) suele prever por su cuenta: el fabricante estima sus ventas, el [distribuidor](/blog/prevision-de-demanda-en-distribucion-mayorista) las suyas y el minorista las del punto de venta. El resultado son tres previsiones distintas para el mismo producto y, con ellas, decisiones que se contradicen. La previsión colaborativa, conocida como CPFR, nace para alinear esas miradas.',
       },
       {
         type: 'h2',
@@ -151,13 +158,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'No hace falta un sistema corporativo para arrancar: una previsión fiable, exportable y fácil de compartir es suficiente para empezar a colaborar. Star4cast genera esa previsión por producto con su banda de confianza, de modo que puedas sentarte con tu proveedor a planificar sobre números, no sobre intuiciones.',
+        text: 'No hace falta un sistema corporativo para arrancar: una previsión fiable, exportable y fácil de compartir es suficiente para empezar a colaborar. Star4cast genera esa [previsión por producto con su banda de confianza](/software-de-prevision-de-demanda), de modo que puedas sentarte con tu proveedor a planificar sobre números, no sobre intuiciones.',
       },
     ],
   },
   {
     slug: 'sop-sales-and-operations-planning',
     title: 'S&OP: qué es la planificación de ventas y operaciones y por dónde empezar',
+    seoTitle: 'S&OP: qué es la planificación de ventas y operaciones',
     excerpt:
       'El S&OP conecta lo que ventas espera vender con lo que operaciones puede entregar. Te contamos en qué consiste y cómo dar los primeros pasos.',
     description:
@@ -206,17 +214,18 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'No necesitas un departamento de planificación para implantar un S&OP ligero. Basta con una reunión mensual corta, una previsión de demanda fiable como punto de partida común y un par de indicadores que todos acepten. Lo importante es la disciplina del ritmo, no la complejidad de las herramientas.',
+        text: 'No necesitas un departamento de planificación para implantar un S&OP ligero. Basta con una reunión mensual corta, una [previsión de demanda](/blog/forecasting-de-demanda-guia) fiable como punto de partida común y un par de [indicadores](/blog/kpis-de-inventario-imprescindibles) que todos acepten. Lo importante es la disciplina del ritmo, no la complejidad de las herramientas.',
       },
       {
         type: 'p',
-        text: 'La pieza que más fricción suele generar es la previsión de partida: si cada área llega con su propia hoja, la reunión se convierte en una discusión de cifras. Star4cast aporta esa base objetiva por producto, de modo que el S&OP se dedique a decidir y no a pelear sobre qué número es el bueno.',
+        text: 'La pieza que más fricción suele generar es la previsión de partida: si cada área llega con su propia hoja, la reunión se convierte en una discusión de cifras. Star4cast aporta esa [base objetiva por producto](/software-de-prevision-de-demanda), de modo que el S&OP se dedique a decidir y no a pelear sobre qué número es el bueno.',
       },
     ],
   },
   {
     slug: 'just-in-time-vs-stock-de-seguridad',
     title: 'Just in Time vs. stock de seguridad: cuándo conviene cada enfoque',
+    seoTitle: 'Just in Time vs. stock de seguridad: cuándo usar cada uno',
     excerpt:
       'Reducir inventario al mínimo es tentador, pero no siempre sale a cuenta. Comparamos el Just in Time con el stock de seguridad y cuándo usar cada uno.',
     description:
@@ -240,7 +249,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El JIT minimiza el inventario sincronizando la llegada de materiales con su uso o venta. Cuando funciona, libera caja, reduce costes de almacenamiento y elimina obsolescencia. Pero exige proveedores muy fiables, plazos de entrega cortos y predecibles, y una demanda relativamente estable.',
+        text: 'El JIT minimiza el inventario sincronizando la llegada de materiales con su uso o venta. Cuando funciona, libera caja, reduce [costes de almacenamiento](/blog/coste-de-almacenamiento-de-inventario) y elimina obsolescencia. Pero exige proveedores muy fiables, [plazos de entrega](/blog/lead-time-plazo-de-entrega-y-stock) cortos y predecibles, y una demanda relativamente estable.',
       },
       {
         type: 'h2',
@@ -268,13 +277,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La clave para acertar es conocer la incertidumbre de cada producto: cuanto más predecible es su demanda y su suministro, más te puedes acercar al JIT sin riesgo. Star4cast mide esa incertidumbre referencia a referencia, para que dimensiones el colchón justo donde hace falta y aprietes donde puedes permitírtelo.',
+        text: 'La clave para acertar es conocer la incertidumbre de cada producto: cuanto más predecible es su demanda y su suministro, más te puedes acercar al JIT sin riesgo. Star4cast [mide esa incertidumbre referencia a referencia](/features#explicacion), para que dimensiones el colchón justo donde hace falta y aprietes donde puedes permitírtelo.',
       },
     ],
   },
   {
     slug: 'inventario-de-productos-perecederos',
     title: 'Gestión de inventario de productos perecederos: vender antes de que caduque',
+    seoTitle: 'Gestión de inventario de productos perecederos',
     excerpt:
       'Con fecha de caducidad, el exceso no solo inmoviliza capital: lo destruye. Te contamos cómo prever y reponer productos perecederos sin tirar mercancía.',
     description:
@@ -290,7 +300,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'En la mayoría de los negocios, el exceso de stock es capital dormido que tarde o temprano se vende. En los productos perecederos no: lo que sobra acaba en la basura. Alimentación, cosmética, farmacia o flores comparten la misma tensión diaria entre quedarse corto y tirar mercancía.',
+        text: 'En la mayoría de los negocios, el [exceso de stock](/blog/sobrestock-exceso-de-inventario-causas-y-soluciones) es capital dormido que tarde o temprano se vende. En los productos perecederos no: lo que sobra acaba en la basura. Alimentación, cosmética, farmacia o flores comparten la misma tensión diaria entre quedarse corto y tirar mercancía.',
       },
       {
         type: 'h2',
@@ -298,7 +308,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'En el inventario perecedero el error de previsión tiene un coste doble y asimétrico. Pasarte provoca mermas, una pérdida directa que ningún descuento posterior recupera del todo. Quedarte corto provoca roturas, con la venta perdida de siempre. Y el margen de maniobra es estrecho: no puedes acumular para la semana que viene.',
+        text: 'En el inventario perecedero el [error de previsión](/blog/como-mejorar-la-precision-del-forecast) tiene un coste doble y asimétrico. Pasarte provoca mermas, una pérdida directa que ningún descuento posterior recupera del todo. Quedarte corto provoca roturas, con la venta perdida de siempre. Y el margen de maniobra es estrecho: no puedes acumular para la semana que viene.',
       },
       {
         type: 'quote',
@@ -327,17 +337,18 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast proyecta la demanda de cada referencia día a día y la entrega con su margen de error, justo lo que un negocio de perecederos necesita para pedir con precisión y reducir lo que termina en el contenedor.',
+        text: 'Star4cast [proyecta la demanda de cada referencia día a día](/software-de-prevision-de-demanda) y la entrega con su margen de error, justo lo que un negocio de perecederos necesita para pedir con precisión y reducir lo que termina en el contenedor.',
       },
     ],
   },
   {
     slug: 'prevision-de-demanda-en-distribucion-mayorista',
     title: 'Previsión de demanda en distribución mayorista: pedidos grandes, márgenes finos',
+    seoTitle: 'Previsión de demanda en distribución mayorista',
     excerpt:
       'En el mayorista, un error de previsión se multiplica por el volumen. Te explicamos cómo prever la demanda cuando vendes a otros negocios, no al consumidor final.',
     description:
-      'Claves de la previsión de demanda en distribución mayorista: pedidos voluminosos, demanda B2B irregular, efecto látigo y cómo ajustar el stock con márgenes ajustados.',
+      'Previsión de demanda en distribución mayorista: pedidos voluminosos, demanda B2B irregular, efecto látigo y cómo ajustar el stock con márgenes finos.',
     keywords:
       'previsión de demanda distribución, mayorista, demanda B2B, distribución, gestión de inventario mayorista',
     category: 'Estrategia',
@@ -349,7 +360,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'El distribuidor mayorista vive en un punto delicado de la cadena: compra grande para vender grande, con márgenes ajustados y clientes que son negocios, no consumidores. En ese contexto, un error de previsión no se mide en unidades sueltas, sino en palés enteros que faltan o que sobran.',
+        text: 'El distribuidor mayorista vive en un punto delicado de la cadena: compra grande para vender grande, con márgenes ajustados y clientes que son negocios, no consumidores. En ese contexto, un [error de previsión](/blog/como-mejorar-la-precision-del-forecast) no se mide en unidades sueltas, sino en palés enteros que faltan o que sobran.',
       },
       {
         type: 'h2',
@@ -382,11 +393,11 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La clave es trabajar a nivel de referencia y, cuando tenga sentido, también por cliente importante. Separar la demanda regular de la puntual evita que un pedido excepcional infle la previsión futura. Y mantener actualizado el plazo de entrega de cada proveedor permite ajustar el punto de pedido al volumen real que manejas.',
+        text: 'La clave es trabajar a nivel de referencia y, cuando tenga sentido, también por cliente importante. Separar la demanda regular de la puntual evita que un pedido excepcional infle la previsión futura. Y mantener actualizado el plazo de entrega de cada proveedor permite ajustar el [punto de pedido](/blog/como-calcular-el-punto-de-pedido) al volumen real que manejas.',
       },
       {
         type: 'p',
-        text: 'Star4cast genera una previsión por referencia con su banda de confianza, de forma que el distribuidor pueda dimensionar pedidos grandes con criterio: ni quedarse sin servir a un cliente clave, ni llenar el almacén de stock que tardará meses en salir.',
+        text: 'Star4cast genera [una previsión por referencia con su banda de confianza](/software-de-prevision-de-demanda), de forma que el distribuidor pueda dimensionar pedidos grandes con criterio: ni quedarse sin servir a un cliente clave, ni llenar el almacén de stock que tardará meses en salir.',
       },
     ],
   },
@@ -428,7 +439,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
           'Estacionalidad propia de cada tienda y de cada categoría de producto.',
           'Festivos locales y eventos de la zona que disparan o hunden las ventas.',
           'Espacio limitado en el lineal: no todo cabe, hay que priorizar.',
-          'Roturas pasadas que esconden la demanda real de un punto de venta.',
+          'Roturas pasadas que esconden la [demanda real](/blog/demanda-vs-ventas-no-son-lo-mismo) de un punto de venta.',
         ],
       },
       {
@@ -441,17 +452,18 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Una vez tienes la demanda esperada por tienda y referencia, la reposición casi se escribe sola: sabes cuánto enviar a cada punto y cuándo, ajustando al espacio disponible y al plazo de reposición. El objetivo es que el cliente encuentre el producto en su tienda habitual, sin que la cadena se llene de stock disperso.',
+        text: 'Una vez tienes la demanda esperada por tienda y referencia, la [reposición](/blog/automatizar-la-reposicion-de-stock) casi se escribe sola: sabes cuánto enviar a cada punto y cuándo, ajustando al espacio disponible y al plazo de reposición. El objetivo es que el cliente encuentre el producto en su tienda habitual, sin que la cadena se llene de stock disperso.',
       },
       {
         type: 'p',
-        text: 'Star4cast trabaja a nivel de referencia y se adapta a la granularidad que necesites, detectando la estacionalidad de cada serie para que cada tienda reciba su previsión y no la media de todas.',
+        text: 'Star4cast trabaja a nivel de referencia y se adapta a la granularidad que necesites, [detectando la estacionalidad de cada serie](/features#prevision) para que cada tienda reciba su previsión y no la media de todas.',
       },
     ],
   },
   {
     slug: 'efecto-latigo-bullwhip-en-la-cadena-de-suministro',
     title: 'El efecto látigo: por qué un pequeño cambio en ventas revienta tu almacén',
+    seoTitle: 'Efecto látigo (bullwhip): qué es y cómo reducirlo',
     excerpt:
       'Una variación mínima en la demanda del cliente final llega multiplicada a fábrica. Te explicamos el efecto látigo y cómo amortiguarlo.',
     description:
@@ -467,7 +479,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Imagina que el cliente final compra un 5 % más de un producto. El minorista, por si acaso, pide un 10 % más a su distribuidor. El distribuidor, para cubrirse, pide un 20 % más al fabricante. Y el fabricante programa producción para un 30 % más. Ese fenómeno, en el que una pequeña variación se amplifica a medida que sube por la cadena, es el efecto látigo.',
+        text: 'Imagina que el cliente final compra un 5 % más de un producto. El minorista, por si acaso, pide un 10 % más a su [distribuidor](/blog/prevision-de-demanda-en-distribucion-mayorista). El distribuidor, para cubrirse, pide un 20 % más al fabricante. Y el fabricante programa producción para un 30 % más. Ese fenómeno, en el que una pequeña variación se amplifica a medida que sube por la cadena, es el efecto látigo.',
       },
       {
         type: 'h2',
@@ -482,7 +494,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         items: [
           'Cada eslabón prevé sobre los pedidos del de abajo, no sobre la demanda real del cliente.',
           'Los pedidos en grandes lotes concentran la demanda en picos artificiales.',
-          'Las promociones y los descuentos por volumen distorsionan el patrón de compra.',
+          'Las [promociones](/blog/promociones-y-descuentos-en-la-prevision-de-demanda) y los descuentos por volumen distorsionan el patrón de compra.',
           'El miedo a la rotura lleva a inflar pedidos cuando se intuye escasez.',
         ],
       },
@@ -500,13 +512,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'En tu propio tramo, lo mejor que puedes hacer es prever sobre la demanda real y no sobre la sensación del momento. Star4cast parte de tu histórico para darte una previsión objetiva por producto, de modo que tus pedidos respondan a lo que de verdad se vende y no contribuyan al latigazo que luego te golpea a ti.',
+        text: 'En tu propio tramo, lo mejor que puedes hacer es prever sobre la demanda real y no sobre la sensación del momento. Star4cast parte de tu histórico para darte [una previsión objetiva por producto](/software-de-prevision-de-demanda), de modo que tus pedidos respondan a lo que de verdad se vende y no contribuyan al latigazo que luego te golpea a ti.',
       },
     ],
   },
   {
     slug: 'gestion-de-inventario-multialmacen',
     title: 'Gestión de inventario multialmacén: el stock correcto en el sitio correcto',
+    seoTitle: 'Gestión de inventario multialmacén: guía práctica',
     excerpt:
       'Tener stock total suficiente no sirve de nada si está en el almacén equivocado. Claves para gestionar inventario repartido en varias ubicaciones.',
     description:
@@ -522,7 +535,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Cuando creces, el inventario deja de estar en un solo sitio. Abres un segundo almacén, sumas la tienda física al ecommerce o repartes existencias por regiones. Y aparece una paradoja incómoda: puedes tener stock total de sobra y, aun así, no poder servir un pedido porque las unidades están donde no toca.',
+        text: 'Cuando creces, el inventario deja de estar en un solo sitio. Abres un segundo almacén, sumas la tienda física al [ecommerce](/blog/gestion-de-inventario-para-ecommerce) o repartes existencias por regiones. Y aparece una paradoja incómoda: puedes tener stock total de sobra y, aun así, no poder servir un pedido porque las unidades están donde no toca.',
       },
       {
         type: 'h2',
@@ -530,7 +543,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'En un escenario multialmacén, el reto deja de ser cuánto stock tienes y pasa a ser dónde lo tienes. Una rotura local con exceso en otra ubicación es lo peor de los dos mundos: pierdes la venta y, además, tienes capital inmovilizado a unos kilómetros de distancia.',
+        text: 'En un escenario multialmacén, el reto deja de ser cuánto stock tienes y pasa a ser dónde lo tienes. Una rotura local con exceso en otra ubicación es lo peor de los dos mundos: pierdes la venta y, además, tienes [capital inmovilizado](/blog/reducir-inventario-inmovilizado) a unos kilómetros de distancia.',
       },
       {
         type: 'h2',
@@ -559,7 +572,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La base para acertar es siempre la misma: una previsión por referencia y por ubicación. Star4cast genera la previsión a la granularidad que manejes, para que repartas el stock entrante con criterio y las transferencias dejen de ser una reacción de última hora.',
+        text: 'La base para acertar es siempre la misma: una previsión por referencia y por ubicación. Star4cast [genera la previsión a la granularidad que manejes](/features#multialmacen), para que repartas el stock entrante con criterio y las transferencias dejen de ser una reacción de última hora.',
       },
     ],
   },
@@ -617,17 +630,18 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Ante la incertidumbre, la prudencia suele ser pedir algo menos y reponer rápido si el producto arranca bien, siempre que el plazo de entrega lo permita. Así limitas el riesgo de quedarte con stock de un producto que no funciona. Star4cast incorpora las ventas reales en cuanto existen para que la previsión de un lanzamiento se afine semana a semana y el riesgo baje con cada dato nuevo.',
+        text: 'Ante la incertidumbre, la prudencia suele ser pedir algo menos y reponer rápido si el producto arranca bien, siempre que el [plazo de entrega](/blog/lead-time-plazo-de-entrega-y-stock) lo permita. Así limitas el riesgo de quedarte con stock de un producto que no funciona. Star4cast incorpora las ventas reales en cuanto existen para que [la previsión de un lanzamiento se afine semana a semana](/software-de-prevision-de-demanda) y el riesgo baje con cada dato nuevo.',
       },
     ],
   },
   {
     slug: 'automatizar-la-reposicion-de-stock',
     title: 'Automatizar la reposición de stock: del pedido de pánico al proceso',
+    seoTitle: 'Cómo automatizar la reposición de stock',
     excerpt:
       'Reponer a mano, referencia por referencia, no escala y se llena de errores. Te explicamos cómo automatizar la reposición sin perder el control.',
     description:
-      'Cómo automatizar la reposición de stock: punto de pedido dinámico, alertas, propuestas de pedido y reglas para reponer a tiempo sin revisar referencia a referencia.',
+      'Cómo automatizar la reposición de stock: punto de pedido dinámico, alertas y propuestas de pedido para reponer a tiempo sin revisar referencia a referencia.',
     keywords:
       'automatizar reposición de stock, reposición automática, punto de pedido, propuesta de pedido, gestión de inventario',
     category: 'Producto',
@@ -657,7 +671,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         type: 'ol',
         items: [
           'Una previsión de demanda por producto que anticipe cuándo bajará el stock.',
-          'Un punto de pedido dinámico que se ajuste a la estacionalidad y al plazo de entrega.',
+          'Un [punto de pedido](/blog/como-calcular-el-punto-de-pedido) dinámico que se ajuste a la [estacionalidad](/blog/estacionalidad-de-la-demanda) y al plazo de entrega.',
           'Alertas que avisen antes de entrar en zona de riesgo, no cuando ya es tarde.',
           'Propuestas de pedido con la cantidad sugerida, listas para revisar y confirmar.',
         ],
@@ -676,13 +690,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast proyecta el stock de cada producto día a día, calcula la fecha estimada de rotura y avisa con el margen justo según el plazo de entrega de cada proveedor, de modo que la reposición deje de ser una carrera contrarreloj y se convierta en un proceso tranquilo.',
+        text: 'Star4cast proyecta el stock de cada producto día a día, calcula la fecha estimada de rotura y [avisa con el margen justo según el plazo de entrega de cada proveedor](/software-de-reposicion-de-stock), de modo que la reposición deje de ser una carrera contrarreloj y se convierta en un proceso tranquilo.',
       },
     ],
   },
   {
     slug: 'plan-de-aprovisionamiento-y-compras',
     title: 'Plan de aprovisionamiento: comprar con cabeza y no a golpe de urgencia',
+    seoTitle: 'Plan de aprovisionamiento: qué es y cómo hacerlo',
     excerpt:
       'Comprar bien no es comprar barato: es comprar lo necesario en el momento justo. Te explicamos cómo construir un plan de aprovisionamiento con datos.',
     description:
@@ -706,7 +721,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El plan de aprovisionamiento traduce la demanda esperada en un calendario de compras. Su objetivo es asegurar la disponibilidad de cada referencia minimizando el inventario inmovilizado, anticipando los pedidos con la antelación que exige cada proveedor y aprovechando las condiciones de compra cuando convienen.',
+        text: 'El plan de aprovisionamiento traduce la demanda esperada en un calendario de compras. Su objetivo es asegurar la disponibilidad de cada referencia minimizando el [inventario inmovilizado](/blog/reducir-inventario-inmovilizado), anticipando los pedidos con la antelación que exige cada proveedor y aprovechando las condiciones de compra cuando convienen.',
       },
       {
         type: 'h2',
@@ -715,7 +730,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       {
         type: 'ol',
         items: [
-          'Parte de una previsión de demanda por producto para el horizonte que cubra tus plazos.',
+          'Parte de una [previsión de demanda](/blog/forecasting-de-demanda-guia) por producto para el horizonte que cubra tus plazos.',
           'Resta el stock disponible y el que ya tienes pedido para conocer la necesidad neta.',
           'Aplica el plazo de entrega de cada proveedor para fijar cuándo lanzar cada pedido.',
           'Agrupa por proveedor y ajusta a los lotes o mínimos de compra cuando los haya.',
@@ -735,13 +750,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast aporta la base del plan: una previsión por producto con su incertidumbre y la fecha estimada de rotura según el plazo de cada proveedor. A partir de ahí, el plan de aprovisionamiento deja de ser una lista improvisada y pasa a ser una herramienta de gestión.',
+        text: 'Star4cast aporta la base del plan: una previsión por producto con su incertidumbre y [la fecha estimada de rotura según el plazo de cada proveedor](/software-de-reposicion-de-stock). A partir de ahí, el plan de aprovisionamiento deja de ser una lista improvisada y pasa a ser una herramienta de gestión.',
       },
     ],
   },
   {
     slug: 'promociones-y-descuentos-en-la-prevision-de-demanda',
     title: 'Promociones y descuentos: el reto que rompe cualquier previsión',
+    seoTitle: 'Promociones y descuentos en la previsión de demanda',
     excerpt:
       'Una promoción dispara las ventas y, con ellas, distorsiona el histórico. Te contamos cómo prever la demanda cuando hay descuentos de por medio.',
     description:
@@ -790,7 +806,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast trabaja sobre tu histórico real y permite tener en cuenta estos eventos para que las promociones pasadas no inflen las previsiones futuras. Así el descuento sigue siendo una palanca de ventas y deja de ser una trampa para la planificación.',
+        text: 'Star4cast [trabaja sobre tu histórico real](/software-de-prevision-de-demanda) y permite tener en cuenta estos eventos para que las promociones pasadas no inflen las previsiones futuras. Así el descuento sigue siendo una palanca de ventas y deja de ser una trampa para la planificación.',
       },
     ],
   },
@@ -812,7 +828,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'La precisión del forecast no es un capricho de analistas: cada punto que ganas se traduce en menos roturas, menos stock de seguridad o ambas cosas a la vez. La buena noticia es que mejorarla no suele depender de un modelo mágico, sino de una serie de pasos poco glamurosos pero muy rentables.',
+        text: 'La precisión del forecast no es un capricho de analistas: cada punto que ganas se traduce en menos roturas, menos [stock de seguridad](/blog/calcular-stock-de-seguridad) o ambas cosas a la vez. La buena noticia es que mejorarla no suele depender de un modelo mágico, sino de una serie de pasos poco glamurosos pero muy rentables.',
       },
       {
         type: 'h2',
@@ -820,7 +836,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La mayor parte de las ganancias de precisión vienen de limpiar la entrada: corregir periodos de rotura que esconden la demanda real, eliminar duplicados, tratar devoluciones y depurar valores atípicos. Un modelo sencillo con datos limpios casi siempre supera a un modelo sofisticado con datos sucios.',
+        text: 'La mayor parte de las ganancias de precisión vienen de limpiar la entrada: corregir periodos de rotura que esconden la demanda real, eliminar duplicados, tratar devoluciones y depurar [valores atípicos](/blog/limpiar-datos-de-ventas-para-el-forecasting). Un modelo sencillo con datos limpios casi siempre supera a un modelo sofisticado con datos sucios.',
       },
       {
         type: 'h2',
@@ -856,13 +872,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La precisión no se gana una vez, se mantiene. Revisar periódicamente qué referencias fallan más y por qué crea un ciclo de mejora continua. Star4cast automatiza buena parte de este recorrido: prueba varios modelos por producto, elige el que minimiza el error frente a una referencia y mide su precisión de forma continua, para que tú te centres en decidir.',
+        text: 'La precisión no se gana una vez, se mantiene. Revisar periódicamente qué referencias fallan más y por qué crea un ciclo de mejora continua. Star4cast automatiza buena parte de este recorrido: [prueba varios modelos por producto](/software-de-prevision-de-demanda), elige el que minimiza el error frente a una referencia y mide su precisión de forma continua, para que tú te centres en decidir.',
       },
     ],
   },
   {
     slug: 'demanda-vs-ventas-no-son-lo-mismo',
     title: 'Demanda y ventas no son lo mismo (y confundirlas te cuesta dinero)',
+    seoTitle: 'Demanda vs. ventas: por qué no son lo mismo',
     excerpt:
       'Tus ventas solo registran lo que pudiste servir, no lo que el cliente quería. Te explicamos por qué prever sobre ventas en rotura subestima la demanda.',
     description:
@@ -907,20 +924,21 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       {
         type: 'ul',
         items: [
-          'Marca en tu histórico los periodos en los que hubo rotura de stock.',
+          'Marca en tu histórico los periodos en los que hubo [rotura de stock](/blog/rotura-de-stock-que-es-y-como-evitarla).',
           'Estima qué se habría vendido esos días a partir de los periodos con disponibilidad.',
           'Usa esa demanda reconstruida, y no las ventas censuradas, para entrenar la previsión.',
         ],
       },
       {
         type: 'p',
-        text: 'Distinguir demanda de ventas es uno de esos detalles que separan una previsión que mejora de una que perpetúa los errores. Star4cast tiene en cuenta los periodos de rotura para no infravalorar la demanda real, de modo que tus decisiones de compra partan de lo que el cliente quería, no solo de lo que pudiste cobrar.',
+        text: 'Distinguir demanda de ventas es uno de esos detalles que separan una previsión que mejora de una que perpetúa los errores. Star4cast [tiene en cuenta los periodos de rotura](/software-de-prevision-de-demanda) para no infravalorar la demanda real, de modo que tus decisiones de compra partan de lo que el cliente quería, no solo de lo que pudiste cobrar.',
       },
     ],
   },
   {
     slug: 'limpiar-datos-de-ventas-para-el-forecasting',
     title: 'Cómo limpiar tus datos de ventas antes de prever (y por qué importa tanto)',
+    seoTitle: 'Cómo limpiar los datos de ventas antes de prever',
     excerpt:
       'Una previsión nace de los datos que le das. Te explicamos cómo limpiar tu histórico de ventas para que el forecast no herede tus errores.',
     description:
@@ -962,7 +980,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Limpiar datos no consiste en borrar lo que no nos gusta, sino en reflejar mejor la realidad. Un pico por una promoción es información valiosa si lo marcas como tal; el problema es dejarlo sin contexto para que el modelo lo trate como demanda normal. La meta es que la serie represente la demanda real del producto.',
+        text: 'Limpiar datos no consiste en borrar lo que no nos gusta, sino en reflejar mejor la realidad. Un pico por una promoción es información valiosa si lo marcas como tal; el problema es dejarlo sin contexto para que el modelo lo trate como demanda normal. La meta es que la serie represente la [demanda real](/blog/demanda-vs-ventas-no-son-lo-mismo) del producto.',
       },
       {
         type: 'quote',
@@ -974,11 +992,11 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Tampoco hay que pasarse: alisar en exceso la serie elimina señales reales, como la estacionalidad o las tendencias. El objetivo es quitar el ruido sin borrar la música. Documentar qué se ha corregido y por qué ayuda a no repetir el trabajo cada vez.',
+        text: 'Tampoco hay que pasarse: alisar en exceso la serie elimina señales reales, como la [estacionalidad](/blog/estacionalidad-de-la-demanda) o las tendencias. El objetivo es quitar el ruido sin borrar la música. Documentar qué se ha corregido y por qué ayuda a no repetir el trabajo cada vez.',
       },
       {
         type: 'p',
-        text: 'Star4cast incorpora buena parte de esta limpieza en su flujo: trata los periodos de rotura para no infravalorar la demanda y maneja los valores atípicos al entrenar cada modelo, de modo que partas de una base sólida sin tener que pelearte a mano con la hoja de cálculo.',
+        text: 'Star4cast incorpora buena parte de esta limpieza en su flujo: trata los periodos de rotura para no infravalorar la demanda y maneja los valores atípicos al entrenar cada modelo, de modo que partas de una base sólida [sin tener que pelearte a mano con la hoja de cálculo](/alternativa-a-excel-para-prevision-de-demanda).',
       },
     ],
   },
@@ -1036,17 +1054,18 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Estos modelos funcionan muy bien con series largas, regulares y con patrones claros. Donde flaquean es con demanda intermitente, con muchos productos a la vez (ajustar cada uno a mano es inviable) o cuando influyen factores externos como promociones, que no viven dentro de la propia serie.',
+        text: 'Estos modelos funcionan muy bien con series largas, regulares y con patrones claros. Donde flaquean es con [demanda intermitente](/blog/demanda-intermitente-metodo-croston), con muchos productos a la vez (ajustar cada uno a mano es inviable) o cuando influyen factores externos como [promociones](/blog/promociones-y-descuentos-en-la-prevision-de-demanda), que no viven dentro de la propia serie.',
       },
       {
         type: 'p',
-        text: 'No tienes que elegir el modelo a mano referencia por referencia. Star4cast prueba distintos enfoques para cada producto, incluidos los de la familia ARIMA, y se queda con el que mejor predice según el error medido, de modo que cada serie reciba el tratamiento que le conviene.',
+        text: 'No tienes que elegir el modelo a mano referencia por referencia. Star4cast [prueba distintos enfoques para cada producto](/software-de-prevision-de-demanda), incluidos los de la familia ARIMA, y se queda con el que mejor predice según el error medido, de modo que cada serie reciba el tratamiento que le conviene.',
       },
     ],
   },
   {
     slug: 'suavizado-exponencial-y-holt-winters',
     title: 'Suavizado exponencial y Holt-Winters: los clásicos que siguen ganando',
+    seoTitle: 'Suavizado exponencial y Holt-Winters explicados',
     excerpt:
       'Son simples, rápidos y sorprendentemente buenos. Te explicamos cómo funcionan el suavizado exponencial y Holt-Winters y por qué siguen tan vigentes.',
     description:
@@ -1102,13 +1121,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast incluye estos métodos entre los que prueba para cada producto y los enfrenta a otros enfoques, quedándose con el que minimiza el error. A menudo el ganador es uno de estos clásicos, y eso está perfectamente bien: lo que importa es acertar, no la moda.',
+        text: 'Star4cast [incluye estos métodos entre los que prueba para cada producto](/software-de-prevision-de-demanda) y los enfrenta a otros enfoques, quedándose con el que minimiza el error. A menudo el ganador es uno de estos clásicos, y eso está perfectamente bien: lo que importa es acertar, no la moda.',
       },
     ],
   },
   {
     slug: 'inventario-muerto-y-obsolescencia',
     title: 'Inventario muerto: cómo detectar y liquidar el stock que no se mueve',
+    seoTitle: 'Inventario muerto: cómo detectarlo y liquidarlo',
     excerpt:
       'Hay stock que lleva meses sin venderse y nadie ha decidido qué hacer con él. Te explicamos cómo identificar el inventario muerto y recuperar su valor.',
     description:
@@ -1132,7 +1152,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'No hay una definición universal, pero suele considerarse inventario muerto el stock que no ha registrado ventas durante un periodo largo, por ejemplo seis meses o un año, y cuya demanda futura es prácticamente nula. La frontera la pones tú según la rotación normal de tu sector.',
+        text: 'No hay una definición universal, pero suele considerarse inventario muerto el stock que no ha registrado ventas durante un periodo largo, por ejemplo seis meses o un año, y cuya demanda futura es prácticamente nula. La frontera la pones tú según la [rotación](/blog/rotacion-de-inventario-como-mejorarla) normal de tu sector.',
       },
       {
         type: 'h2',
@@ -1161,7 +1181,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Lo más rentable, sin embargo, es evitar que se forme. Una previsión por producto que detecta a tiempo cuándo una referencia pierde tracción permite frenar las compras antes de acumular. Star4cast vigila la demanda de cada producto, de modo que veas venir la caída en lugar de descubrirla cuando ya tienes el almacén lleno.',
+        text: 'Lo más rentable, sin embargo, es evitar que se forme. Una previsión por producto que detecta a tiempo cuándo una referencia pierde tracción permite frenar las compras antes de acumular. Star4cast [vigila la demanda de cada producto](/features#alertas), de modo que veas venir la caída en lugar de descubrirla cuando ya tienes el almacén lleno.',
       },
     ],
   },
@@ -1183,7 +1203,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'La rotura de stock hace ruido: un cliente que no encuentra el producto, una venta que se pierde. El sobrestock, en cambio, es silencioso. Nadie se queja porque hay de sobra, y precisamente por eso se tolera durante meses mientras inmoviliza una cantidad sorprendente de capital.',
+        text: 'La [rotura de stock](/blog/rotura-de-stock-que-es-y-como-evitarla) hace ruido: un cliente que no encuentra el producto, una venta que se pierde. El sobrestock, en cambio, es silencioso. Nadie se queja porque hay de sobra, y precisamente por eso se tolera durante meses mientras inmoviliza una cantidad sorprendente de capital.',
       },
       {
         type: 'h2',
@@ -1217,21 +1237,22 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La clave es no recortar a ciegas, sino con criterio. Ajustar el stock de seguridad a la incertidumbre real de cada referencia, en lugar de aplicar un porcentaje uniforme, libera capital justo donde sobra. Y una previsión más afinada permite comprar lo necesario sin el colchón del miedo.',
+        text: 'La clave es no recortar a ciegas, sino con criterio. Ajustar el [stock de seguridad](/blog/calcular-stock-de-seguridad) a la incertidumbre real de cada referencia, en lugar de aplicar un porcentaje uniforme, libera capital justo donde sobra. Y una previsión más afinada permite comprar lo necesario sin el colchón del miedo.',
       },
       {
         type: 'p',
-        text: 'Star4cast dimensiona la incertidumbre de cada producto con su banda de confianza, de modo que distingas las referencias predecibles, donde puedes apretar, de las volátiles, donde conviene proteger. Así reduces el exceso sin abrir la puerta a las roturas.',
+        text: 'Star4cast [dimensiona la incertidumbre de cada producto con su banda de confianza](/features#explicacion), de modo que distingas las referencias predecibles, donde puedes apretar, de las volátiles, donde conviene proteger. Así reduces el exceso sin abrir la puerta a las roturas.',
       },
     ],
   },
   {
     slug: 'coste-de-almacenamiento-de-inventario',
     title: 'El coste real de almacenar inventario (es más de lo que crees)',
+    seoTitle: 'Coste de almacenamiento de inventario: qué incluye',
     excerpt:
       'Guardar producto cuesta mucho más que el alquiler del almacén. Te desglosamos el coste de mantenimiento del inventario y por qué conviene medirlo.',
     description:
-      'Qué incluye el coste de almacenamiento de inventario: capital inmovilizado, espacio, manipulación, seguro y obsolescencia, y cómo usarlo para decidir cuánto pedir.',
+      'Qué incluye el coste de almacenamiento de inventario: capital inmovilizado, espacio, manipulación, seguro y obsolescencia, y cómo usarlo al comprar.',
     keywords:
       'coste de almacenamiento, coste de mantenimiento de inventario, holding cost, capital inmovilizado, gestión de inventario',
     category: 'Operaciones',
@@ -1281,13 +1302,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast aporta esa previsión por producto con su incertidumbre, la pieza que te permite calcular el inventario mínimo necesario para tu nivel de servicio y, con tu coste de almacenamiento en la mano, decidir cuánto y cuándo comprar.',
+        text: 'Star4cast aporta esa [previsión por producto con su incertidumbre](/software-de-prevision-de-demanda), la pieza que te permite calcular el inventario mínimo necesario para tu [nivel de servicio](/blog/nivel-de-servicio-como-fijarlo) y, con tu coste de almacenamiento en la mano, decidir cuánto y cuándo comprar.',
       },
     ],
   },
   {
     slug: 'dias-de-inventario-dio',
     title: 'Días de inventario (DIO): cuánto tiempo tienes el dinero en el almacén',
+    seoTitle: 'Días de inventario (DIO): qué son y cómo calcularlos',
     excerpt:
       'Es uno de los indicadores que mejor conecta el stock con la caja. Te explicamos qué son los días de inventario, cómo se calculan y cómo mejorarlos.',
     description:
@@ -1323,7 +1345,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'No existe un número universal: un supermercado con perecederos opera con poquísimos días, mientras que un fabricante de maquinaria puede necesitar muchos. Lo importante no es compararte con otro sector, sino con tu propia evolución y con tus competidores directos. La tendencia dice más que el dato aislado.',
+        text: 'No existe un número universal: un supermercado con [perecederos](/blog/inventario-de-productos-perecederos) opera con poquísimos días, mientras que un fabricante de maquinaria puede necesitar muchos. Lo importante no es compararte con otro sector, sino con tu propia evolución y con tus competidores directos. La tendencia dice más que el dato aislado.',
       },
       {
         type: 'h2',
@@ -1333,20 +1355,21 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         type: 'ul',
         items: [
           'Ajusta el stock de seguridad a la incertidumbre real de cada referencia.',
-          'Identifica y liquida el inventario muerto que infla la media.',
+          'Identifica y liquida el [inventario muerto](/blog/inventario-muerto-y-obsolescencia) que infla la media.',
           'Mejora la previsión para comprar lo necesario sin colchón de más.',
           'Vigila las referencias de baja rotación, que son las que más días acumulan.',
         ],
       },
       {
         type: 'p',
-        text: 'Reducir los días de inventario sin provocar roturas exige saber cuánto stock necesita de verdad cada producto. Star4cast te da esa previsión por referencia, de modo que recortes los días sobrantes justo donde están y no a base de tijeretazos generales que acaban en rotura.',
+        text: 'Reducir los días de inventario sin provocar roturas exige saber cuánto stock necesita de verdad cada producto. Star4cast te da [esa previsión por referencia](/software-de-prevision-de-demanda), de modo que recortes los días sobrantes justo donde están y no a base de tijeretazos generales que acaban en rotura.',
       },
     ],
   },
   {
     slug: 'stock-minimo-y-stock-maximo',
     title: 'Stock mínimo y stock máximo: las dos rayas que ordenan tu almacén',
+    seoTitle: 'Stock mínimo y stock máximo: cómo calcularlos',
     excerpt:
       'Bien fijados, evitan tanto la rotura como el exceso casi solos. Te explicamos qué son el stock mínimo y máximo y cómo calcularlos sin quedarte fijo en un número.',
     description:
@@ -1362,7 +1385,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Dos números sencillos pueden poner orden en buena parte de tu inventario: el stock mínimo y el stock máximo. Bien fijados, definen una banda dentro de la cual cada referencia debería moverse, y convierten la reposición en algo casi automático. Mal fijados, se vuelven la causa silenciosa de roturas y excesos.',
+        text: 'Dos números sencillos pueden poner orden en buena parte de tu inventario: el stock mínimo y el stock máximo. Bien fijados, definen una banda dentro de la cual cada referencia debería moverse, y convierten la reposición en algo casi automático. Mal fijados, se vuelven la causa silenciosa de roturas y [excesos](/blog/sobrestock-exceso-de-inventario-causas-y-soluciones).',
       },
       {
         type: 'h2',
@@ -1398,7 +1421,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast proyecta la demanda de cada referencia y su plazo de entrega, de modo que esos umbrales dejen de ser una raya fija en la pared y se conviertan en una banda que respira con tu negocio, anticipándose a las campañas y relajándose cuando la demanda baja.',
+        text: 'Star4cast [proyecta la demanda de cada referencia y su plazo de entrega](/software-de-reposicion-de-stock), de modo que esos umbrales dejen de ser una raya fija en la pared y se conviertan en una banda que respira con tu negocio, anticipándose a las [campañas](/blog/planificar-demanda-black-friday-campanas) y relajándose cuando la demanda baja.',
       },
     ],
   },
@@ -1428,7 +1451,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La relación entre nivel de servicio y stock de seguridad no es lineal: es una curva que se dispara al final. Subir del 90 % al 95 % cuesta un poco más de stock; subir del 98 % al 99,9 % puede multiplicar el colchón necesario. Los últimos puntos de disponibilidad son carísimos, y rara vez compensan en todas las referencias.',
+        text: 'La relación entre nivel de servicio y [stock de seguridad](/blog/calcular-stock-de-seguridad) no es lineal: es una curva que se dispara al final. Subir del 90 % al 95 % cuesta un poco más de stock; subir del 98 % al 99,9 % puede multiplicar el colchón necesario. Los últimos puntos de disponibilidad son carísimos, y rara vez compensan en todas las referencias.',
       },
       {
         type: 'quote',
@@ -1452,13 +1475,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Una vez decides el nivel de servicio de cada grupo, el stock de seguridad se deduce de él y de la incertidumbre de la demanda. Star4cast mide esa incertidumbre por producto con su banda de confianza, de modo que traduzcas el nivel de servicio que quieres en el colchón exacto que necesitas, ni más ni menos.',
+        text: 'Una vez decides el nivel de servicio de cada grupo, el stock de seguridad se deduce de él y de la incertidumbre de la demanda. Star4cast [mide esa incertidumbre por producto con su banda de confianza](/features#explicacion), de modo que traduzcas el nivel de servicio que quieres en el colchón exacto que necesitas, ni más ni menos.',
       },
     ],
   },
   {
     slug: 'cantidad-economica-de-pedido-eoq',
     title: 'Cantidad económica de pedido (EOQ): cuánto comprar en cada pedido',
+    seoTitle: 'Cantidad económica de pedido (EOQ): qué es y cómo usarla',
     excerpt:
       'Pedir mucho de golpe ahorra en pedidos pero infla el almacén. El EOQ busca el punto medio. Te explicamos qué es y cuándo aplicarlo con cabeza.',
     description:
@@ -1506,21 +1530,22 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El EOQ es una guía valiosa, pero parte de supuestos que no siempre se cumplen: demanda estable, costes constantes y sin descuentos por volumen ni mínimos de pedido. En la práctica conviene tomarlo como punto de partida y ajustarlo a las condiciones reales de cada proveedor y a la estacionalidad del producto.',
+        text: 'El EOQ es una guía valiosa, pero parte de supuestos que no siempre se cumplen: demanda estable, costes constantes y sin descuentos por volumen ni mínimos de pedido. En la práctica conviene tomarlo como punto de partida y ajustarlo a las condiciones reales de cada proveedor y a la [estacionalidad](/blog/estacionalidad-de-la-demanda) del producto.',
       },
       {
         type: 'p',
-        text: 'Sobre todo, el EOQ es tan bueno como la demanda que le metas. Si tu estimación de ventas falla, el lote óptimo deja de serlo. Star4cast aporta esa previsión por producto, de modo que el cálculo del lote parta de una demanda fiable y no de una cifra anual sacada a ojo.',
+        text: 'Sobre todo, el EOQ es tan bueno como la demanda que le metas. Si tu estimación de ventas falla, el lote óptimo deja de serlo. Star4cast aporta [esa previsión por producto](/software-de-prevision-de-demanda), de modo que el cálculo del lote parta de una demanda fiable y no de una cifra anual sacada a ojo.',
       },
     ],
   },
   {
     slug: 'rotacion-de-inventario-como-mejorarla',
     title: 'Rotación de inventario: qué es, cómo se calcula y cómo mejorarla',
+    seoTitle: 'Rotación de inventario: cómo se calcula y cómo mejorarla',
     excerpt:
       'Es el pulso de tu almacén: cuántas veces vendes y repones tu stock. Te explicamos cómo medir la rotación de inventario y las palancas para subirla.',
     description:
-      'Qué es la rotación de inventario, cómo se calcula, qué valor es bueno según el sector y cómo mejorarla sin provocar roturas para liberar caja y ganar eficiencia.',
+      'Qué es la rotación de inventario, cómo se calcula, qué valor es bueno según el sector y cómo mejorarla para liberar caja sin provocar roturas de stock.',
     keywords:
       'rotación de inventario, índice de rotación, rotación de stock, días de inventario, gestión de inventario',
     category: 'Operaciones',
@@ -1532,7 +1557,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'La rotación de inventario es uno de esos indicadores que dicen mucho con un solo número. Mide cuántas veces, en un periodo, vendes y repones tu stock medio. Una rotación sana significa que el producto entra y sale con agilidad; una baja, que tienes dinero dormido en las estanterías.',
+        text: 'La rotación de inventario es uno de esos [indicadores](/blog/kpis-de-inventario-imprescindibles) que dicen mucho con un solo número. Mide cuántas veces, en un periodo, vendes y repones tu stock medio. Una rotación sana significa que el producto entra y sale con agilidad; una baja, que tienes dinero dormido en las estanterías.',
       },
       {
         type: 'h2',
@@ -1564,22 +1589,23 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
           'Reduce el inventario muerto y los productos de rotación nula.',
           'Ajusta el stock de seguridad a la incertidumbre real de cada referencia.',
           'Mejora la previsión para comprar lo necesario y evitar la acumulación.',
-          'Segmenta con un análisis ABC y trata cada clase según su peso.',
+          'Segmenta con un [análisis ABC](/blog/analisis-abc-de-inventario) y trata cada clase según su peso.',
         ],
       },
       {
         type: 'p',
-        text: 'La mayoría de estas palancas tienen un denominador común: comprar mejor, y eso empieza por prever mejor. Star4cast te da una previsión por producto que permite ajustar las compras a la demanda real, subiendo la rotación sin que la mejora se pague con roturas.',
+        text: 'La mayoría de estas palancas tienen un denominador común: comprar mejor, y eso empieza por prever mejor. Star4cast te da una previsión por producto que permite [ajustar las compras a la demanda real](/software-de-reposicion-de-stock), subiendo la rotación sin que la mejora se pague con roturas.',
       },
     ],
   },
   {
     slug: 'como-calcular-el-punto-de-pedido',
     title: 'Cómo calcular el punto de pedido (y por qué no debería ser fijo)',
+    seoTitle: 'Cómo calcular el punto de pedido: fórmula y ejemplo',
     excerpt:
       'El punto de pedido decide cuándo lanzar la reposición. Te explicamos la fórmula, los datos que necesitas y por qué un umbral fijo te juega malas pasadas.',
     description:
-      'Cómo calcular el punto de pedido: demanda durante el plazo de entrega más stock de seguridad. Fórmula, ejemplo y por qué debe ser dinámico con la estacionalidad.',
+      'Cómo calcular el punto de pedido: demanda durante el plazo de entrega más stock de seguridad. Fórmula, ejemplo y por qué debe ser dinámico.',
     keywords:
       'punto de pedido, cómo calcular el punto de pedido, ROP, plazo de entrega, stock de seguridad',
     category: 'Operaciones',
@@ -1591,7 +1617,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'El punto de pedido responde a una de las preguntas más prácticas de la gestión de inventario: cuándo lanzar la reposición de un producto. Fijarlo bien evita tanto la rotura, por pedir tarde, como el exceso, por pedir demasiado pronto. Y, aunque suena técnico, la idea es muy intuitiva.',
+        text: 'El punto de pedido responde a una de las preguntas más prácticas de la gestión de inventario: cuándo lanzar la [reposición](/blog/automatizar-la-reposicion-de-stock) de un producto. Fijarlo bien evita tanto la rotura, por pedir tarde, como el exceso, por pedir demasiado pronto. Y, aunque suena técnico, la idea es muy intuitiva.',
       },
       {
         type: 'h2',
@@ -1627,11 +1653,11 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El error más extendido es calcular el punto de pedido una vez y dejarlo congelado. Pero si tu demanda es estacional, el mismo umbral que sobra en temporada baja se queda corto en campaña. Un punto de pedido que no se mueve con la demanda es una rotura esperando el momento de aparecer.',
+        text: 'El error más extendido es calcular el punto de pedido una vez y dejarlo congelado. Pero si tu [demanda es estacional](/blog/estacionalidad-de-la-demanda), el mismo umbral que sobra en temporada baja se queda corto en campaña. Un punto de pedido que no se mueve con la demanda es una rotura esperando el momento de aparecer.',
       },
       {
         type: 'p',
-        text: 'Star4cast recalcula la demanda esperada de cada producto y tiene en cuenta el plazo de entrega de cada proveedor, de modo que el punto de pedido deje de ser una raya fija y se ajuste solo, anticipándose a las campañas en lugar de ir siempre por detrás.',
+        text: 'Star4cast recalcula la demanda esperada de cada producto y tiene en cuenta el plazo de entrega de cada proveedor, de modo que el punto de pedido [deje de ser una raya fija y se ajuste solo](/software-de-reposicion-de-stock), anticipándose a las [campañas](/blog/planificar-demanda-black-friday-campanas) en lugar de ir siempre por detrás.',
       },
     ],
   },
@@ -1653,7 +1679,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Detrás de toda previsión de demanda hay un concepto que suena más complicado de lo que es: la serie temporal. Si entiendes esta idea, entenderás de dónde salen las predicciones y, sobre todo, por qué a veces aciertan y a veces no. Y no necesitas saber matemáticas para captarla.',
+        text: 'Detrás de toda [previsión de demanda](/blog/forecasting-de-demanda-guia) hay un concepto que suena más complicado de lo que es: la serie temporal. Si entiendes esta idea, entenderás de dónde salen las predicciones y, sobre todo, por qué a veces aciertan y a veces no. Y no necesitas saber matemáticas para captarla.',
       },
       {
         type: 'h2',
@@ -1693,7 +1719,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast trabaja exactamente sobre esta lógica: analiza la serie de cada producto, identifica su tendencia y su estacionalidad y proyecta el futuro con una banda de confianza que reconoce, con honestidad, la parte que es ruido y no se puede predecir. Así sabes no solo qué esperar, sino con cuánta certeza.',
+        text: 'Star4cast trabaja exactamente sobre esta lógica: [analiza la serie de cada producto](/software-de-prevision-de-demanda), identifica su tendencia y su [estacionalidad](/blog/estacionalidad-de-la-demanda) y proyecta el futuro con una banda de confianza que reconoce, con honestidad, la parte que es ruido y no se puede predecir. Así sabes no solo qué esperar, sino con cuánta certeza.',
       },
     ],
   },
@@ -1723,7 +1749,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El daño no se queda en el ticket que no cobras. Una rotura repetida empuja al cliente hacia la competencia, erosiona la confianza en tu marca y, en canales como el ecommerce, penaliza tu visibilidad dentro del propio marketplace. El coste real de una rotura es siempre mayor que el margen de la venta concreta que se pierde.',
+        text: 'El daño no se queda en el ticket que no cobras. Una rotura repetida empuja al cliente hacia la competencia, erosiona la confianza en tu marca y, en canales como el [ecommerce](/blog/gestion-de-inventario-para-ecommerce), penaliza tu visibilidad dentro del propio marketplace. El coste real de una rotura es siempre mayor que el margen de la venta concreta que se pierde.',
       },
       {
         type: 'quote',
@@ -1737,7 +1763,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         type: 'ul',
         items: [
           'Previsiones demasiado optimistas o desactualizadas que no anticipan los picos.',
-          'Un punto de pedido fijo que no se adapta a la estacionalidad ni al plazo de entrega.',
+          'Un [punto de pedido](/blog/como-calcular-el-punto-de-pedido) fijo que no se adapta a la estacionalidad ni al plazo de entrega.',
           'Retrasos del proveedor que el stock de seguridad no llega a cubrir.',
           'Errores en el inventario: el sistema cree que hay unidades que en realidad no están.',
         ],
@@ -1761,13 +1787,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Star4cast hace exactamente esto: proyecta el stock de cada producto día a día y te avisa antes de que la rotura ocurra, para que el pedido llegue a tiempo.',
+        text: 'Star4cast hace exactamente esto: proyecta el stock de cada producto día a día y [te avisa antes de que la rotura ocurra](/features#alertas), para que el pedido llegue a tiempo.',
       },
     ],
   },
   {
     slug: 'prevision-de-demanda-en-excel-limites',
     title: 'Previsión de demanda en Excel: hasta dónde llega y cuándo se queda corta',
+    seoTitle: 'Previsión de demanda en Excel: límites y alternativas',
     excerpt:
       'Excel es donde casi todos empiezan a prever ventas. Funciona… hasta cierto punto. Te contamos sus límites y cuándo conviene dar el salto.',
     description:
@@ -1791,7 +1818,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Para una primera aproximación, Excel ofrece herramientas más que suficientes. Una media móvil, un suavizado exponencial o la función de previsión integrada (PRONOSTICO.ETS) permiten captar tendencia y estacionalidad de una serie con un esfuerzo razonable.',
+        text: 'Para una primera aproximación, Excel ofrece herramientas más que suficientes. Una media móvil, un [suavizado exponencial](/blog/suavizado-exponencial-y-holt-winters) o la función de previsión integrada (PRONOSTICO.ETS) permiten captar tendencia y estacionalidad de una serie con un esfuerzo razonable.',
       },
       {
         type: 'ul',
@@ -1828,13 +1855,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Si dedicas más tiempo a mantener la hoja que a decidir con ella, o si las roturas y los excesos persisten pese a tener una previsión, es momento de una herramienta dedicada. Star4cast automatiza el flujo completo —entrena un modelo por producto, mide su precisión y entrega la predicción con su banda de confianza— sin que tengas que tocar una sola fórmula.',
+        text: 'Si dedicas más tiempo a mantener la hoja que a decidir con ella, o si las roturas y los excesos persisten pese a tener una previsión, es momento de una [herramienta dedicada](/blog/como-elegir-software-de-prevision-de-demanda). Star4cast automatiza el flujo completo —entrena un modelo por producto, mide su precisión y entrega la predicción con su banda de confianza— [sin que tengas que tocar una sola fórmula](/alternativa-a-excel-para-prevision-de-demanda).',
       },
     ],
   },
   {
     slug: 'analisis-abc-de-inventario',
     title: 'Análisis ABC de inventario: prioriza lo que de verdad importa',
+    seoTitle: 'Análisis ABC de inventario: qué es y cómo hacerlo',
     excerpt:
       'No todos los productos merecen la misma atención. El análisis ABC te dice dónde concentrar el control del stock para mover la aguja.',
     description:
@@ -1870,7 +1898,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Aplicar la misma política de stock a todo el catálogo es ineficiente: o sobreproteges la cola larga inmovilizando capital, o desatiendes los productos A y te arriesgas a roturas justo donde más duelen. La clasificación te permite ajustar el nivel de servicio y el stock de seguridad a la importancia real de cada referencia.',
+        text: 'Aplicar la misma política de stock a todo el catálogo es ineficiente: o sobreproteges la cola larga inmovilizando capital, o desatiendes los productos A y te arriesgas a roturas justo donde más duelen. La clasificación te permite ajustar el [nivel de servicio](/blog/nivel-de-servicio-como-fijarlo) y el [stock de seguridad](/blog/calcular-stock-de-seguridad) a la importancia real de cada referencia.',
       },
       {
         type: 'quote',
@@ -1891,7 +1919,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Conviene combinar el ABC clásico (por ventas) con un eje de previsibilidad: un producto A pero muy volátil necesita un tratamiento distinto a uno A y estable. Star4cast aporta justo esa segunda dimensión al medir la incertidumbre de cada referencia.',
+        text: 'Conviene combinar el ABC clásico (por ventas) con un eje de previsibilidad: un producto A pero muy volátil necesita un tratamiento distinto a uno A y estable. Star4cast aporta justo esa segunda dimensión al [medir la incertidumbre de cada referencia](/features#explicacion).',
       },
     ],
   },
@@ -1939,7 +1967,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         type: 'ul',
         items: [
           'Media móvil y suavizado exponencial: simples y robustos para productos con demanda estable.',
-          'Modelos con estacionalidad (Holt-Winters, SARIMA): capturan patrones que se repiten cada semana, mes o temporada.',
+          'Modelos con estacionalidad (Holt-Winters, [SARIMA](/blog/modelos-arima-y-sarima-explicados)): capturan patrones que se repiten cada semana, mes o temporada.',
           'Modelos de machine learning: aprovechan variables externas (promociones, precio, clima) cuando hay suficiente histórico.',
           'Métodos para demanda intermitente (Croston): pensados para referencias que se venden de forma esporádica.',
         ],
@@ -1967,11 +1995,11 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Un forecast solo es útil si sabes cuánto te equivocas. Las métricas más usadas son el MAPE (error porcentual medio absoluto) y el MAE (error absoluto medio). Compáralas siempre contra un modelo simple de referencia: si tu sofisticado modelo no supera a una media móvil, algo falla.',
+        text: 'Un forecast solo es útil si sabes cuánto te equivocas. Las métricas más usadas son el [MAPE](/blog/mape-mae-rmse-precision-del-forecast) (error porcentual medio absoluto) y el MAE (error absoluto medio). Compáralas siempre contra un modelo simple de referencia: si tu sofisticado modelo no supera a una media móvil, algo falla.',
       },
       {
         type: 'p',
-        text: 'En Star4cast automatizamos todo este flujo: partimos de tu histórico, entrenamos un modelo por producto y te entregamos la predicción con su banda de confianza, lista para decidir cuándo y cuánto reponer.',
+        text: 'En Star4cast automatizamos todo este flujo: partimos de tu histórico, [entrenamos un modelo por producto](/software-de-prevision-de-demanda) y te entregamos la predicción con su banda de confianza, lista para decidir cuándo y cuánto reponer.',
       },
     ],
   },
@@ -1993,7 +2021,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Cada producto que se agota es una venta perdida, y cada palé que sobra es dinero parado en el almacén. El equilibrio entre ambos extremos es uno de los problemas más antiguos del retail y la distribución, y también uno de los que más margen deja sobre la mesa cuando se resuelve bien.',
+        text: 'Cada producto que se agota es una venta perdida, y cada palé que sobra es dinero parado en el almacén. El equilibrio entre ambos extremos es uno de los problemas más antiguos del [retail](/blog/prevision-de-demanda-en-retail) y la distribución, y también uno de los que más margen deja sobre la mesa cuando se resuelve bien.',
       },
       {
         type: 'h2',
@@ -2001,7 +2029,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La buena noticia es que no hace falta contratar a científicos de datos para empezar. Con el histórico de stock que tu negocio ya genera, un modelo de series temporales puede aprender la tendencia y la estacionalidad de cada referencia y proyectarlas al futuro.',
+        text: 'La buena noticia es que no hace falta contratar a científicos de datos para empezar. Con el histórico de stock que tu negocio ya genera, un modelo de [series temporales](/blog/series-temporales-explicado-para-no-tecnicos) puede aprender la tendencia y la estacionalidad de cada referencia y proyectarlas al futuro.',
       },
       {
         type: 'p',
@@ -2013,7 +2041,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'En Star4cast partimos de ese histórico, lo limpiamos y entrenamos un modelo por producto. El resultado es una predicción diaria con su banda de confianza: no solo el valor esperado, sino también el margen de error, que es justo lo que te permite dimensionar el stock de seguridad.',
+        text: 'En Star4cast partimos de ese histórico, lo limpiamos y entrenamos un modelo por producto. El resultado es [una predicción diaria con su banda de confianza](/features#explicacion): no solo el valor esperado, sino también el margen de error, que es justo lo que te permite dimensionar el stock de seguridad.',
       },
       {
         type: 'ul',
@@ -2051,7 +2079,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Una previsión sin una medida de error es un acto de fe. Si no sabes cuánto se equivoca tu forecast, no puedes mejorarlo ni dimensionar el stock de seguridad que lo protege. Estas son las tres métricas que de verdad acabarás usando.',
+        text: 'Una previsión sin una medida de error es un acto de fe. Si no sabes cuánto se equivoca tu forecast, no puedes mejorarlo ni dimensionar el [stock de seguridad](/blog/calcular-stock-de-seguridad) que lo protege. Estas son las tres métricas que de verdad acabarás usando.',
       },
       {
         type: 'h2',
@@ -2067,7 +2095,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El error porcentual absoluto medio (MAPE) expresa esa misma desviación en porcentaje, lo que permite comparar productos de volúmenes muy distintos. Su pega: se dispara cuando la demanda real es muy baja o cero, así que conviene usarlo con cuidado en referencias de venta esporádica.',
+        text: 'El error porcentual absoluto medio (MAPE) expresa esa misma desviación en porcentaje, lo que permite comparar productos de volúmenes muy distintos. Su pega: se dispara cuando la [demanda real](/blog/demanda-vs-ventas-no-son-lo-mismo) es muy baja o cero, así que conviene usarlo con cuidado en referencias de venta esporádica.',
       },
       {
         type: 'h2',
@@ -2087,13 +2115,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Ningún número de error significa nada en el vacío. Compáralo siempre con un modelo simple —una media móvil o repetir el dato del año anterior—. Si tu modelo sofisticado no supera a esa referencia, no está aportando valor. Star4cast hace esa comparación automáticamente y elige, para cada producto, el modelo que minimiza el error.',
+        text: 'Ningún número de error significa nada en el vacío. Compáralo siempre con un modelo simple —una media móvil o repetir el dato del año anterior—. Si tu modelo sofisticado no supera a esa referencia, no está aportando valor. Star4cast hace esa comparación automáticamente y [elige, para cada producto, el modelo que minimiza el error](/features#explicacion).',
       },
     ],
   },
   {
     slug: 'calcular-stock-de-seguridad',
     title: 'Stock de seguridad: cómo calcularlo sin pasarte ni quedarte corto',
+    seoTitle: 'Stock de seguridad: qué es y cómo calcularlo',
     excerpt:
       'El colchón que te protege de las roturas también puede inmovilizar capital. Te explicamos cómo dimensionarlo con criterio.',
     description:
@@ -2109,7 +2138,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'El stock de seguridad es el inventario extra que mantienes para absorber lo inesperado: un pico de demanda, un proveedor que se retrasa o un error de previsión. Sin él, cualquier sobresalto se convierte en una rotura. Con demasiado, inmovilizas capital innecesariamente.',
+        text: 'El stock de seguridad es el inventario extra que mantienes para absorber lo inesperado: un pico de demanda, un proveedor que se retrasa o un [error de previsión](/blog/como-mejorar-la-precision-del-forecast). Sin él, cualquier sobresalto se convierte en una rotura. Con demasiado, inmovilizas capital innecesariamente.',
       },
       {
         type: 'h2',
@@ -2123,7 +2152,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         type: 'ul',
         items: [
           'Variabilidad de la demanda: cuanto más irregulares son las ventas, más colchón necesitas.',
-          'Plazo de entrega (lead time) y su variabilidad: un proveedor impredecible obliga a protegerte más.',
+          'Plazo de entrega ([lead time](/blog/lead-time-plazo-de-entrega-y-stock)) y su variabilidad: un proveedor impredecible obliga a protegerte más.',
           'Nivel de servicio objetivo: el porcentaje de pedidos que quieres satisfacer sin rotura.',
         ],
       },
@@ -2149,13 +2178,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La banda de confianza que entrega Star4cast es precisamente esa medida de incertidumbre. Úsala para dimensionar el colchón de cada referencia de forma dinámica, en lugar de aplicar un porcentaje fijo a todo el catálogo.',
+        text: '[La banda de confianza que entrega Star4cast](/features#explicacion) es precisamente esa medida de incertidumbre. Úsala para dimensionar el colchón de cada referencia de forma dinámica, en lugar de aplicar un porcentaje fijo a todo el catálogo.',
       },
     ],
   },
   {
     slug: 'lead-time-plazo-de-entrega-y-stock',
     title: 'Lead time: por qué el plazo de entrega manda en tu inventario',
+    seoTitle: 'Lead time: cómo afecta el plazo de entrega a tu stock',
     excerpt:
       'El tiempo que tarda tu proveedor en servir marca cuándo y cuánto pedir. Si lo ignoras, las roturas son solo cuestión de tiempo.',
     description:
@@ -2179,7 +2209,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El punto de pedido no es más que la demanda que esperas cubrir durante el lead time, más un colchón de seguridad. Si tu proveedor tarda dos semanas en servir, tienes que pedir cuando aún te queda stock para esas dos semanas. Alargar el plazo de entrega obliga a anticipar el pedido y a mantener más inventario.',
+        text: 'El [punto de pedido](/blog/como-calcular-el-punto-de-pedido) no es más que la demanda que esperas cubrir durante el lead time, más un colchón de seguridad. Si tu proveedor tarda dos semanas en servir, tienes que pedir cuando aún te queda stock para esas dos semanas. Alargar el plazo de entrega obliga a anticipar el pedido y a mantener más inventario.',
       },
       {
         type: 'h2',
@@ -2207,67 +2237,103 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Cuando combinas una buena previsión de demanda con el lead time real de cada proveedor, el punto de pedido deja de ser un número fijo y pasa a ajustarse solo. Star4cast contempla el plazo de entrega de cada referencia para avisarte con el margen justo: ni tan pronto que acumules, ni tan tarde que te quedes corto.',
+        text: 'Cuando combinas una buena [previsión de demanda](/blog/forecasting-de-demanda-guia) con el lead time real de cada proveedor, el punto de pedido deja de ser un número fijo y pasa a ajustarse solo. Star4cast [contempla el plazo de entrega de cada referencia](/software-de-reposicion-de-stock) para avisarte con el margen justo: ni tan pronto que acumules, ni tan tarde que te quedes corto.',
       },
     ],
   },
   {
-    slug: 'estacionalidad-y-punto-de-pedido',
-    title: 'Estacionalidad y punto de pedido: la pareja que evita roturas',
+    slug: 'estacionalidad-de-la-demanda',
+    title: 'Estacionalidad de la demanda: cómo detectarla y anticiparte',
     excerpt:
-      'El punto de pedido fijo se queda corto cuando la demanda sube en campaña. Así lo ajustamos de forma dinámica.',
+      'Navidad, verano, rebajas o simplemente los lunes: casi toda demanda tiene un ritmo. Te explicamos cómo reconocerlo en tus datos y cómo preparar el stock antes de cada pico.',
     description:
-      'Por qué un punto de pedido fijo provoca roturas en campaña y cómo ajustarlo de forma dinámica con la estacionalidad de cada producto.',
+      'Qué es la estacionalidad de la demanda, cómo detectarla en tu histórico de ventas y cómo ajustar compras y stock antes de cada temporada alta.',
     keywords:
-      'punto de pedido, estacionalidad, reposición de stock, demanda estacional, gestión de inventario',
+      'estacionalidad de la demanda, demanda estacional, productos estacionales, índice estacional, temporada alta, previsión de demanda',
     category: 'Producto',
-    tags: ['Punto de pedido', 'Estacionalidad', 'Reposición'],
+    tags: ['Estacionalidad', 'Demanda', 'Previsión'],
     date: '2026-05-12',
-    readingTime: '5 min',
+    updated: '2026-10-22',
+    readingTime: '7 min',
     author: 'Equipo Star4cast',
     authorRole: 'Producto y datos',
     body: [
       {
         type: 'p',
-        text: 'Muchos negocios fijan un punto de pedido estático: cuando el stock baja de X, se repone. Funciona… hasta que llega la campaña de Navidad, el verano o el Black Friday y la demanda se multiplica.',
+        text: 'Si vendes más helados en julio, más abrigos en noviembre o más los viernes que los martes, tu demanda es estacional. No es una rareza: es lo normal en casi cualquier catálogo. El problema no es que exista, sino tratarla como si no existiera y comprar cada mes como si fuera igual que el anterior.',
       },
       {
         type: 'h2',
-        text: 'El problema del umbral fijo',
+        text: 'Qué es la estacionalidad de la demanda',
       },
       {
         type: 'p',
-        text: 'La demanda no es constante, y un punto de pedido que ignora la estacionalidad te deja corto justo cuando más vendes. El mismo umbral que te sobra en febrero te provoca una rotura en diciembre. La solución pasa por hacerlo dinámico.',
-      },
-      {
-        type: 'quote',
-        text: 'Un punto de pedido que no se mueve con la demanda es una rotura esperando el momento adecuado para ocurrir.',
-      },
-      {
-        type: 'h2',
-        text: 'Un umbral que respira con la demanda',
-      },
-      {
-        type: 'p',
-        text: 'Al incorporar la estacionalidad detectada por el modelo, el umbral de reposición se adapta a cada periodo. En temporada alta se anticipa para que el pedido llegue antes del pico; en temporada baja, evita el exceso y libera caja.',
+        text: 'La estacionalidad es un patrón que se repite con un periodo fijo. A diferencia de la tendencia, que es un crecimiento o una caída sostenida, la estacionalidad sube, baja y vuelve a empezar. En inventario suelen convivir varios ritmos a la vez:',
       },
       {
         type: 'ul',
         items: [
-          'El umbral sube semanas antes de cada campaña conocida.',
-          'Tiene en cuenta el plazo de entrega real de cada proveedor.',
-          'Se recalcula con cada nueva predicción, sin intervención manual.',
+          'Semanal: días que venden más que otros, muy típico en tiendas físicas y alimentación.',
+          'Anual: temporadas como el verano, la vuelta al cole o la Navidad.',
+          'Por eventos: campañas cuya fecha cambia cada año, como Semana Santa, Black Friday o las rebajas.',
         ],
       },
       {
+        type: 'h2',
+        text: 'Cómo detectarla en tus datos',
+      },
+      {
         type: 'p',
-        text: 'El resultado es un sistema que pide lo justo en el momento justo, sin que nadie tenga que acordarse de subir los umbrales antes de cada temporada.',
+        text: 'Para una primera comprobación no hace falta ningún software. Basta con mirar tu histórico con un poco de método:',
+      },
+      {
+        type: 'ol',
+        items: [
+          'Agrupa las ventas por semana o por mes y dibújalas: los picos que se repiten cada año saltan a la vista.',
+          'Compara el mismo periodo de años distintos. Si diciembre siempre duplica a noviembre, eso es estacionalidad, no casualidad.',
+          'Calcula un índice estacional: divide las ventas de cada mes entre la media mensual del año. Un índice de 1,8 en diciembre significa que ese mes vendes un 80 % más que un mes medio.',
+          'Separa la tendencia: si el negocio crece, los meses recientes parecerán siempre mejores. Compara cada mes con la media de su propio año para no confundir crecimiento con temporada.',
+        ],
+      },
+      {
+        type: 'quote',
+        text: 'La tendencia te dice hacia dónde va la demanda; la estacionalidad, cuándo va a llegar. Para comprar bien necesitas las dos.',
+      },
+      {
+        type: 'h2',
+        text: 'Los errores más habituales',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Confundir un pico puntual con un patrón: una promoción o un pedido extraordinario no se repite solo porque haya pasado una vez.',
+          'Leer las roturas como baja demanda: si un producto estuvo agotado en plena temporada, las ventas de esas semanas infravaloran lo que se podría haber vendido. Es la diferencia entre [demanda y ventas](/blog/demanda-vs-ventas-no-son-lo-mismo).',
+          'Usar una media anual para todo: la media aplana picos y valles, y acabas con exceso en temporada baja y roturas en temporada alta.',
+          'Exigir patrones a productos con poco histórico: con menos de un año de datos, la estacionalidad anual no se puede estimar con fiabilidad.',
+        ],
+      },
+      {
+        type: 'h2',
+        text: 'Cómo preparar el stock para cada temporada',
+      },
+      {
+        type: 'p',
+        text: 'Detectar la estacionalidad solo sirve si cambia tus decisiones de compra. Antes de cada pico hay que adelantar el pedido teniendo en cuenta el plazo de entrega del proveedor: si tarda tres semanas, la compra para diciembre se decide en noviembre. Por eso el [punto de pedido](/blog/como-calcular-el-punto-de-pedido) no puede ser fijo: tiene que subir antes de la temporada alta y bajar después.',
+      },
+      {
+        type: 'p',
+        text: 'Lo mismo pasa con el colchón. En los meses de más venta la incertidumbre en unidades también es mayor, así que el [stock de seguridad](/blog/calcular-stock-de-seguridad) debe crecer con la demanda. Y al terminar la temporada conviene frenar las compras a tiempo para no acabar con existencias que tendrás que liquidar.',
+      },
+      {
+        type: 'p',
+        text: 'Star4cast detecta la estacionalidad semanal y anual de cada producto por separado y la incorpora a su previsión diaria, de modo que el momento de pedir y la cantidad sugerida se adelantan solos a cada temporada. Puedes ver cómo funciona en la [previsión por producto](/features#prevision).',
       },
     ],
   },
   {
     slug: 'planificar-demanda-black-friday-campanas',
     title: 'Cómo planificar la demanda para Black Friday y campañas de temporada',
+    seoTitle: 'Cómo planificar la demanda para Black Friday',
     excerpt:
       'Los picos de campaña no perdonan: o llegas con stock o pierdes la venta del año. Así se planifica con datos y no a ojo.',
     description:
@@ -2283,7 +2349,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'En campañas como Black Friday, las rebajas o la Navidad, la demanda de algunas referencias se multiplica en cuestión de días. Llegar con stock significa hacer la caja del año; llegar sin él, regalarle la venta a la competencia. Y, por el plazo de entrega, esas decisiones se toman semanas antes del pico.',
+        text: 'En campañas como Black Friday, las rebajas o la Navidad, la demanda de algunas referencias se multiplica en cuestión de días. Llegar con stock significa hacer la caja del año; llegar sin él, regalarle la venta a la competencia. Y, por el [plazo de entrega](/blog/lead-time-plazo-de-entrega-y-stock), esas decisiones se toman semanas antes del pico.',
       },
       {
         type: 'h2',
@@ -2291,7 +2357,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Confiar en la intuición o en «lo que pedimos el año pasado» deja demasiado al azar. El año pasado pudo haber una rotura que ocultó la demanda real, o una promoción que no se repetirá. Sin mirar el dato, repites los errores del pasado sin saberlo.',
+        text: 'Confiar en la intuición o en «lo que pedimos el año pasado» deja demasiado al azar. El año pasado pudo haber una rotura que ocultó la [demanda real](/blog/demanda-vs-ventas-no-son-lo-mismo), o una promoción que no se repetirá. Sin mirar el dato, repites los errores del pasado sin saberlo.',
       },
       {
         type: 'h2',
@@ -2316,7 +2382,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El riesgo de las campañas es doble: quedarte corto o acabar con un excedente que tendrás que liquidar en enero. La clave es dimensionar el pedido al pico previsto de cada referencia, no aplicar un aumento general a todo el catálogo. Star4cast detecta la estacionalidad de cada producto y anticipa esos picos para que pidas lo justo en el momento justo.',
+        text: 'El riesgo de las campañas es doble: quedarte corto o acabar con un excedente que tendrás que liquidar en enero. La clave es dimensionar el pedido al pico previsto de cada referencia, no aplicar un aumento general a todo el catálogo. Star4cast [detecta la estacionalidad de cada producto y anticipa esos picos](/prevision-de-stock-para-ecommerce) para que pidas lo justo en el momento justo.',
       },
     ],
   },
@@ -2346,7 +2412,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Cuántas veces vendes y repones tu stock medio en un periodo. Una rotación baja indica capital dormido; una muy alta puede señalar riesgo de rotura. El número ideal depende del sector, pero la tendencia siempre debería vigilarse.',
+        text: 'Cuántas veces vendes y repones tu stock medio en un periodo. Una [rotación](/blog/rotacion-de-inventario-como-mejorarla) baja indica capital dormido; una muy alta puede señalar riesgo de rotura. El número ideal depende del sector, pero la tendencia siempre debería vigilarse.',
       },
       {
         type: 'h2',
@@ -2354,7 +2420,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Cuántos días aguanta tu stock actual al ritmo de venta previsto. Es la lectura más intuitiva para anticipar una rotura: si la cobertura cae por debajo de tu plazo de entrega, vas tarde.',
+        text: 'Cuántos días aguanta tu stock actual al ritmo de venta previsto. Es la lectura más intuitiva para anticipar una rotura: si la [cobertura](/blog/dias-de-inventario-dio) cae por debajo de tu plazo de entrega, vas tarde.',
       },
       {
         type: 'h2',
@@ -2392,6 +2458,10 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
         type: 'quote',
         text: 'Empieza por la cobertura y el fill rate: son los dos que más rápido conectan el inventario con las ventas reales.',
       },
+      {
+        type: 'p',
+        text: 'Varios de estos indicadores mejoran a la vez cuando las compras se apoyan en una previsión. Star4cast [estima la fecha de rotura de cada producto](/features#alertas) y detecta el exceso y el stock parado, para que la cobertura y la rotación dejen de ir en direcciones opuestas.',
+      },
     ],
   },
   {
@@ -2412,7 +2482,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'Cuando la hoja de cálculo se queda corta, llega la pregunta: ¿qué herramienta uso para prever la demanda? El mercado va desde módulos integrados en el ERP hasta plataformas especializadas, y la decisión condiciona durante años cómo compras y cuánto inmovilizas.',
+        text: 'Cuando la [hoja de cálculo](/blog/prevision-de-demanda-en-excel-limites) se queda corta, llega la pregunta: ¿qué herramienta uso para prever la demanda? El mercado va desde módulos integrados en el [ERP](/blog/integrar-erp-o-tpv-con-prevision-de-demanda) hasta plataformas especializadas, y la decisión condiciona durante años cómo compras y cuánto inmovilizas.',
       },
       {
         type: 'h2',
@@ -2450,13 +2520,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Antes de comparar funciones, define qué decisión quieres mejorar: cuándo reponer, cuánto pedir, qué stock de seguridad mantener. Star4cast se centra precisamente en eso: a partir de tu histórico entrena un modelo por producto, mide su precisión y te entrega la previsión lista para decidir, con una prueba para validarlo con tus propios datos.',
+        text: 'Antes de comparar funciones, define qué decisión quieres mejorar: cuándo reponer, cuánto pedir, qué stock de seguridad mantener. Star4cast se centra precisamente en eso: a partir de tu histórico [entrena un modelo por producto, mide su precisión](/software-de-prevision-de-demanda) y te entrega la previsión lista para decidir, con una prueba para validarlo con tus propios datos.',
       },
     ],
   },
   {
     slug: 'reducir-inventario-inmovilizado',
     title: '3 formas de reducir el inventario inmovilizado sin arriesgar el servicio',
+    seoTitle: 'Cómo reducir el inventario inmovilizado',
     excerpt:
       'Liberar capital atrapado en el almacén es posible sin aumentar las roturas. Tres palancas concretas.',
     description:
@@ -2472,7 +2543,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
     body: [
       {
         type: 'p',
-        text: 'El inventario inmovilizado es capital que no trabaja. Reducirlo mejora la caja, pero hacerlo a ciegas dispara las roturas. Estas son tres palancas que sí funcionan sin sacrificar el nivel de servicio.',
+        text: 'El inventario inmovilizado es capital que no trabaja. Reducirlo mejora la caja, pero hacerlo a ciegas dispara las roturas. Estas son tres palancas que sí funcionan sin sacrificar el [nivel de servicio](/blog/nivel-de-servicio-como-fijarlo).',
       },
       {
         type: 'h2',
@@ -2480,7 +2551,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'No todos los productos merecen el mismo colchón de seguridad. Aplica un análisis ABC: tus referencias de alta rotación necesitan disponibilidad casi total, mientras que la cola larga puede operar con stocks mucho más ajustados.',
+        text: 'No todos los productos merecen el mismo colchón de seguridad. Aplica un [análisis ABC](/blog/analisis-abc-de-inventario): tus referencias de alta rotación necesitan disponibilidad casi total, mientras que la cola larga puede operar con stocks mucho más ajustados.',
       },
       {
         type: 'h2',
@@ -2504,13 +2575,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El objetivo no es tener menos stock por tener menos, sino tener exactamente el que cada producto necesita. Ahí es donde una buena previsión paga su precio con creces.',
+        text: 'El objetivo no es tener menos stock por tener menos, sino tener exactamente el que cada producto necesita. Ahí es donde [una buena previsión](/software-de-prevision-de-demanda) paga su precio con creces.',
       },
     ],
   },
   {
     slug: 'gestion-de-inventario-para-ecommerce',
     title: 'Gestión de inventario para ecommerce: cómo no quedarte sin stock',
+    seoTitle: 'Gestión de inventario para ecommerce: guía práctica',
     excerpt:
       'Vender online multiplica los canales y la presión sobre el stock. Estas son las claves para mantener la disponibilidad sin pasarte de inventario.',
     description:
@@ -2550,7 +2622,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
           'Centraliza el stock real y descuéntalo por todos los canales casi en tiempo real.',
           'Prevé la demanda por referencia con tu histórico de pedidos, no por intuición.',
           'Dimensiona el stock de seguridad según la volatilidad de cada producto.',
-          'Configura alertas de reposición ligadas al plazo de entrega de cada proveedor.',
+          'Configura alertas de [reposición](/blog/automatizar-la-reposicion-de-stock) ligadas al [plazo de entrega](/blog/lead-time-plazo-de-entrega-y-stock) de cada proveedor.',
         ],
       },
       {
@@ -2563,13 +2635,14 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'El objetivo no es llenar el almacén, sino que cada referencia esté disponible cuando se busca, sin inmovilizar más capital del necesario. Star4cast proyecta la demanda de cada producto y te avisa antes de la rotura, para que mantengas la disponibilidad que el ecommerce exige sin pagarla con inventario parado.',
+        text: 'El objetivo no es llenar el almacén, sino que cada referencia esté disponible cuando se busca, sin inmovilizar más capital del necesario. Star4cast [proyecta la demanda de cada producto y te avisa antes de la rotura](/prevision-de-stock-para-ecommerce), para que mantengas la disponibilidad que el ecommerce exige sin pagarla con inventario parado.',
       },
     ],
   },
   {
     slug: 'demanda-intermitente-metodo-croston',
     title: 'Demanda intermitente: cómo prever productos de venta esporádica',
+    seoTitle: 'Demanda intermitente: cómo preverla (método de Croston)',
     excerpt:
       'Los recambios y la cola larga se venden a saltos, y los modelos clásicos fallan con ellos. Aquí es donde entra el método Croston.',
     description:
@@ -2593,7 +2666,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'Una media móvil o un suavizado exponencial aplicados a una serie llena de ceros tienden a predecir prácticamente cero siempre. El resultado es engañoso: parece que no hay demanda, justo hasta que llega el pedido que no habías previsto y provoca una rotura.',
+        text: 'Una media móvil o un [suavizado exponencial](/blog/suavizado-exponencial-y-holt-winters) aplicados a una serie llena de ceros tienden a predecir prácticamente cero siempre. El resultado es engañoso: parece que no hay demanda, justo hasta que llega el pedido que no habías previsto y provoca una rotura.',
       },
       {
         type: 'quote',
@@ -2621,7 +2694,7 @@ export const BLOG_POSTS: readonly BlogPostMeta[] = [
       },
       {
         type: 'p',
-        text: 'La clave práctica es no aplicar el mismo modelo a todo el catálogo. Star4cast identifica las referencias de demanda intermitente y emplea métodos específicos para ellas, de modo que la cola larga y los recambios reciban una previsión adecuada en lugar de un cero engañoso.',
+        text: 'La clave práctica es no aplicar el mismo modelo a todo el catálogo. Star4cast identifica las referencias de demanda intermitente y [emplea métodos específicos para ellas](/features#prevision), de modo que la cola larga y los recambios reciban una previsión adecuada en lugar de un cero engañoso.',
       },
     ],
   },

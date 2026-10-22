@@ -12,29 +12,29 @@ export interface LegalDoc {
   readonly sections: readonly LegalSection[];
 }
 
-// NOTA: estos textos son una base sólida y bien redactada, pero NO sustituyen el
-// asesoramiento de un profesional. Completa los datos identificativos entre
-// corchetes ([Razón social], [NIF], etc.) y revísalos con un abogado antes de publicar.
+// NOTA: estos textos NO sustituyen el asesoramiento de un profesional.
+// Datos identificativos del titular, los mismos que publica invoicedata.es.
 
-const COMPANY = '[Razón social]';
-const NIF = '[NIF/CIF]';
-const ADDRESS = '[Dirección completa], Madrid, España';
+const COMPANY = 'Anuar Iz.';
+const TRADE_NAME = 'ZaralTech - Star4cast';
+const NIF = '54311627W';
+const ADDRESS = '50002, Aragón, España';
 const EMAIL = 'hola@star4cast.es';
 
 export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
   privacy: {
     title: 'Política de privacidad',
     description:
-      'Política de privacidad de Star4cast: qué datos tratamos, con qué finalidad y base legal, durante cuánto tiempo, con quién los compartimos y cuáles son tus derechos.',
+      'Política de privacidad de Star4cast: qué datos tratamos, con qué finalidad y base legal, cuánto tiempo los conservamos y cuáles son tus derechos.',
     path: '/privacy',
-    updated: '2026-06-07',
+    updated: '2026-10-22',
     intro:
       'En Star4cast nos tomamos en serio la privacidad. Esta política explica, de forma clara, qué datos personales tratamos cuando usas nuestro sitio web y nuestra plataforma, con qué finalidad y base legal, con quién los compartimos y qué derechos tienes sobre ellos, conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 (LOPDGDD).',
     sections: [
       {
         heading: '1. Responsable del tratamiento',
         paragraphs: [
-          `Responsable: ${COMPANY} (en adelante, «Star4cast»), con NIF ${NIF} y domicilio en ${ADDRESS}.`,
+          `Responsable: ${COMPANY}, con nombre comercial ${TRADE_NAME} (en adelante, «Star4cast»), NIF ${NIF} y domicilio en ${ADDRESS}.`,
           `Para cualquier cuestión relacionada con tus datos personales puedes escribirnos a ${EMAIL}.`,
         ],
       },
@@ -115,14 +115,14 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
     description:
       'Términos y condiciones de uso de Star4cast: identificación, objeto, suscripción y prueba, precios, propiedad intelectual, responsabilidad y ley aplicable.',
     path: '/terms',
-    updated: '2026-06-07',
+    updated: '2026-10-22',
     intro:
       'Estos términos y condiciones regulan el acceso y uso del sitio web y la plataforma de Star4cast. Al utilizar nuestros servicios aceptas estas condiciones, por lo que te recomendamos leerlas con atención.',
     sections: [
       {
         heading: '1. Identificación (aviso legal)',
         paragraphs: [
-          `Titular: ${COMPANY}. NIF: ${NIF}. Domicilio: ${ADDRESS}. Contacto: ${EMAIL}.`,
+          `Titular: ${COMPANY}; nombre comercial: ${TRADE_NAME}; NIF: ${NIF}; domicilio: ${ADDRESS}; contacto: ${EMAIL}.`,
           'Esta información se facilita en cumplimiento de la Ley 34/2002 de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE).',
         ],
       },
