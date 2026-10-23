@@ -5,7 +5,8 @@
 
 .DESCRIPTION
     Usa docker-compose.yml. El frontend Angular se compila en modo producción y
-    se sirve con nginx. Disponible en http://localhost:8080.
+    se sirve con nginx. Disponible en http://127.0.0.1:8089 (en la VPS, detrás de Caddy).
+    Necesita un .env en la raíz (copia .env.example).
 
 .PARAMETER Build
     Reconstruye las imágenes antes de levantar.
@@ -51,7 +52,7 @@ try {
     docker compose @arguments
 
     if (-not $Foreground) {
-        Write-Host 'Star4cast disponible en http://localhost:8080' -ForegroundColor Green
+        Write-Host 'Star4cast disponible en http://127.0.0.1:8089' -ForegroundColor Green
     }
 }
 finally {

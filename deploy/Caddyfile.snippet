@@ -1,0 +1,14 @@
+# Añadir al Caddyfile del servidor (/etc/caddy/Caddyfile) y `systemctl reload caddy`.
+# Caddy saca y renueva el certificado de Let's Encrypt solo. El DNS de ambos
+# nombres (A/AAAA) tiene que apuntar ya a la VPS.
+
+star4cast.es {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:8089
+    header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+}
+
+# Una sola versión canónica del sitio: www redirige al dominio sin www.
+www.star4cast.es {
+    redir https://star4cast.es{uri} permanent
+}

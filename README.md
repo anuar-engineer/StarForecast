@@ -35,10 +35,13 @@ star4cast/
 │   ├── nginx.conf            # SPA fallback + proxy /api -> backend
 │   └── proxy.conf.js         # Proxy del dev-server hacia el backend
 ├── backend/                  # API Python (pendiente)
+├── deploy/
+│   └── Caddyfile.snippet     # Bloque para el Caddy del host (HTTPS + redirección www)
 ├── scripts/
 │   ├── dev.ps1               # Levanta el entorno de desarrollo
 │   ├── prod.ps1              # Levanta el entorno de producción
 │   └── publish-weekly.sh     # Cron en la VPS: rebuild semanal que destapa el siguiente post
+├── .env.example              # Variables de producción (copiar a .env)
 ├── docker-compose.dev.yml    # Stack de desarrollo (hot-reload)
 └── docker-compose.yml        # Stack de producción
 ```
@@ -58,7 +61,9 @@ star4cast/
 ./scripts/dev.ps1 -Down       # parar
 ```
 
-### Producción — http://localhost:8080
+### Producción — http://127.0.0.1:8089
+
+Necesita un `.env` en la raíz: copia `.env.example` y rellénalo.
 
 ```powershell
 ./scripts/prod.ps1 -Build     # compila y levanta en segundo plano
@@ -205,6 +210,42 @@ Qué hace el script por dentro:
 > Nota: el contexto de build de Docker del frontend es `./frontend`, por eso el
 > generador de sitemap vive en `frontend/scripts/` (y no en `scripts/`): así
 > forma parte del build y el sitemap también se regenera en producción.
+
+## Despliegue en la VPS
+
+La VPS tiene un **Caddy en el host** que pone el HTTPS (Let's Encrypt) y reparte
+cada dominio al nginx de su proyecto. Star4cast **no** levanta su propio proxy:
+su nginx se publica solo en `127.0.0.1:8089` (8080-8088 y 8090 son de otros
+proyectos).
+
+```
+Internet (443) → Caddy (host) → 127.0.0.1:8089 → nginx (frontend) → /api → backend → db
+```
+
+1. DNS: registros A/AAAA de `star4cast.es` y `www.star4cast.es` hacia la VPS.
+2. `cp .env.example .env` y rellenar (`openssl rand -base64 48` para los secretos).
+3. `docker compose up -d --build`
+4. Añadir `deploy/Caddyfile.snippet` a `/etc/caddy/Caddyfile` y
+   `systemctl reload caddy`. Comprobar: `curl -I https://star4cast.es` → 200.
+5. Programar el cron de publicación semanal (`chmod +x scripts/publish-weekly.sh` una vez):
+   ```bash
+   0 8 * * 5   /ruta/al/repo/scripts/publish-weekly.sh >> /var/log/star4cast-publish.log 2>&1
+   ```
+6. Entrar en `/login` con `ADMIN_EMAIL`/`ADMIN_PASSWORD`: el administrador se
+   crea en el primer arranque, en una organización interna. Los datos de demo
+   están desactivados en producción (`SEED_DEMO_DATA=false`).
+
+**Qué hace nginx** (`frontend/nginx.conf`, se valida con `nginx -t` en el build):
+
+- Subidas de hasta 25 MB y 5 minutos de margen para `/api/imports`.
+- Límites por IP (respuesta 429): login y cambio de contraseña 5/min, formulario
+  de contacto 3/min, resto de la API 20/s. La IP real llega de Caddy por
+  `X-Forwarded-For`.
+- Cabeceras de seguridad (`frontend/nginx/security-headers.conf`): CSP,
+  `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`. HSTS lo
+  pone Caddy.
+- Caché: 1 año solo para lo que lleva hash en el nombre (JS, CSS, fuentes);
+  1 día para imágenes; HTML siempre revalidado.
 
 ## Roadmap
 

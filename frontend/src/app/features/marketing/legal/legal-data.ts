@@ -27,7 +27,7 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
     description:
       'Política de privacidad de Star4cast: qué datos tratamos, con qué finalidad y base legal, cuánto tiempo los conservamos y cuáles son tus derechos.',
     path: '/privacy',
-    updated: '2026-10-22',
+    updated: '2026-10-23',
     intro:
       'En Star4cast nos tomamos en serio la privacidad. Esta política explica, de forma clara, qué datos personales tratamos cuando usas nuestro sitio web y nuestra plataforma, con qué finalidad y base legal, con quién los compartimos y qué derechos tienes sobre ellos, conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 (LOPDGDD).',
     sections: [
@@ -43,7 +43,7 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
         paragraphs: [
           'Datos de contacto que nos facilitas voluntariamente a través de formularios: nombre, correo electrónico, empresa y el contenido de tu mensaje.',
           'Datos de cuenta y de uso de la plataforma cuando te registras o usas el servicio: credenciales, configuración y registros técnicos de actividad.',
-          'Datos de facturación necesarios para gestionar tu suscripción. El pago se procesa a través de una pasarela externa; Star4cast no almacena los datos completos de tu tarjeta.',
+          'Datos de facturación, cuando contratas un plan de pago: los necesarios para emitir las facturas y gestionar tu suscripción. Star4cast no almacena los datos de tu tarjeta.',
           'Datos de inventario que cargas para generar predicciones. Los tratamos exclusivamente para prestarte el servicio; no los vendemos ni los usamos con fines ajenos.',
         ],
       },
@@ -80,13 +80,13 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
         heading: '7. Cookies y tecnologías similares',
         paragraphs: [
           'Utilizamos únicamente almacenamiento técnico esencial para el funcionamiento de la plataforma. No empleamos cookies de publicidad ni de seguimiento de terceros.',
-          'Nuestro sitio carga tipografías web desde un proveedor externo; al servirlas, dicho proveedor puede recibir tu dirección IP. Puedes consultarnos esta cuestión si deseas más detalle.',
+          'Las tipografías, imágenes y demás recursos del sitio se sirven desde nuestro propio servidor: al navegar por Star4cast no se envían datos a terceros.',
         ],
       },
       {
         heading: '8. Seguridad',
         paragraphs: [
-          'Aplicamos medidas técnicas y organizativas apropiadas para proteger tus datos, incluyendo el cifrado en tránsito y en reposo, el control de accesos y copias de seguridad. Ningún sistema es invulnerable, pero trabajamos para minimizar los riesgos.',
+          'Aplicamos medidas técnicas y organizativas apropiadas para proteger tus datos: las comunicaciones viajan cifradas (HTTPS), las contraseñas se guardan cifradas mediante hash y nunca en claro, el acceso a los datos está limitado por roles dentro de cada organización y realizamos copias de seguridad periódicas de la base de datos. Ningún sistema es invulnerable, pero trabajamos para minimizar los riesgos.',
         ],
       },
       {

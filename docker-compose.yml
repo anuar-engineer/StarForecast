@@ -1,9 +1,19 @@
 # Entorno de PRODUCCIÓN.
-# - frontend: Angular (build estático) servido por nginx, expone el 8080.
+# - frontend: Angular (build estático) servido por nginx. Se publica SOLO en
+#   127.0.0.1:8089: delante va el Caddy del host, que pone el HTTPS y reparte
+#   por dominio entre los proyectos de la VPS (ver deploy/Caddyfile.snippet).
 #   nginx hace de proxy de /api hacia el servicio `backend`.
 # - backend: API FastAPI (no expuesta al host, solo en la red interna).
 # - db: PostgreSQL con datos persistidos.
+#
+# Variables: copia .env.example a .env y rellénalo.
 name: star4cast
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "5"
 
 services:
   frontend:
@@ -13,10 +23,12 @@ services:
     image: star4cast-frontend:latest
     container_name: star4cast-frontend
     ports:
-      - "8080:80"
+      # 8080-8088 y 8090 ya los usan otros proyectos de la VPS.
+      - "127.0.0.1:8089:80"
     restart: unless-stopped
     depends_on:
       - backend
+    logging: *logging
     networks:
       - star4cast
 
@@ -33,16 +45,19 @@ services:
       - DATABASE_URL=postgresql+asyncpg://star4cast:${POSTGRES_PASSWORD:?define POSTGRES_PASSWORD}@db:5432/star4cast
       - JWT_SECRET=${JWT_SECRET:?define JWT_SECRET (secreto largo y aleatorio)}
       - DEBUG=false
-      - CORS_ORIGINS=http://localhost:8080
-      # Sembrado: si SEED_DEMO_DATA=true, las credenciales son obligatorias.
-      - SEED_DEMO_DATA=${SEED_DEMO_DATA:-true}
-      - DEMO_EMAIL=${DEMO_EMAIL:?define DEMO_EMAIL}
-      - DEMO_PASSWORD=${DEMO_PASSWORD:?define DEMO_PASSWORD}
+      # Mismo origen (nginx sirve web y API), pero se deja acotado al dominio real.
+      - CORS_ORIGINS=${CORS_ORIGINS:-https://star4cast.es}
+      # Datos de demo DESACTIVADOS en producción salvo que se pida expresamente.
+      - SEED_DEMO_DATA=${SEED_DEMO_DATA:-false}
+      - DEMO_EMAIL=${DEMO_EMAIL:-}
+      - DEMO_PASSWORD=${DEMO_PASSWORD:-}
+      # Administrador de la plataforma: se crea en el primer arranque.
       - ADMIN_EMAIL=${ADMIN_EMAIL:?define ADMIN_EMAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:?define ADMIN_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
+    logging: *logging
     networks:
       - star4cast
 
@@ -52,7 +67,7 @@ services:
     restart: unless-stopped
     environment:
       - POSTGRES_USER=star4cast
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-star4cast}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?define POSTGRES_PASSWORD}
       - POSTGRES_DB=star4cast
     volumes:
       - star4cast-db:/var/lib/postgresql/data
@@ -61,6 +76,7 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+    logging: *logging
     networks:
       - star4cast
 

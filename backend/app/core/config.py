@@ -32,10 +32,12 @@ class Settings(BaseSettings):
     # --- CORS (lista separada por comas) ---
     cors_origins: str = "http://localhost:4200,http://localhost:8080"
 
-    # --- Sembrado inicial (usuario demo + admin) ---
+    # --- Sembrado inicial ---
     # Las credenciales NO tienen valor por defecto: deben venir del entorno.
-    # Son obligatorias solo cuando el sembrado está activo (ver validador).
-    seed_demo_data: bool = True
+    # Los datos de demo (org, usuario, catálogo y ventas sintéticas) solo se
+    # crean con SEED_DEMO_DATA=true y entonces DEMO_* es obligatorio. El admin
+    # se crea siempre que ADMIN_EMAIL y ADMIN_PASSWORD estén definidos.
+    seed_demo_data: bool = False
     demo_email: str | None = None
     demo_password: str | None = None
     demo_name: str = "Equipo Demo"
@@ -44,10 +46,11 @@ class Settings(BaseSettings):
     admin_email: str | None = None
     admin_password: str | None = None
     admin_name: str = "Administrador"
+    admin_org: str = "Star4cast (interno)"
 
     @model_validator(mode="after")
     def _require_seed_credentials(self) -> "Settings":
-        """Si el sembrado está activo, las credenciales demo/admin son obligatorias."""
+        """Si el sembrado de demo está activo, las credenciales demo son obligatorias."""
         if not self.seed_demo_data:
             return self
         missing = [
@@ -55,8 +58,6 @@ class Settings(BaseSettings):
             for name, value in (
                 ("DEMO_EMAIL", self.demo_email),
                 ("DEMO_PASSWORD", self.demo_password),
-                ("ADMIN_EMAIL", self.admin_email),
-                ("ADMIN_PASSWORD", self.admin_password),
             )
             if not value
         ]

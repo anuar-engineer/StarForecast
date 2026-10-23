@@ -6,6 +6,7 @@ reales sobre los que trabajar nada más levantar el stack.
 Es idempotente: si la organización demo ya tiene datos, no los duplica.
 """
 
+import logging
 import math
 import random
 from datetime import date, timedelta
@@ -20,6 +21,8 @@ from app.models.product import Product
 from app.models.sales import SalesRecord
 from app.models.user import User
 from app.services.processing import run_forecasts
+
+logger = logging.getLogger(__name__)
 
 # sku, nombre, categoría, stock, punto de pedido, venta media/día, coste, lead time
 _DEMO_PRODUCTS = [
@@ -61,9 +64,52 @@ def _synth_sales(base: float, lead: int, rng: random.Random) -> list[float]:
 
 
 async def seed(db: AsyncSession) -> None:
-    if not settings.seed_demo_data:
+    await ensure_admin(db)
+    if settings.seed_demo_data:
+        await seed_demo(db)
+
+
+async def ensure_admin(db: AsyncSession) -> None:
+    """Crea el administrador de la plataforma si no existe.
+
+    Es independiente de los datos de demo: en producción el sembrado está
+    desactivado, pero el admin tiene que existir para entrar al panel. Vive en
+    una organización interna, sin catálogo. Si ya existe (aunque esté en la org
+    demo, como en instalaciones anteriores), no se toca.
+    """
+    if not (settings.admin_email and settings.admin_password):
+        logger.warning("ADMIN_EMAIL/ADMIN_PASSWORD sin definir: no se crea el administrador.")
         return
 
+    admin = (
+        await db.execute(select(User).where(User.email == settings.admin_email.lower()))
+    ).scalar_one_or_none()
+    if admin is not None:
+        return
+
+    org = (
+        await db.execute(select(Organization).where(Organization.name == settings.admin_org))
+    ).scalar_one_or_none()
+    if org is None:
+        org = Organization(name=settings.admin_org)
+        db.add(org)
+        await db.flush()
+
+    db.add(
+        User(
+            email=settings.admin_email.lower(),
+            name=settings.admin_name,
+            company=settings.admin_org,
+            password_hash=hash_password(settings.admin_password),
+            organization_id=org.id,
+            role="admin",
+        )
+    )
+    await db.commit()
+
+
+async def seed_demo(db: AsyncSession) -> None:
+    """Organización demo con usuario, catálogo, ventas sintéticas y forecast."""
     org = (
         await db.execute(select(Organization).where(Organization.name == settings.demo_org))
     ).scalar_one_or_none()
@@ -84,22 +130,6 @@ async def seed(db: AsyncSession) -> None:
                 password_hash=hash_password(settings.demo_password),
                 organization_id=org.id,
                 role="owner",
-            )
-        )
-
-    # Administrador por defecto (mismo org demo, rol "admin").
-    admin = (
-        await db.execute(select(User).where(User.email == settings.admin_email.lower()))
-    ).scalar_one_or_none()
-    if admin is None:
-        db.add(
-            User(
-                email=settings.admin_email.lower(),
-                name=settings.admin_name,
-                company=settings.demo_org,
-                password_hash=hash_password(settings.admin_password),
-                organization_id=org.id,
-                role="admin",
             )
         )
 
