@@ -124,6 +124,11 @@ export const routes: Routes = [
         data: { doc: 'terms' },
         loadComponent: () => import('./features/marketing/legal/legal').then((m) => m.Legal),
       },
+      {
+        path: 'cookies',
+        data: { doc: 'cookies' },
+        loadComponent: () => import('./features/marketing/legal/legal').then((m) => m.Legal),
+      },
     ],
   },
 

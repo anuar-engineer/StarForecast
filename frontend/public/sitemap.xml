@@ -51,6 +51,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://star4cast.es/blog/automatizar-la-reposicion-de-stock</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://star4cast.es/og/blog/automatizar-la-reposicion-de-stock-cover.webp</image:loc>
+      <image:title>Automatizar la reposición de stock: del pedido de pánico al proceso</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://star4cast.es/blog/plan-de-aprovisionamiento-y-compras</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>yearly</changefreq>
@@ -377,6 +387,11 @@
   </url>
   <url>
     <loc>https://star4cast.es/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://star4cast.es/cookies</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

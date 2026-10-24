@@ -49,6 +49,7 @@ const LANDING_ROUTES = LANDING_PAGES.map((l) => ({
 const LEGAL_ROUTES = [
   { path: '/privacy', changefreq: 'yearly', priority: '0.3' },
   { path: '/terms', changefreq: 'yearly', priority: '0.3' },
+  { path: '/cookies', changefreq: 'yearly', priority: '0.3' },
 ];
 
 // Solo posts ya publicados (fecha <= hoy): los futuros aún no deben indexarse.

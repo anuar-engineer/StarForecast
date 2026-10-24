@@ -21,13 +21,13 @@ const NIF = '54311627W';
 const ADDRESS = '50002, Aragón, España';
 const EMAIL = 'hola@star4cast.es';
 
-export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
+export const LEGAL_DOCS: Record<'privacy' | 'terms' | 'cookies', LegalDoc> = {
   privacy: {
     title: 'Política de privacidad',
     description:
       'Política de privacidad de Star4cast: qué datos tratamos, con qué finalidad y base legal, cuánto tiempo los conservamos y cuáles son tus derechos.',
     path: '/privacy',
-    updated: '2026-10-23',
+    updated: '2026-10-25',
     intro:
       'En Star4cast nos tomamos en serio la privacidad. Esta política explica, de forma clara, qué datos personales tratamos cuando usas nuestro sitio web y nuestra plataforma, con qué finalidad y base legal, con quién los compartimos y qué derechos tienes sobre ellos, conforme al Reglamento (UE) 2016/679 (RGPD) y a la Ley Orgánica 3/2018 (LOPDGDD).',
     sections: [
@@ -79,7 +79,7 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
       {
         heading: '7. Cookies y tecnologías similares',
         paragraphs: [
-          'Utilizamos únicamente almacenamiento técnico esencial para el funcionamiento de la plataforma. No empleamos cookies de publicidad ni de seguimiento de terceros.',
+          'Utilizamos únicamente almacenamiento técnico esencial para el funcionamiento de la plataforma. No empleamos cookies de publicidad ni de seguimiento de terceros. Encontrarás el detalle en nuestra Política de cookies (/cookies) y puedes revisar tu elección en cualquier momento desde «Configurar cookies», en el pie de página.',
           'Las tipografías, imágenes y demás recursos del sitio se sirven desde nuestro propio servidor: al navegar por Star4cast no se envían datos a terceros.',
         ],
       },
@@ -201,6 +201,70 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms', LegalDoc> = {
         heading: '13. Modificaciones',
         paragraphs: [
           'Podemos modificar estos términos en cualquier momento. La versión vigente estará siempre publicada en esta página. El uso continuado del servicio tras un cambio implica la aceptación de los nuevos términos.',
+        ],
+      },
+    ],
+  },
+  cookies: {
+    title: 'Política de cookies',
+    description:
+      'Política de cookies de Star4cast: qué cookies y tecnologías de almacenamiento usamos, para qué, cuánto duran y cómo gestionar tus preferencias.',
+    path: '/cookies',
+    updated: '2026-10-25',
+    intro:
+      'En esta política te explicamos qué son las cookies, cuáles utiliza Star4cast, con qué finalidad y cómo puedes gestionarlas. La redactamos conforme al artículo 22.2 de la LSSI-CE y a la Guía sobre el uso de las cookies de la Agencia Española de Protección de Datos.',
+    sections: [
+      {
+        heading: '1. ¿Qué son las cookies?',
+        paragraphs: [
+          'Las cookies son pequeños archivos que un sitio web guarda en tu navegador para recordar información sobre tu visita. Tecnologías similares, como el almacenamiento local del navegador (localStorage), cumplen la misma función y se rigen por las mismas normas, por lo que en esta política nos referimos a todas ellas como «cookies».',
+        ],
+      },
+      {
+        heading: '2. Responsable',
+        paragraphs: [
+          `El responsable de las cookies propias de este sitio es ${COMPANY} (${TRADE_NAME}), con NIF ${NIF} y domicilio en ${ADDRESS}. Puedes contactarnos en ${EMAIL}.`,
+        ],
+      },
+      {
+        heading: '3. Cookies técnicas (siempre activas)',
+        paragraphs: [
+          'Son imprescindibles para que el sitio funcione y para prestarte el servicio que solicitas, por lo que están exentas de consentimiento. Todas son propias: ningún tercero accede a ellas.',
+          's4c.consent — Guarda tu elección sobre cookies para no volver a preguntarte. Duración: 12 meses.',
+          's4c.token — Mantiene tu sesión iniciada en el área de clientes. Duración: hasta que cierras sesión.',
+          's4c.user — Recuerda los datos básicos de tu perfil (nombre, correo, empresa y rol) para mostrarlos en el área de clientes. Duración: hasta que cierras sesión.',
+        ],
+      },
+      {
+        heading: '4. Cookies analíticas (opcionales)',
+        paragraphs: [
+          'Servirían para medir de forma agregada cómo se usa el sitio y así mejorarlo. Actualmente no utilizamos ninguna herramienta analítica ni cookies de este tipo.',
+          'Si en el futuro las incorporamos, solo se activarán con tu consentimiento previo, las detallaremos en esta política y te volveremos a pedir tu elección.',
+        ],
+      },
+      {
+        heading: '5. Cookies de terceros, publicidad y redes sociales',
+        paragraphs: [
+          'No utilizamos cookies publicitarias, de seguimiento ni de redes sociales. Las tipografías, imágenes y demás recursos del sitio se sirven desde nuestro propio servidor, de modo que al navegar por Star4cast no se instalan cookies de terceros.',
+        ],
+      },
+      {
+        heading: '6. Cómo gestionar tus preferencias',
+        paragraphs: [
+          'La primera vez que visitas el sitio te mostramos un aviso para que aceptes, rechaces o configures las cookies opcionales. Puedes cambiar tu elección en cualquier momento desde el enlace «Configurar cookies» del pie de página; retirar el consentimiento es tan sencillo como darlo.',
+          'También puedes bloquear o eliminar las cookies desde la configuración de tu navegador (Chrome, Firefox, Safari, Edge…). Ten en cuenta que, si bloqueas las técnicas, es posible que no puedas iniciar sesión en el área de clientes.',
+        ],
+      },
+      {
+        heading: '7. Más información',
+        paragraphs: [
+          'Para saber cómo tratamos tus datos personales y cómo ejercer tus derechos, consulta nuestra Política de privacidad (/privacy).',
+        ],
+      },
+      {
+        heading: '8. Cambios en esta política',
+        paragraphs: [
+          'Podemos actualizar esta política si cambian las cookies que utilizamos o la normativa aplicable. Publicaremos siempre la versión vigente en esta página, con la fecha de la última actualización, y si los cambios afectan a cookies opcionales te pediremos de nuevo tu consentimiento.',
         ],
       },
     ],

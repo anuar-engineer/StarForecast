@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
+import { ConsentService } from '../../core/services/consent.service';
 
 interface NavLink {
   readonly label: string;
@@ -13,6 +15,7 @@ interface NavLink {
   templateUrl: './public-layout.html',
 })
 export class PublicLayout {
+  protected readonly consent = inject(ConsentService);
   protected readonly year = new Date().getFullYear();
   protected readonly mobileOpen = signal(false);
 
@@ -60,6 +63,7 @@ export class PublicLayout {
       links: [
         { label: 'Privacidad', path: '/privacy' },
         { label: 'Términos', path: '/terms' },
+        { label: 'Cookies', path: '/cookies' },
       ],
     },
   ];
