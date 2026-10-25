@@ -222,18 +222,39 @@ proyectos).
 Internet (443) → Caddy (host) → 127.0.0.1:8089 → nginx (frontend) → /api → backend → db
 ```
 
-1. DNS: registros A/AAAA de `star4cast.es` y `www.star4cast.es` hacia la VPS.
-2. `cp .env.example .env` y rellenar (`openssl rand -base64 48` para los secretos).
-3. `docker compose up -d --build`
-4. Añadir `deploy/Caddyfile.snippet` a `/etc/caddy/Caddyfile` y
-   `systemctl reload caddy`. Comprobar: `curl -I https://star4cast.es` → 200.
-5. Programar el cron de publicación semanal (`chmod +x scripts/publish-weekly.sh` una vez):
+El servidor (Docker, firewall, Caddy, `make`) ya está preparado: es el mismo
+de ZaralTech (ver Fases 1 y 2 de su README). Aquí solo se repite la Fase 3.
+
+1. **Clonar** en `/opt/star4cast` (deploy key de solo lectura en GitHub →
+   Settings → Deploy keys):
    ```bash
-   0 8 * * 5   /ruta/al/repo/scripts/publish-weekly.sh >> /var/log/star4cast-publish.log 2>&1
+   git clone git@github.com:anuar-engineer/StarForecast.git /opt/star4cast
+   cd /opt/star4cast
    ```
-6. Entrar en `/login` con `ADMIN_EMAIL`/`ADMIN_PASSWORD`: el administrador se
+2. **Variables**: `cp .env.example .env` y rellenar (`openssl rand -base64 48`
+   para `POSTGRES_PASSWORD` y `JWT_SECRET`). `chmod 600 .env`.
+3. **Arrancar**: `make prod` (valida el `.env`, levanta y comprueba `/api/health`
+   en `127.0.0.1:8089`). Se puede hacer **antes** de tener el dominio:
+   `curl http://127.0.0.1:8089/` desde la VPS.
+4. **DNS** (cuando el dominio esté activo): registros A de `star4cast.es` y
+   `www.star4cast.es` hacia la IP de la VPS. En Arsys el registro raíz se
+   escribe con el dominio completo, no `@`. Comprobar:
+   `dig +short star4cast.es @1.1.1.1` → solo la IP de la VPS.
+5. **Caddy**: añadir `deploy/Caddyfile.snippet` a `/etc/caddy/Caddyfile` y
+   `systemctl reload caddy`. Comprobar: `curl -I https://star4cast.es` → 200.
+6. **Crons** (`crontab -e`, con la VPS en hora de Madrid):
+   ```bash
+   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+   0 8 * * 5   cd /opt/star4cast && make publish >> /var/log/star4cast-publish.log 2>&1
+   30 3 * * *  cd /opt/star4cast && make backup  >> /var/log/star4cast-backup.log 2>&1
+   ```
+7. Entrar en `/login` con `ADMIN_EMAIL`/`ADMIN_PASSWORD`: el administrador se
    crea en el primer arranque, en una organización interna. Los datos de demo
    están desactivados en producción (`SEED_DEMO_DATA=false`).
+
+Actualizar después: `cd /opt/star4cast && make update` (hace backup, `git pull`,
+rebuild y health check). Las copias de la BD quedan en `backups/` (14 días);
+conviene sacarlas también fuera de la VPS.
 
 **Qué hace nginx** (`frontend/nginx.conf`, se valida con `nginx -t` en el build):
 
