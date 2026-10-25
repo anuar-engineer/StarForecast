@@ -1,0 +1,3 @@
+# Los scripts y el Makefile se ejecutan en la VPS (Linux): siempre LF.
+*.sh text eol=lf
+Makefile text eol=lf

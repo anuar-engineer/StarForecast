@@ -30,3 +30,6 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Copias de seguridad de la BD (scripts/backup-db.sh)
+backups/

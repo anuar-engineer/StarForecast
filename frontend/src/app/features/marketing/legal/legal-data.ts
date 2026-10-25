@@ -113,9 +113,9 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms' | 'cookies', LegalDoc> = {
   terms: {
     title: 'Términos y condiciones',
     description:
-      'Términos y condiciones de uso de Star4cast: identificación, objeto, suscripción y prueba, precios, propiedad intelectual, responsabilidad y ley aplicable.',
+      'Términos y condiciones de uso de Star4cast: identificación, objeto, naturaleza de las predicciones, suscripción, disponibilidad, limitación de responsabilidad y ley aplicable.',
     path: '/terms',
-    updated: '2026-10-22',
+    updated: '2026-10-25',
     intro:
       'Estos términos y condiciones regulan el acceso y uso del sitio web y la plataforma de Star4cast. Al utilizar nuestros servicios aceptas estas condiciones, por lo que te recomendamos leerlas con atención.',
     sections: [
@@ -130,18 +130,26 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms' | 'cookies', LegalDoc> = {
         heading: '2. Objeto del servicio',
         paragraphs: [
           'Star4cast es una plataforma de predicción de stock que estima niveles de inventario futuros a partir del histórico que proporciona el usuario, mediante modelos estadísticos y de series temporales.',
-          'Las predicciones son estimaciones sujetas a un margen de incertidumbre y no constituyen una garantía de resultados ni una recomendación profesional de compra.',
+          'El servicio está dirigido exclusivamente a empresas y profesionales que lo contratan en el marco de su actividad empresarial o profesional, y no a consumidores.',
         ],
       },
       {
-        heading: '3. Registro y cuenta',
+        heading: '3. Naturaleza de las predicciones',
+        paragraphs: [
+          'Las predicciones, bandas de confianza, fechas estimadas de rotura, coberturas y sugerencias de reposición son estimaciones probabilísticas: pueden no ser exactas y la demanda real puede diferir de ellas, incluso de forma significativa.',
+          'Su fiabilidad depende de la calidad, integridad y actualización de los datos que cargas, así como de factores externos imprevisibles (cambios de mercado, promociones, roturas de proveedor, estacionalidades atípicas, etc.). Star4cast no garantiza ningún nivel concreto de precisión ni de resultados económicos.',
+          'Las predicciones son una herramienta de apoyo y no sustituyen tu propio criterio profesional. Las decisiones de compra, producción, precios o gestión de inventario son siempre tuyas, y te corresponde revisar y validar la información antes de actuar.',
+        ],
+      },
+      {
+        heading: '4. Registro y cuenta',
         paragraphs: [
           'Para usar la plataforma debes crear una cuenta y facilitar información veraz y actualizada. Eres responsable de mantener la confidencialidad de tus credenciales y de toda la actividad realizada bajo tu cuenta.',
           'Notifícanos de inmediato cualquier uso no autorizado o brecha de seguridad de la que tengas conocimiento.',
         ],
       },
       {
-        heading: '4. Prueba, suscripción y pagos',
+        heading: '5. Prueba, suscripción y pagos',
         paragraphs: [
           'Ofrecemos un periodo de prueba de 14 días. Si al finalizar la prueba no contratas un plan, el acceso se limita o suspende sin coste alguno.',
           'Los planes de pago se facturan de forma periódica y por adelantado según la modalidad contratada. Salvo cancelación, la suscripción se renueva automáticamente por periodos equivalentes.',
@@ -149,56 +157,67 @@ export const LEGAL_DOCS: Record<'privacy' | 'terms' | 'cookies', LegalDoc> = {
         ],
       },
       {
-        heading: '5. Cambios de precio',
+        heading: '6. Cambios de precio',
         paragraphs: [
           'Podemos modificar los precios de los planes. Te informaremos con antelación razonable y los cambios se aplicarán a partir del siguiente periodo de renovación.',
         ],
       },
       {
-        heading: '6. Uso aceptable',
+        heading: '7. Uso aceptable',
         paragraphs: [
           'Te comprometes a utilizar el servicio conforme a la ley y a no realizar un uso que pueda dañar, sobrecargar o deteriorar la plataforma, acceder a ella por medios no autorizados, ni vulnerar derechos de terceros.',
         ],
       },
       {
-        heading: '7. Propiedad intelectual y datos del cliente',
+        heading: '8. Propiedad intelectual y datos del cliente',
         paragraphs: [
           'El software, la marca, el diseño y los contenidos de Star4cast son propiedad de Star4cast o de sus licenciantes y están protegidos por la normativa de propiedad intelectual e industrial.',
           'Los datos de inventario que cargas siguen siendo tuyos en todo momento. Nos concedes una licencia limitada para tratarlos con el único fin de prestarte el servicio.',
+          'Eres responsable de la exactitud, legalidad y calidad de los datos que cargas y de conservar tus propias copias de ellos. Star4cast realiza copias de seguridad periódicas, pero no actúa como sistema de archivo ni de respaldo de tu información.',
         ],
       },
       {
-        heading: '8. Disponibilidad del servicio',
+        heading: '9. Disponibilidad y fallos del servicio',
         paragraphs: [
-          'Trabajamos para ofrecer una alta disponibilidad, pero el servicio puede sufrir interrupciones por mantenimiento, actualizaciones o causas ajenas a nuestro control. Los compromisos de nivel de servicio (SLA) aplican únicamente cuando se pacten expresamente, por ejemplo en el plan Empresa.',
+          'Trabajamos para ofrecer una alta disponibilidad, pero no garantizamos que el servicio funcione de forma ininterrumpida ni libre de errores. Puede sufrir interrupciones, retrasos, errores de cálculo, fallos en la importación de datos o pérdidas de información por mantenimiento, actualizaciones, incidencias técnicas o causas ajenas a nuestro control, incluidos los fallos de proveedores de alojamiento, comunicaciones o pago.',
+          'Ante una incidencia, nos comprometemos a actuar con diligencia razonable para restablecer el servicio. Los compromisos de nivel de servicio (SLA) aplican únicamente cuando se pacten expresamente por escrito, por ejemplo en el plan Empresa, y en ese caso las compensaciones previstas en el SLA serán el único remedio por indisponibilidad.',
         ],
       },
       {
-        heading: '9. Limitación de responsabilidad',
+        heading: '10. Limitación de responsabilidad',
         paragraphs: [
-          'El servicio se presta «tal cual» y «según disponibilidad». En la medida en que lo permita la ley, Star4cast no será responsable de las decisiones de compra, producción o gestión que tomes basándote en las predicciones, que siempre conllevan un margen de incertidumbre, ni de daños indirectos o lucro cesante.',
+          'El servicio se presta «tal cual» y «según disponibilidad», sin garantías de ningún tipo más allá de las expresamente recogidas en estas condiciones o exigidas por la ley.',
+          'En la medida máxima permitida por la ley, Star4cast no será responsable de: (a) las decisiones de compra, producción, precios o gestión que tomes basándote en las predicciones o en cualquier otra información del servicio; (b) roturas de stock, excesos de inventario, mermas, ventas perdidas o pedidos incorrectos; (c) daños derivados de interrupciones, errores o fallos del servicio, o de la pérdida o corrupción de datos; (d) daños indirectos, lucro cesante, pérdida de negocio, de clientes o de reputación.',
+          'En cualquier caso, la responsabilidad total de Star4cast frente a ti por cualquier causa relacionada con el servicio quedará limitada al importe efectivamente pagado por ti en los doce (12) meses anteriores al hecho que origine la reclamación. Durante el periodo de prueba gratuito, el servicio se ofrece sin responsabilidad alguna en la medida permitida por la ley.',
+          'Nada de lo dispuesto en estas condiciones excluye ni limita la responsabilidad que no pueda excluirse o limitarse legalmente, como la derivada de dolo o culpa grave.',
         ],
       },
       {
-        heading: '10. Suspensión y terminación',
+        heading: '11. Fuerza mayor',
+        paragraphs: [
+          'Star4cast no será responsable de ningún incumplimiento o retraso causado por circunstancias fuera de su control razonable, como desastres naturales, cortes de suministro eléctrico o de telecomunicaciones, fallos de proveedores de infraestructura, ciberataques, conflictos laborales o actos de autoridades.',
+        ],
+      },
+      {
+        heading: '12. Suspensión y terminación',
         paragraphs: [
           'Podemos suspender o cancelar el acceso en caso de incumplimiento de estos términos o de impago. Puedes dar de baja tu cuenta en cualquier momento desde la plataforma o solicitándolo por correo.',
         ],
       },
       {
-        heading: '11. Protección de datos',
+        heading: '13. Protección de datos',
         paragraphs: [
           'El tratamiento de datos personales se rige por nuestra Política de privacidad, que forma parte de estas condiciones.',
         ],
       },
       {
-        heading: '12. Ley aplicable y jurisdicción',
+        heading: '14. Ley aplicable y jurisdicción',
         paragraphs: [
-          'Estas condiciones se rigen por la legislación española. Para la resolución de cualquier controversia, las partes se someten a los juzgados y tribunales que resulten competentes conforme a la normativa aplicable, respetando en todo caso los derechos que asisten a los consumidores.',
+          'Estas condiciones se rigen por la legislación española. Para la resolución de cualquier controversia, las partes se someten, con renuncia expresa a cualquier otro fuero, a los juzgados y tribunales de Zaragoza (España).',
         ],
       },
       {
-        heading: '13. Modificaciones',
+        heading: '15. Modificaciones',
         paragraphs: [
           'Podemos modificar estos términos en cualquier momento. La versión vigente estará siempre publicada en esta página. El uso continuado del servicio tras un cambio implica la aceptación de los nuevos términos.',
         ],
