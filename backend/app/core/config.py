@@ -69,6 +69,21 @@ class Settings(BaseSettings):
             )
         return self
 
+    # --- Correo saliente (SMTP con SSL/TLS implícito) ---
+    # Si falta SMTP_PASSWORD no se envía nada (útil en desarrollo).
+    smtp_host: str = "smtp.serviciodecorreo.es"
+    smtp_port: int = 465
+    smtp_user: str = "hola@star4cast.es"
+    smtp_password: str | None = None
+    mail_from: str = "hola@star4cast.es"
+    mail_from_name: str = "Star4cast"
+    # Buzón que recibe los avisos de cada mensaje del formulario de contacto.
+    lead_notify_to: str = "hola@star4cast.es"
+
+    @property
+    def mail_enabled(self) -> bool:
+        return bool(self.smtp_host and self.smtp_user and self.smtp_password)
+
     # --- Forecast ---
     forecast_history_days: int = 30  # días de histórico que muestra el dashboard
     forecast_horizon_days: int = 30  # días a predecir

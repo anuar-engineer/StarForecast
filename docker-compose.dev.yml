@@ -43,10 +43,12 @@ services:
       - CORS_ORIGINS=http://localhost:4300,http://localhost:8080
       # Credenciales de sembrado (solo desarrollo).
       - SEED_DEMO_DATA=true
-      - DEMO_EMAIL=demo@star4cast.com
+      - DEMO_EMAIL=demo@star4cast.es
       - DEMO_PASSWORD=demo1234
-      - ADMIN_EMAIL=admin@star4cast.com
+      - ADMIN_EMAIL=admin@star4cast.es
       - ADMIN_PASSWORD=admin1234
+      # Correo saliente: la contraseña se toma del .env de la raíz (vacía = no envía).
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
     depends_on:
       db:
         condition: service_healthy

@@ -54,6 +54,13 @@ services:
       # Administrador de la plataforma: se crea en el primer arranque.
       - ADMIN_EMAIL=${ADMIN_EMAIL:?define ADMIN_EMAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:?define ADMIN_PASSWORD}
+      # Correo saliente (avisos del formulario de contacto). Sin contraseña no se envía.
+      - SMTP_HOST=${SMTP_HOST:-smtp.serviciodecorreo.es}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER:-hola@star4cast.es}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - MAIL_FROM=${MAIL_FROM:-hola@star4cast.es}
+      - LEAD_NOTIFY_TO=${LEAD_NOTIFY_TO:-hola@star4cast.es}
     depends_on:
       db:
         condition: service_healthy
