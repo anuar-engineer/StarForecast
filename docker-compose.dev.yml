@@ -41,14 +41,19 @@ services:
       - JWT_SECRET=dev-insecure-change-me
       - DEBUG=true
       - CORS_ORIGINS=http://localhost:4300,http://localhost:8080
-      # Credenciales de sembrado (solo desarrollo).
+      # En desarrollo siempre con datos de demo. Las credenciales salen del .env.
       - SEED_DEMO_DATA=true
-      - DEMO_EMAIL=demo@star4cast.es
-      - DEMO_PASSWORD=demo1234
-      - ADMIN_EMAIL=admin@star4cast.es
-      - ADMIN_PASSWORD=admin1234
-      # Correo saliente: la contraseña se toma del .env de la raíz (vacía = no envía).
+      - DEMO_EMAIL=${DEMO_EMAIL:?define DEMO_EMAIL en .env}
+      - DEMO_PASSWORD=${DEMO_PASSWORD:?define DEMO_PASSWORD en .env}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:?define ADMIN_EMAIL en .env}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:?define ADMIN_PASSWORD en .env}
+      # Correo saliente (vacío = no envía).
+      - SMTP_HOST=${SMTP_HOST:-smtp.serviciodecorreo.es}
+      - SMTP_PORT=${SMTP_PORT:-465}
+      - SMTP_USER=${SMTP_USER:-hola@star4cast.es}
       - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - MAIL_FROM=${MAIL_FROM:-hola@star4cast.es}
+      - LEAD_NOTIFY_TO=${LEAD_NOTIFY_TO:-hola@star4cast.es}
     depends_on:
       db:
         condition: service_healthy
