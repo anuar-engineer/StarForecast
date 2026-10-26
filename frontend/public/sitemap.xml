@@ -380,19 +380,4 @@
       <image:title>Demanda intermitente: cómo prever productos de venta esporádica</image:title>
     </image:image>
   </url>
-  <url>
-    <loc>https://star4cast.es/privacy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://star4cast.es/terms</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://star4cast.es/cookies</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
 </urlset>

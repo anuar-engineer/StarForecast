@@ -46,11 +46,8 @@ const LANDING_ROUTES = LANDING_PAGES.map((l) => ({
   priority: '0.8',
 }));
 
-const LEGAL_ROUTES = [
-  { path: '/privacy', changefreq: 'yearly', priority: '0.3' },
-  { path: '/terms', changefreq: 'yearly', priority: '0.3' },
-  { path: '/cookies', changefreq: 'yearly', priority: '0.3' },
-];
+// Páginas legales (/privacy, /terms, /cookies): fuera del sitemap a propósito,
+// llevan noindex (ver features/marketing/legal/legal.ts).
 
 // Solo posts ya publicados (fecha <= hoy): los futuros aún no deben indexarse.
 const posts = publishedPosts();
@@ -80,7 +77,7 @@ function urlNode({ path, changefreq, priority, lastmod, image, imageTitle }) {
   return `  <url>\n${lines.join('\n')}\n  </url>`;
 }
 
-const all = [...STATIC_ROUTES, ...LANDING_ROUTES, ...blogRoutes, ...LEGAL_ROUTES];
+const all = [...STATIC_ROUTES, ...LANDING_ROUTES, ...blogRoutes];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">

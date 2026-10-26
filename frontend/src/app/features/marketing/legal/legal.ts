@@ -26,6 +26,7 @@ export class Legal {
         title: c.title,
         description: c.description,
         path: c.path,
+        noindex: true, // legales: fuera de Google
       });
     });
   }
