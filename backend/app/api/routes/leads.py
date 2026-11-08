@@ -46,6 +46,18 @@ async def create_lead(payload: LeadCreate, db: DbSession, background: Background
         body=_notification_body(lead),
         reply_to=lead.email,
     )
+    # Aviso informativo al correo personal; sin datos del lead por privacidad.
+    if settings.notify_personal_email:
+        background.add_task(
+            send_email,
+            to=settings.notify_personal_email,
+            subject=f"Nueva solicitud en {settings.lead_notify_to}",
+            body=(
+                f"Ha llegado una nueva solicitud al buzón {settings.lead_notify_to}.\n\n"
+                "Aviso meramente informativo: por privacidad no se incluyen los datos "
+                "del remitente. Revisa el buzón corporativo para ver el contenido."
+            ),
+        )
     return {"status": "ok"}
 
 

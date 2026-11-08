@@ -79,6 +79,9 @@ class Settings(BaseSettings):
     mail_from_name: str = "Star4cast"
     # Buzón que recibe los avisos de cada mensaje del formulario de contacto.
     lead_notify_to: str = "hola@star4cast.es"
+    # Aviso informativo (sin datos del lead) a un correo personal cuando entra
+    # una solicitud de demo/contacto.
+    notify_personal_email: str = "anuar.devai@gmail.com"
 
     @property
     def mail_enabled(self) -> bool:
